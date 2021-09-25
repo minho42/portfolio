@@ -7,13 +7,16 @@ const PortfolioList = () => {
   const [stakeEquityPositions, setStakeEquityPositions] = useState([]);
   const [stakeEquityValue, setStakeEquityValue] = useState(0);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
+  const [totalChangePercentage, setTotalChangePercentage] = useState(0);
 
   const isPositive = (str) => {
     return Math.sign(Number.parseFloat(str)) >= 0;
   };
 
   const showValueWithSign = (str) => {
-    return Math.sign(Number.parseFloat(str)) >= 0 ? `+${str}` : str;
+    return Math.sign(Number.parseFloat(str)) >= 0
+      ? `+${Number.parseFloat(str).toLocaleString()}`
+      : Number.parseFloat(str).toLocaleString();
   };
 
   const fetchStakeData = async () => {
@@ -21,6 +24,7 @@ const PortfolioList = () => {
       setStakeEquityPositions([]);
       setStakeEquityValue(0);
       setTotalChangeSum(0);
+      setTotalChangePercentage(0);
       return;
     }
     try {
@@ -39,6 +43,9 @@ const PortfolioList = () => {
         sum += Number.parseFloat(position.unrealizedPL);
       });
       setTotalChangeSum(sum.toFixed(2));
+      setTotalChangePercentage(
+        (Number.parseFloat(sum.toFixed(2)) / Number.parseFloat(equityValue)) * 100
+      ).toFixed(2);
     } catch (error) {
       console.log(error);
     }
@@ -55,9 +62,9 @@ const PortfolioList = () => {
           <div className="uppercase text-xs tracking-wider">
             Equity value
             <div className="text-2xl ">
-              ${stakeEquityValue}
-              <span className={`ml-1 ${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
-                ({showValueWithSign(totalChangeSum)})
+              ${stakeEquityValue.toLocaleString()}
+              <span className={`ml-2 ${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
+                {showValueWithSign(totalChangeSum)} ({`${showValueWithSign(totalChangePercentage)}%`})
               </span>
             </div>
           </div>
