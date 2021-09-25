@@ -3,9 +3,9 @@ import { UserContext } from "../UserContext";
 import PortfolioItem from "./PortfolioItem";
 
 const PortfolioList = () => {
-  const { token } = useContext(UserContext);
+  const { token, isLoading } = useContext(UserContext);
   const [stakeEquityPositions, setStakeEquityPositions] = useState([]);
-  const [stakeEquityValue, setStakeEquityValue] = useState(0);
+  const [stakeEquityValue, setStakeEquityValue] = useState(null);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
   const [totalChangePercentage, setTotalChangePercentage] = useState(0);
 
@@ -22,7 +22,7 @@ const PortfolioList = () => {
   const fetchStakeData = async () => {
     if (!token) {
       setStakeEquityPositions([]);
-      setStakeEquityValue(0);
+      setStakeEquityValue(null);
       setTotalChangeSum(0);
       setTotalChangePercentage(0);
       return;
