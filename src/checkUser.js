@@ -32,7 +32,7 @@ const checkUser = async (token) => {
       throw new Error("Token not valid");
     }
     return true;
-  } catch (e) {
+  } catch (error) {
     return false;
   }
 };

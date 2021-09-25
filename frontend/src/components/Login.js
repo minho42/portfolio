@@ -4,6 +4,9 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 
 export const requestLogin = async (token, setToken) => {
   try {
+    if (!token) {
+      throw new Error("requestLogin: !token");
+    }
     const res = await fetch("http://localhost:4000/stake/login", {
       method: "POST",
       headers: {
@@ -15,7 +18,7 @@ export const requestLogin = async (token, setToken) => {
     if (!res.ok) {
       throw new Error("requestLogin failed");
     }
-    const { validToken } = await res.json();
+    const { token: validToken } = await res.json();
     console.log(validToken);
     setToken(validToken);
     return validToken;
@@ -26,6 +29,7 @@ export const requestLogin = async (token, setToken) => {
 };
 
 const Login = () => {
+  const [inputToken, setInputToken] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { token, setToken } = useContext(UserContext);
   const history = useHistory();
@@ -33,10 +37,10 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!token) {
+    if (!inputToken) {
       return setErrorMessage("Please enter your token");
     }
-    const validToken = await requestLogin(token, setToken);
+    const validToken = await requestLogin(inputToken, setToken);
     if (validToken) {
       return history.push(state?.from || "/");
     }
@@ -51,14 +55,14 @@ const Login = () => {
             <span className="text-2xl font-medium">Log in with token</span>
             <form className="space-y-4">
               <div>
-                <label htmlFor="token" className="font-medium text-gray-600 text-sm">
+                <label htmlFor="inputToken" className="font-medium text-gray-600 text-sm">
                   Token
                 </label>
                 <input
-                  onChange={(e) => setToken(e.target.value.trim())}
+                  onChange={(e) => setInputToken(e.target.value.trim())}
                   type="password"
-                  id="token"
-                  placeholder="token"
+                  id="inputToken"
+                  placeholder="stake-session-token"
                   className="input w-full"
                 />
 

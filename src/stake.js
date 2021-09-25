@@ -29,17 +29,12 @@ const getStakeData = async (token) => {
   };
   try {
     const { data } = await axios(config);
-    // symbol
-    // openQty
-    // marketValue
-    // unrealizedDayPL
-    // unrealizedPL
 
     console.log("getStakeData: ");
     console.log(data);
     return data;
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
   }
 };
 

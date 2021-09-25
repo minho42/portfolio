@@ -5,11 +5,12 @@ const getStakeData = require("../stake");
 const checkUser = require("../checkUser");
 const stakeAuth = require("../middleware/stakeAuth");
 
-router.get("/stake/users/check", stakeAuth, async (req, res) => {
+router.get("/stake/check", stakeAuth, async (req, res) => {
   res.send({ token: req.token });
 });
 
 router.post("/stake/login", async (req, res) => {
+  console.log("/stake/login: ");
   try {
     const token = req.body.token;
     const isTokenValid = await checkUser(token);
@@ -21,9 +22,19 @@ router.post("/stake/login", async (req, res) => {
     });
     // console.log(req.cookies);
     res.send({ token });
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
     res.status(400).send();
+  }
+});
+
+router.post("/stake/logout", stakeAuth, async (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.send();
+  } catch (error) {
+    console.log(error);
+    res.status(500).send();
   }
 });
 
@@ -34,8 +45,8 @@ router.get("/stake/api/stake", stakeAuth, async (req, res) => {
     const token = req.cookies.token;
     const data = await getStakeData(token);
     res.send({ data });
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
     res.status(400).send();
   }
 });

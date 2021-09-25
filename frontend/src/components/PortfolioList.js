@@ -1,30 +1,44 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
+import PortfolioItem from "./PortfolioItem";
 
 const PortfolioList = () => {
   const { token } = useContext(UserContext);
-  const [stakePositions, setStakePositions] = useState([]);
-  const [stakeValue, setStakevalue] = useState(0);
+  const [stakeEquityPositions, setStakeEquityPositions] = useState([]);
+  const [stakeEquityValue, setStakeEquityValue] = useState(0);
+  const [totalChangeSum, setTotalChangeSum] = useState(0);
+
+  const isPositive = (str) => {
+    return Math.sign(Number.parseFloat(str)) >= 0;
+  };
+
+  const showValueWithSign = (str) => {
+    return Math.sign(Number.parseFloat(str)) >= 0 ? `+${str}` : str;
+  };
 
   const fetchStakeData = async () => {
     if (!token) {
-      setStakePositions([]);
-      setStakevalue(0);
+      setStakeEquityPositions([]);
+      setStakeEquityValue(0);
+      setTotalChangeSum(0);
       return;
     }
     try {
       const res = await fetch("http://localhost:4000/stake/api/stake", {
         credentials: "include",
       });
-      console.log(res);
-      // const {
-      //   data: { equityPositions, equityValue },
-      // } = await res.json();
-      // console.log(equityPositions);
-      // console.log(equityValue);
 
-      // setStakePositions(equityPositions);
-      // setStakevalue(equityValue);
+      const {
+        data: { equityPositions, equityValue },
+      } = await res.json();
+      setStakeEquityPositions(equityPositions);
+      setStakeEquityValue(equityValue);
+
+      let sum = 0;
+      equityPositions.map((position) => {
+        sum += Number.parseFloat(position.unrealizedPL);
+      });
+      setTotalChangeSum(sum.toFixed(2));
     } catch (error) {
       console.log(error);
     }
@@ -35,8 +49,49 @@ const PortfolioList = () => {
   }, [token]);
 
   return (
-    <div>
-      portfolio | {token ? "OK" : "NO"} | {stakePositions?.length}
+    <div className="flex flex-col px-3 py-3 space-y-3">
+      <div className="flex justify-center space-y-2 w-full">
+        {stakeEquityValue && (
+          <div className="uppercase text-xs tracking-wider">
+            Equity value
+            <div className="text-2xl ">
+              ${stakeEquityValue}
+              <span className={`ml-1 ${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
+                ({showValueWithSign(totalChangeSum)})
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="flex justify-center">
+        {stakeEquityPositions ? (
+          <table className="w-11/12">
+            <thead>
+              <tr className="border-b-2 border-gray-700">
+                <th className="text-sm uppercase font-medium">Stock</th>
+                <th className="text-sm uppercase font-medium">Units</th>
+                <th className="text-sm uppercase font-medium">Value</th>
+                <th className="text-sm uppercase font-medium">Day change</th>
+                <th className="text-sm uppercase font-medium">Total change</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stakeEquityPositions.map((position) => {
+                return (
+                  <PortfolioItem
+                    key={position.symbol}
+                    data={position}
+                    isPositive={isPositive}
+                    showValueWithSign={showValueWithSign}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        ) : (
+          "Loading"
+        )}
+      </div>
     </div>
   );
 };

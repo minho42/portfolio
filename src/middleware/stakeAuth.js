@@ -5,7 +5,7 @@ const stakeAuth = async (req, res, next) => {
   try {
     const token = req.cookies.token;
     if (!token) {
-      throw new Error("Token not valid");
+      throw new Error("stakeAuth: !token");
     }
     const isTokenValid = await checkUser(token);
     if (!isTokenValid) {
