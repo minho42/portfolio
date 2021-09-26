@@ -5,7 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const stakeRouter = require("./routers/stake");
-const audToUsd = require("./utils");
+const usdToAud = require("./utils");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -28,8 +28,8 @@ app.get("", (req, res) => {
   });
 });
 
-app.get("/currency/audToUsd", async (req, res) => {
-  const rate = await audToUsd();
+app.get("/currency/usdToAud", async (req, res) => {
+  const rate = await usdToAud();
   res.send({ rate });
 });
 
