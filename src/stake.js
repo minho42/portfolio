@@ -6,7 +6,7 @@ const getStakeData = async (token) => {
   }
   const config = {
     method: "get",
-    url: "https://global-prd-api.hellostake.com/api/users/accounts/v2/equityPositions/pricesOnly",
+    url: "https://global-prd-api.hellostake.com/api/users/accounts/v2/equityPositions",
     headers: {
       authority: "global-prd-api.hellostake.com",
       pragma: "no-cache",
