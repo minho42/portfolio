@@ -1,7 +1,5 @@
-import React from "react";
-
 const PortfolioItem = ({
-  data: { symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL },
+  data: { symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, dividendYield },
   isPositive,
   showValueWithSign,
 }) => {
@@ -18,6 +16,7 @@ const PortfolioItem = ({
       <td className={`py-2 ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
         {showValueWithSign(unrealizedPL)}
       </td>
+      <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : "-"}</td>
     </tr>
   );
 };
