@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const stakeRouter = require("./routers/stake");
+const audToUsd = require("./utils");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -25,6 +26,11 @@ app.get("", (req, res) => {
   res.send({
     data: "It's working!",
   });
+});
+
+app.get("/currency/audToUsd", async (req, res) => {
+  const rate = await audToUsd();
+  res.send({ rate });
 });
 
 app.get("*", (req, res) => {
