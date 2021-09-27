@@ -31,7 +31,7 @@ const getStakeData = async (token) => {
     const { data } = await axios(config);
 
     console.log("getStakeData: ");
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     console.log(error);
