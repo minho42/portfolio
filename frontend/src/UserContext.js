@@ -5,12 +5,16 @@ export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
   const [token, setToken] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   useEffect(() => {
     // console.log("UserContext.useEffect");
-    CheckUser(setToken, setIsLoading);
+    CheckUser(setToken, setIsAuthLoading);
   }, []);
 
-  return <UserContext.Provider value={{ token, setToken, isLoading }}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{ token, setToken, isAuthLoading, setIsAuthLoading }}>
+      {children}
+    </UserContext.Provider>
+  );
 };

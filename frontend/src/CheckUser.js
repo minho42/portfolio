@@ -1,4 +1,4 @@
-export const CheckUser = async (setToken, setIsLoading) => {
+export const CheckUser = async (setToken, setIsAuthLoading) => {
   console.log("CheckUser");
   try {
     const res = await fetch("http://localhost:4000/stake/check", {
@@ -15,12 +15,11 @@ export const CheckUser = async (setToken, setIsLoading) => {
     console.log("CheckUser: token: ");
     console.log(token);
     setToken(token);
-    setIsLoading(false);
     return true;
   } catch (error) {
     console.log(error);
-    // setToken(null);
-    setIsLoading(false);
+    setToken(null);
+    setIsAuthLoading(false);
     return false;
   }
 };

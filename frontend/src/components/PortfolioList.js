@@ -3,7 +3,7 @@ import { UserContext } from "../UserContext";
 import PortfolioItem from "./PortfolioItem";
 
 const PortfolioList = () => {
-  const { token, isLoading } = useContext(UserContext);
+  const { token } = useContext(UserContext);
   const [stakeEquityPositions, setStakeEquityPositions] = useState([]);
   const [stakeEquityValue, setStakeEquityValue] = useState(null);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
