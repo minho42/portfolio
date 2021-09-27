@@ -31,26 +31,6 @@ const PortfolioList = () => {
     }
   };
 
-  const fetchAllDividendYield = async (positions) => {
-    positions.map(async (position) => {
-      const dividend = await fetchDividendYield(position.encodedName);
-      position["dividendYield"] = dividend;
-    });
-  };
-
-  const fetchDividendYield = async (encodedName) => {
-    try {
-      const res = await fetch(
-        `https://global-prd-api.hellostake.com/api/instruments/getDWInstrumentStats/${encodedName}`
-      );
-      const data = await res.json();
-      return data.fundamentalDataModel.dividendYield;
-    } catch (error) {
-      console.log(error);
-      return -1;
-    }
-  };
-
   const fetchStakeData = async () => {
     if (!token) {
       setStakeEquityPositions([]);
@@ -67,7 +47,6 @@ const PortfolioList = () => {
       const {
         data: { equityPositions, equityValue },
       } = await res.json();
-      fetchAllDividendYield(equityPositions);
 
       setStakeEquityPositions(equityPositions);
       setStakeEquityValue(equityValue);
