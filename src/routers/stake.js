@@ -1,4 +1,3 @@
-const axios = require("axios");
 const express = require("express");
 const router = express.Router();
 
@@ -39,27 +38,10 @@ router.post("/stake/logout", stakeAuth, async (req, res) => {
   }
 });
 
-const fetchDividendYield = async (encodedName) => {
-  try {
-    const { data } = await axios(
-      `https://global-prd-api.hellostake.com/api/instruments/getDWInstrumentStats/${encodedName}`
-    );
-    return data.fundamentalDataModel.dividendYield;
-  } catch (error) {
-    console.log(error);
-    return -1;
-  }
-};
-
 router.get("/stake/api/stake", stakeAuth, async (req, res) => {
   try {
     const token = req.cookies.token;
     const { equityPositions, equityValue } = await getStakeData(token);
-
-    for (let position of equityPositions) {
-      const dividendYield = await fetchDividendYield(position.encodedName);
-      position["dividendYield"] = dividendYield;
-    }
 
     res.send({
       data: {
