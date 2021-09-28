@@ -1,8 +1,30 @@
-const PortfolioItem = ({
-  data: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, dividendYield },
+import { useEffect, useState } from "react";
+
+const StakeItem = ({
+  data: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName },
   isPositive,
   showValueWithSign,
 }) => {
+  const [dividendYield, setDividendYield] = useState(null);
+
+  const fetchDividendYield = async () => {
+    try {
+      const res = await fetch(
+        `https://global-prd-api.hellostake.com/api/instruments/getDWInstrumentStats/${encodedName}`
+      );
+      const data = await res.json();
+      return data.fundamentalDataModel.dividendYield;
+    } catch (error) {
+      console.log(error);
+      return -1;
+    }
+  };
+
+  useEffect(async () => {
+    const d = await fetchDividendYield();
+    setDividendYield(d);
+  }, []);
+
   return (
     <tr className="border-b border-gray-300 text-center font-mono text-sm">
       <td className="py-1">{symbol}</td>
@@ -21,4 +43,4 @@ const PortfolioItem = ({
   );
 };
 
-export default PortfolioItem;
+export default StakeItem;
