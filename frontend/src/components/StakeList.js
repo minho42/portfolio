@@ -71,6 +71,7 @@ const StakeList = () => {
 
   return (
     <div className="flex flex-col px-3 py-3 space-y-3">
+      <div className="flex justify-center text-2xl">Stake</div>
       <div className="flex justify-center space-y-2 w-full">
         {equityValue ? (
           <div className="uppercase text-xs tracking-wider">
@@ -87,12 +88,14 @@ const StakeList = () => {
               </div>
             </div>
           </div>
-        ) : (
+        ) : token ? (
           <div className="text-2xl">Loading...</div>
+        ) : (
+          <div className="text-2xl">Invalid token</div>
         )}
       </div>
       <div className="flex justify-center">
-        {equityPositions && (
+        {token && equityPositions && (
           <table className="w-11/12">
             <thead>
               <tr className="border-b-2 border-gray-700">

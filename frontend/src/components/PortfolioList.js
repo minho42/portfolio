@@ -1,11 +1,15 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
 import StakeList from "./StakeList";
+import CoinbaseList from "./CoinbaseList";
+import IngList from "./IngList";
 
 const PortfolioList = () => {
   return (
     <div className="">
-      <StakeList />
+      <CoinbaseList />
+      {/* <StakeList /> */}
+      {/* <IngList /> */}
     </div>
   );
 };

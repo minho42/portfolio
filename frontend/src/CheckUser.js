@@ -13,7 +13,7 @@ export const CheckUser = async (setToken, setIsAuthLoading) => {
     }
 
     console.log("CheckUser: token: ");
-    console.log(token);
+    // console.log(token);
     setToken(token);
     return true;
   } catch (error) {

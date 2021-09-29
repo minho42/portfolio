@@ -4,8 +4,10 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const stakeRouter = require("./routers/stake");
 const usdToAud = require("./utils");
+const stakeRouter = require("./routers/stake");
+const coinbaseRouter = require("./routers/coinbase");
+const ingRouter = require("./routers/ing");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -21,6 +23,8 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(express.json());
 app.use(stakeRouter);
+app.use(coinbaseRouter);
+app.use(ingRouter);
 
 app.get("", (req, res) => {
   res.send({
