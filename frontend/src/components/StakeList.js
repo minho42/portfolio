@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
 import StakeItem from "./StakeItem";
 import { isPositive, showValueWithSign } from "../utils";
+import { Link } from "react-router-dom";
 
 const StakeList = () => {
   const { token } = useContext(UserContext);
@@ -103,7 +104,11 @@ const StakeList = () => {
         ) : token ? (
           <div className="text-2xl">Loading...</div>
         ) : (
-          <div className="text-2xl">Invalid token</div>
+          <div>
+            <Link to="/login" className="text-green-500 hover:underline">
+              Log in
+            </Link>
+          </div>
         )}
       </div>
       <div className="flex justify-center">
