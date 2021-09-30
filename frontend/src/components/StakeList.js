@@ -8,7 +8,7 @@ const StakeList = () => {
   const [equityValue, setEquityValue] = useState(null);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
   const [totalChangePercentage, setTotalChangePercentage] = useState(0);
-  const [currency, setCurrency] = useState(0);
+  const [currencyUsdAud, setCurrencyUsdAud] = useState(0);
 
   const isPositive = (str) => {
     return Math.sign(Number.parseFloat(str)) >= 0;
@@ -20,14 +20,14 @@ const StakeList = () => {
       : Number.parseFloat(str).toLocaleString();
   };
 
-  const fetchCurrencyUsdToAud = async () => {
+  const fetchCurrencyUsdAud = async () => {
     try {
-      const res = await fetch("http://localhost:4000/currency/usdToAud");
+      const res = await fetch("http://localhost:4000/currency/USDAUD");
       const { rate } = await res.json();
-      setCurrency(rate);
+      setCurrencyUsdAud(rate);
     } catch (error) {
       console.log(error);
-      setCurrency(0);
+      setCurrencyUsdAud(0);
     }
   };
 
@@ -66,7 +66,7 @@ const StakeList = () => {
 
   useEffect(() => {
     fetchStakeData();
-    fetchCurrencyUsdToAud();
+    fetchCurrencyUsdAud();
   }, [token]);
 
   return (
@@ -84,7 +84,7 @@ const StakeList = () => {
                 </div>
               </div>
               <div className="ml-3">
-                ≈ A${Number.parseFloat((equityValue * currency).toFixed(2)).toLocaleString()}
+                ≈ A${Number.parseFloat((equityValue * currencyUsdAud).toFixed(2)).toLocaleString()}
               </div>
             </div>
           </div>

@@ -8,8 +8,8 @@ const PortfolioList = () => {
   return (
     <div className="">
       <CoinbaseList />
-      {/* <StakeList /> */}
-      {/* <IngList /> */}
+      <StakeList />
+      <IngList />
     </div>
   );
 };

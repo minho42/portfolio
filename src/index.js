@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const usdToAud = require("./utils");
+const fetchCurrency = require("./utils");
 const stakeRouter = require("./routers/stake");
 const coinbaseRouter = require("./routers/coinbase");
 const ingRouter = require("./routers/ing");
@@ -32,8 +32,13 @@ app.get("", (req, res) => {
   });
 });
 
-app.get("/currency/usdToAud", async (req, res) => {
-  const rate = await usdToAud();
+app.get("/currency/USDAUD", async (req, res) => {
+  const rate = await fetchCurrency("USDAUD");
+  res.send({ rate });
+});
+
+app.get("/currency/AUDUSD", async (req, res) => {
+  const rate = await fetchCurrency("AUDUSD");
   res.send({ rate });
 });
 
