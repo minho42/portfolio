@@ -26,7 +26,7 @@ const StakeItem = ({
   }, []);
 
   return (
-    <tr className="border-b border-gray-300 text-center font-mono text-sm">
+    <tr className="border-b border-gray-300 text-center text-sm">
       <td className="py-1">{symbol}</td>
       <td className="py-1">{Number.parseFloat(Number.parseFloat(openQty).toFixed(2)).toLocaleString()}</td>
       <td className={`py-1 ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>

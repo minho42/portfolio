@@ -4,17 +4,32 @@ import CoinbaseItem from "./CoinbaseItem";
 const CoinbaseList = () => {
   const [accounts, setAccounts] = useState(null);
   const [rates, setRates] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(null);
 
   const fetchAccounts = async () => {
-    const res = await fetch("http://localhost:4000/coinbase/accounts");
-    const { accounts } = await res.json();
-    setAccounts(accounts);
+    try {
+      const res = await fetch("http://localhost:4000/coinbase/accounts");
+      const { accounts } = await res.json();
+      setAccounts(accounts);
+    } catch (error) {}
   };
 
   const fetchExchangeRates = async () => {
-    const res = await fetch("http://localhost:4000/coinbase/exchangeRates");
-    const { data } = await res.json();
-    setRates(data.rates);
+    try {
+      const res = await fetch("http://localhost:4000/coinbase/exchangeRates");
+      const { data } = await res.json();
+      setRates(data.rates);
+    } catch (error) {}
+  };
+
+  const getTotalAmount = () => {
+    if (!accounts || !rates) return;
+
+    let total = 0;
+    accounts.forEach((account) => {
+      total += account.balance.amount / rates[account.balance.currency];
+    });
+    setTotalAmount(total);
   };
 
   useEffect(() => {
@@ -22,12 +37,25 @@ const CoinbaseList = () => {
     fetchExchangeRates();
   }, []);
 
+  useEffect(() => {
+    getTotalAmount();
+  }, [accounts, rates]);
+
   return (
-    <div className="flex flex-col px-3 py-3 space-y-3">
+    <div className="flex flex-col px-3 py-3 space-y-3 bg-white">
+      <div className="flex justify-center text-2xl">Coinbase</div>
       <div className="flex justify-center space-y-2 w-full">
-        <div className="flex text-2xl">Coinbase</div>
+        {totalAmount && (
+          <div className="uppercase text-xs tracking-wider">
+            Portfolio balance
+            <div className="flex text-2xl">
+              <div className="flex">≈ A${totalAmount.toFixed(2)}</div>
+            </div>
+          </div>
+        )}
       </div>
-      <div className="">
+
+      <div className="flex justify-center">
         <table className="w-11/12">
           <thead>
             <tr className="border-b-2 border-gray-700">

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
 import StakeItem from "./StakeItem";
+import { isPositive, showValueWithSign } from "../utils";
 
 const StakeList = () => {
   const { token } = useContext(UserContext);
@@ -9,25 +10,27 @@ const StakeList = () => {
   const [totalChangeSum, setTotalChangeSum] = useState(0);
   const [totalChangePercentage, setTotalChangePercentage] = useState(0);
   const [currencyUsdAud, setCurrencyUsdAud] = useState(0);
-
-  const isPositive = (str) => {
-    return Math.sign(Number.parseFloat(str)) >= 0;
-  };
-
-  const showValueWithSign = (str) => {
-    return Math.sign(Number.parseFloat(str)) >= 0
-      ? `+${Number.parseFloat(str).toLocaleString()}`
-      : Number.parseFloat(str).toLocaleString();
-  };
+  const [currencyAudUsd, setCurrencyAudUsd] = useState(0);
 
   const fetchCurrencyUsdAud = async () => {
     try {
-      const res = await fetch("http://localhost:4000/currency/USDAUD");
+      const res = await fetch("http://localhost:4000/currency/UsdAud");
       const { rate } = await res.json();
       setCurrencyUsdAud(rate);
     } catch (error) {
       console.log(error);
       setCurrencyUsdAud(0);
+    }
+  };
+
+  const fetchCurrencyAudUsd = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/currency/AudUsd");
+      const { rate } = await res.json();
+      setCurrencyAudUsd(rate);
+    } catch (error) {
+      console.log(error);
+      setCurrencyAudUsd(0);
     }
   };
 
@@ -66,12 +69,21 @@ const StakeList = () => {
 
   useEffect(() => {
     fetchStakeData();
-    fetchCurrencyUsdAud();
   }, [token]);
 
+  useEffect(() => {
+    fetchCurrencyUsdAud();
+    fetchCurrencyAudUsd();
+  }, []);
+
   return (
-    <div className="flex flex-col px-3 py-3 space-y-3">
-      <div className="flex justify-center text-2xl">Stake</div>
+    <div className=" flex flex-col px-3 py-3 space-y-3 bg-white">
+      <div className="flex justify-center text-2xl relative">
+        Stake
+        <div className="absolute top-0 right-0 text-xs text-gray-500">
+          AUD/USD: {currencyAudUsd.toFixed(2)}
+        </div>
+      </div>
       <div className="flex justify-center space-y-2 w-full">
         {equityValue ? (
           <div className="uppercase text-xs tracking-wider">
