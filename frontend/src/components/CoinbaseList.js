@@ -17,7 +17,11 @@ const CoinbaseList = () => {
         throw new Error("fetchAccounts error");
       }
       const { accounts } = await res.json();
-      setAccounts(accounts);
+      const accountsSortedByAmount = [...accounts].sort((a, b) => {
+        if (a.balance.amount >= b.balance.amount) return 1;
+        else return -1;
+      });
+      setAccounts(accountsSortedByAmount);
       setIsLoadingAccounts(false);
     } catch (error) {
       setIsLoadingAccounts(false);
