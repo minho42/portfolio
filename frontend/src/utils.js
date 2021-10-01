@@ -7,3 +7,7 @@ export const showValueWithSign = (str) => {
     ? `+${Number.parseFloat(str).toLocaleString()}`
     : Number.parseFloat(str).toLocaleString();
 };
+
+export const showValueWithComma = (str) => {
+  return Number.parseFloat(str).toLocaleString();
+};
