@@ -53,7 +53,7 @@ const CoinbaseList = () => {
   }, [accounts, rates]);
 
   return (
-    <div className="flex flex-col px-3 py-3 space-y-3 bg-white">
+    <div className="flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl">
       <div className="flex justify-center text-2xl">Coinbase</div>
       <div className="flex justify-center space-y-2 w-full">
         {totalAmount ? (

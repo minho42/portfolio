@@ -80,7 +80,7 @@ const StakeList = () => {
   }, []);
 
   return (
-    <div className=" flex flex-col px-3 py-3 space-y-3 bg-white">
+    <div className=" flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl">
       <div className="flex justify-center text-2xl relative">
         Stake
         <div className="absolute top-0 right-0 text-xs text-gray-500">
