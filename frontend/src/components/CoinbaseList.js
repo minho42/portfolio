@@ -5,6 +5,8 @@ const CoinbaseList = () => {
   const [accounts, setAccounts] = useState(null);
   const [rates, setRates] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
+  const [isLoadingAccounts, setIsLoadingAccounts] = useState(true);
+  const [isLoadingRates, setIsLoadingRates] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const fetchAccounts = async () => {
@@ -15,7 +17,9 @@ const CoinbaseList = () => {
       }
       const { accounts } = await res.json();
       setAccounts(accounts);
+      setIsLoadingAccounts(false);
     } catch (error) {
+      setIsLoadingAccounts(false);
       setErrorMessage(error.message);
     }
   };
@@ -28,7 +32,9 @@ const CoinbaseList = () => {
       }
       const { data } = await res.json();
       setRates(data.rates);
+      setIsLoadingRates(false);
     } catch (error) {
+      setIsLoadingRates(false);
       setErrorMessage(error.message);
     }
   };
@@ -63,7 +69,7 @@ const CoinbaseList = () => {
               <div className="flex">≈ A${totalAmount.toFixed(2)}</div>
             </div>
           </div>
-        ) : !errorMessage ? (
+        ) : isLoadingAccounts || isLoadingRates ? (
           <div>Loading...</div>
         ) : (
           <div className="text-gray-500">{errorMessage}</div>
