@@ -5,7 +5,7 @@ import { isPositive, showValueWithSign } from "../utils";
 import { Link } from "react-router-dom";
 
 const StakeList = () => {
-  const { token } = useContext(UserContext);
+  const { token, isAuthLoading } = useContext(UserContext);
   const [equityPositions, setEquityPositions] = useState([]);
   const [equityValue, setEquityValue] = useState(null);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
@@ -38,6 +38,7 @@ const StakeList = () => {
   };
 
   const fetchStakeData = async () => {
+    setIsLoading(true);
     if (!token) {
       setEquityPositions([]);
       setEquityValue(null);
@@ -70,6 +71,7 @@ const StakeList = () => {
         ((Number.parseFloat(sum.toFixed(2)) / Number.parseFloat(equityValue)) * 100).toFixed(2)
       );
     } catch (error) {
+      setIsLoading(false);
       setErrorMessage(error.message);
     }
   };
@@ -92,7 +94,9 @@ const StakeList = () => {
         </div>
       </div>
       <div className="flex justify-center space-y-2 w-full">
-        {equityValue ? (
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : equityValue ? (
           <div className="uppercase text-xs tracking-wider">
             Equity value
             <div className="flex text-2xl">
@@ -107,14 +111,14 @@ const StakeList = () => {
               </div>
             </div>
           </div>
-        ) : isLoading ? (
-          <div>Loading...</div>
-        ) : (
+        ) : !token ? (
           <div>
             <Link to="/login" className="text-green-500 hover:underline">
               Log in
             </Link>
           </div>
+        ) : (
+          <div className="">hey</div>
         )}
       </div>
       <div className="flex justify-center">
