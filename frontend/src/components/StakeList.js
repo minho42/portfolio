@@ -12,6 +12,8 @@ const StakeList = () => {
   const [totalChangePercentage, setTotalChangePercentage] = useState(0);
   const [currencyUsdAud, setCurrencyUsdAud] = useState(0);
   const [currencyAudUsd, setCurrencyAudUsd] = useState(0);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchCurrencyUsdAud = async () => {
     try {
@@ -41,6 +43,7 @@ const StakeList = () => {
       setEquityValue(null);
       setTotalChangeSum(0);
       setTotalChangePercentage(0);
+      setIsLoading(false);
       return;
     }
     try {
@@ -56,6 +59,7 @@ const StakeList = () => {
 
       setEquityPositions(equityPositions);
       setEquityValue(equityValue);
+      setIsLoading(false);
 
       let sum = 0;
       equityPositions.map((position) => {
@@ -66,7 +70,7 @@ const StakeList = () => {
         ((Number.parseFloat(sum.toFixed(2)) / Number.parseFloat(equityValue)) * 100).toFixed(2)
       );
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error.message);
     }
   };
 
@@ -103,7 +107,7 @@ const StakeList = () => {
               </div>
             </div>
           </div>
-        ) : token ? (
+        ) : isLoading ? (
           <div>Loading...</div>
         ) : (
           <div>
