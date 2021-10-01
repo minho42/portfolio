@@ -47,7 +47,9 @@ const StakeList = () => {
       const res = await fetch("http://localhost:4000/stake/api/stake", {
         credentials: "include",
       });
-
+      if (res.status !== 200) {
+        throw new Error("fetchStakeData error");
+      }
       const {
         data: { equityPositions, equityValue },
       } = await res.json();
@@ -102,7 +104,7 @@ const StakeList = () => {
             </div>
           </div>
         ) : token ? (
-          <div className="text-2xl">Loading...</div>
+          <div>Loading...</div>
         ) : (
           <div>
             <Link to="/login" className="text-green-500 hover:underline">
