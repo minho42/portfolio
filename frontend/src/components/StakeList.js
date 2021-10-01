@@ -94,8 +94,16 @@ const StakeList = () => {
         </div>
       </div>
       <div className="flex justify-center space-y-2 w-full">
-        {isLoading ? (
+        {isAuthLoading ? (
+          <div>Checking token...</div>
+        ) : isLoading ? (
           <div>Loading...</div>
+        ) : !token ? (
+          <div>
+            <Link to="/login" className="text-green-500 hover:underline">
+              Log in
+            </Link>
+          </div>
         ) : equityValue ? (
           <div className="uppercase text-xs tracking-wider">
             Equity value
@@ -111,14 +119,8 @@ const StakeList = () => {
               </div>
             </div>
           </div>
-        ) : !token ? (
-          <div>
-            <Link to="/login" className="text-green-500 hover:underline">
-              Log in
-            </Link>
-          </div>
         ) : (
-          <div className="">hey</div>
+          <div>{errorMessage}</div>
         )}
       </div>
       <div className="flex justify-center">
