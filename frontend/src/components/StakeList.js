@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
+import { PortfolioContext } from "../PortfolioContext";
 import StakeItem from "./StakeItem";
 import { isPositive, showValueWithSign } from "../utils";
 import { Link } from "react-router-dom";

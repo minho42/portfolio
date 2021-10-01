@@ -5,8 +5,8 @@ import IngList from "./IngList";
 const PortfolioList = () => {
   return (
     <div className="grid grid-rows-2 grid-flow-col gap-3 p-3 bg-gray-100 ">
-      {/* <IngList /> */}
-      {/* <CoinbaseList /> */}
+      <IngList />
+      <CoinbaseList />
       <div className="row-span-2">
         <StakeList />
       </div>

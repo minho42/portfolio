@@ -11,8 +11,7 @@ export const CheckUser = async (setToken, setIsAuthLoading) => {
     if (!token) {
       throw new Error("Token not valid");
     }
-
-    console.log("CheckUser: token: ");
+    // console.log("CheckUser: token: ");
     // console.log(token);
     setToken(token);
     setIsAuthLoading(false);

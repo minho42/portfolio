@@ -5,24 +5,27 @@ import About from "./components/About";
 import PortfolioList from "./components/PortfolioList";
 
 import { UserProvider } from "./UserContext";
+import { PortfolioProvider } from "./PortfolioContext";
 
 function App() {
   return (
     <div>
       <Router>
         <UserProvider>
-          <Navbar />
-          <Switch>
-            <Route exact path="/">
-              <PortfolioList />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/about">
-              <About />
-            </Route>
-          </Switch>
+          <PortfolioProvider>
+            <Navbar />
+            <Switch>
+              <Route exact path="/">
+                <PortfolioList />
+              </Route>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/about">
+                <About />
+              </Route>
+            </Switch>
+          </PortfolioProvider>
         </UserProvider>
       </Router>
     </div>

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import { Link, useHistory, useLocation } from "react-router-dom";
+import { showValueWithComma } from "../utils";
 
 const Navbar = () => {
   const { token, setToken } = useContext(UserContext);
@@ -27,8 +28,8 @@ const Navbar = () => {
 
   return (
     <nav>
-      <header className="flex justify-center border-b border-gray-300 shadow-sm">
-        <div className="flex items-center justify-evenly h-12 w-full">
+      <header className="flex justify-between border-b border-gray-300 shadow-sm">
+        <div className="flex items-center justify-end h-12 w-full">
           <Link
             to="/"
             className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${

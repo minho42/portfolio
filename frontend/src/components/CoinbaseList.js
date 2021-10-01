@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import CoinbaseItem from "./CoinbaseItem";
+import { PortfolioContext } from "../PortfolioContext";
 
 const CoinbaseList = () => {
   const [accounts, setAccounts] = useState(null);
