@@ -3,11 +3,9 @@ export const isPositive = (str) => {
 };
 
 export const showValueWithSign = (str) => {
-  return Math.sign(Number.parseFloat(str)) >= 0
-    ? `+${Number.parseFloat(str).toLocaleString()}`
-    : Number.parseFloat(str).toLocaleString();
+  return Math.sign(Number.parseFloat(str)) >= 0 ? `+${showValueWithComma(str)}` : showValueWithComma(str);
 };
 
 export const showValueWithComma = (str) => {
-  return Number.parseFloat(str).toLocaleString();
+  return Number.parseFloat(str).toFixed(2).toLocaleString();
 };

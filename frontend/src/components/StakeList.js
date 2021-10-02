@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
 import { PortfolioContext } from "../PortfolioContext";
 import StakeItem from "./StakeItem";
-import { isPositive, showValueWithSign } from "../utils";
+import { isPositive, showValueWithSign, showValueWithComma } from "../utils";
 import { Link } from "react-router-dom";
 
 const StakeList = () => {
@@ -115,9 +115,7 @@ const StakeList = () => {
                   {showValueWithSign(totalChangeSum)} ({`${showValueWithSign(totalChangePercentage)}%`})
                 </div>
               </div>
-              <div className="ml-3">
-                ≈ A${Number.parseFloat((equityValue * currencyUsdAud).toFixed(2)).toLocaleString()}
-              </div>
+              <div className="ml-3">A${showValueWithComma(equityValue * currencyUsdAud)}</div>
             </div>
           </div>
         ) : (
