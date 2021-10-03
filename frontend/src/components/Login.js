@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { UserContext } from "../UserContext";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
@@ -34,16 +34,19 @@ const Login = () => {
   const { stakeToken, setStakeToken } = useContext(UserContext);
   const history = useHistory();
   const { state } = useLocation();
+  const inputTokenRef = useRef();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!inputToken) {
+      inputTokenRef.current.focus();
       return setErrorMessage("Please enter your token");
     }
     const validToken = await requestStakeLogin(inputToken, setStakeToken);
     if (validToken) {
       return history.push(state?.from || "/");
     }
+    inputTokenRef.current.focus();
     setErrorMessage("Invalid stakeToken");
   };
 
@@ -59,6 +62,7 @@ const Login = () => {
                   Token
                 </label>
                 <input
+                  ref={inputTokenRef}
                   onChange={(e) => setInputToken(e.target.value.trim())}
                   type="password"
                   id="inputToken"
