@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { formatDistance } from "date-fns";
+import { StakeRatingsModal } from "./StakeRatingsModal";
 
 const StakeItem = ({
-  data: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName },
+  data: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName, name },
   isPositive,
   showValueWithSign,
 }) => {
@@ -12,6 +12,11 @@ const StakeItem = ({
   const [buyCount, setBuyCount] = useState(0);
   const [sellCount, setSellCount] = useState(0);
   const [holdCount, setHoldCount] = useState(0);
+  const [isRatingsModalOpen, setIsRatingsModalOpen] = useState(false);
+
+  const handleRatingsModalClose = () => {
+    setIsRatingsModalOpen(false);
+  };
 
   const isRatingBuy = (rating) => {
     const buys = ["buy", "outperform", "overweight", "positive"];
@@ -93,7 +98,7 @@ const StakeItem = ({
 
         <td
           onClick={() => {
-            setShowRatings(!showRatings);
+            setIsRatingsModalOpen(!isRatingsModalOpen);
           }}
           className="flex items-center justify-start space-x-1 cursor-pointer"
         >
@@ -145,34 +150,16 @@ const StakeItem = ({
         </td>
       </tr>
 
-      {showRatings && (
-        <tr>
-          <td className="border-2 border-gray-500 p-2 shadow-xl" colSpan="100%">
-            {ratings &&
-              ratings.map((r) => {
-                return (
-                  <div className="text-sm border-b border-gray-300 py-0.5">
-                    <span
-                      className={`rounded px-1  mx-1 
-                    ${
-                      isRatingBuy(r.rating_current)
-                        ? "bg-green-200 text-green-900"
-                        : isRatingSell(r.rating_current)
-                        ? "bg-red-500 text-white"
-                        : "bg-gray-200"
-                    } `}
-                    >
-                      {r.rating_current}
-                    </span>
-                    {r.analyst}
-                    <span className="ml-2">
-                      ({formatDistance(new Date(r.date), new Date(), { includeSeconds: false })} ago)
-                    </span>
-                  </div>
-                );
-              })}
-          </td>
-        </tr>
+      {ratings && isRatingsModalOpen && (
+        <StakeRatingsModal
+          symbol={symbol}
+          name={name}
+          ratings={ratings}
+          isOpen={isRatingsModalOpen}
+          onClose={handleRatingsModalClose}
+          isRatingBuy={isRatingBuy}
+          isRatingSell={isRatingSell}
+        />
       )}
     </>
   );
