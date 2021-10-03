@@ -77,12 +77,7 @@ const StakeItem = ({
 
   return (
     <>
-      <tr
-        onClick={() => {
-          setShowRatings(!showRatings);
-        }}
-        className="border-b border-gray-300 text-center text-sm"
-      >
+      <tr className="border-b border-gray-300 text-center text-sm">
         <td className="py-1">{symbol}</td>
         <td className="py-1">{Number.parseFloat(Number.parseFloat(openQty).toFixed(2)).toLocaleString()}</td>
         <td className={`py-1 ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
@@ -96,7 +91,12 @@ const StakeItem = ({
         </td>
         <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : "-"}</td>
 
-        <td className="flex items-center justify-start space-x-1">
+        <td
+          onClick={() => {
+            setShowRatings(!showRatings);
+          }}
+          className="flex items-center justify-start space-x-1 cursor-pointer"
+        >
           {buyCount > 0 && (
             <div className="flex">
               <svg
