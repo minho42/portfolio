@@ -133,6 +133,7 @@ const StakeList = () => {
                 <th className="text-sm uppercase font-medium">Day change</th>
                 <th className="text-sm uppercase font-medium">Total change</th>
                 <th className="text-sm uppercase font-medium">Dividend yield</th>
+                <th className="text-sm uppercase font-medium">Ratings</th>
               </tr>
             </thead>
             <tbody>
