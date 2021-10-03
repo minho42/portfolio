@@ -1,25 +1,25 @@
-export const CheckUser = async (setToken, setIsAuthLoading) => {
+export const CheckUser = async (setStakeToken, setIsStakeAuthLoading) => {
   console.log("CheckUser");
   try {
     const res = await fetch("http://localhost:4000/stake/check", {
       credentials: "include",
     });
     if (!res.ok) {
-      throw new Error("token in cookie invaid");
+      throw new Error("stakeToken in cookie invaid");
     }
-    const { token } = await res.json();
-    if (!token) {
-      throw new Error("Token not valid");
+    const { stakeToken } = await res.json();
+    if (!stakeToken) {
+      throw new Error("stakeToken not valid");
     }
-    // console.log("CheckUser: token: ");
-    // console.log(token);
-    setToken(token);
-    setIsAuthLoading(false);
+    // console.log("CheckUser: stakeToken: ");
+    // console.log(stakeToken);
+    setStakeToken(stakeToken);
+    setIsStakeAuthLoading(false);
     return true;
   } catch (error) {
     console.log(error);
-    setToken(null);
-    setIsAuthLoading(false);
+    setStakeToken(null);
+    setIsStakeAuthLoading(false);
     return false;
   }
 };

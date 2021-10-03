@@ -6,7 +6,7 @@ import { isPositive, showValueWithSign, showValueWithComma } from "../utils";
 import { Link } from "react-router-dom";
 
 const StakeList = () => {
-  const { token, isAuthLoading } = useContext(UserContext);
+  const { stakeToken, isStakeAuthLoading } = useContext(UserContext);
   const [equityPositions, setEquityPositions] = useState([]);
   const [equityValue, setEquityValue] = useState(null);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
@@ -40,7 +40,7 @@ const StakeList = () => {
 
   const fetchStakeData = async () => {
     setIsLoading(true);
-    if (!token) {
+    if (!stakeToken) {
       setEquityPositions([]);
       setEquityValue(null);
       setTotalChangeSum(0);
@@ -79,7 +79,7 @@ const StakeList = () => {
 
   useEffect(() => {
     fetchStakeData();
-  }, [token]);
+  }, [stakeToken]);
 
   useEffect(() => {
     fetchCurrencyUsdAud();
@@ -95,11 +95,11 @@ const StakeList = () => {
         </div>
       </div>
       <div className="flex justify-center space-y-2 w-full">
-        {isAuthLoading ? (
+        {isStakeAuthLoading ? (
           <div>Checking token...</div>
         ) : isLoading ? (
           <div>Loading...</div>
-        ) : !token ? (
+        ) : !stakeToken ? (
           <div>
             <Link to="/login" className="text-green-500 hover:underline">
               Log in
@@ -123,7 +123,7 @@ const StakeList = () => {
         )}
       </div>
       <div className="flex justify-center">
-        {token && equityPositions && (
+        {stakeToken && equityPositions && (
           <table className="w-11/12">
             <thead>
               <tr className="border-b-2 border-gray-700">

@@ -2,10 +2,10 @@ import { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
-export const requestLogin = async (token, setToken) => {
+export const requestStakeLogin = async (stakeToken, setStakeToken) => {
   try {
-    if (!token) {
-      throw new Error("requestLogin: !token");
+    if (!stakeToken) {
+      throw new Error("requestStakeLogin: !stakeToken");
     }
     const res = await fetch("http://localhost:4000/stake/login", {
       method: "POST",
@@ -13,14 +13,14 @@ export const requestLogin = async (token, setToken) => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ stakeToken }),
     });
     if (!res.ok) {
-      throw new Error("requestLogin failed");
+      throw new Error("requestStakeLogin failed");
     }
-    const { token: validToken } = await res.json();
+    const { stakeToken: validToken } = await res.json();
     console.log(validToken);
-    setToken(validToken);
+    setStakeToken(validToken);
     return validToken;
   } catch (error) {
     console.log(error);
@@ -31,7 +31,7 @@ export const requestLogin = async (token, setToken) => {
 const Login = () => {
   const [inputToken, setInputToken] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { token, setToken } = useContext(UserContext);
+  const { stakeToken, setStakeToken } = useContext(UserContext);
   const history = useHistory();
   const { state } = useLocation();
 
@@ -40,19 +40,19 @@ const Login = () => {
     if (!inputToken) {
       return setErrorMessage("Please enter your token");
     }
-    const validToken = await requestLogin(inputToken, setToken);
+    const validToken = await requestStakeLogin(inputToken, setStakeToken);
     if (validToken) {
       return history.push(state?.from || "/");
     }
-    setErrorMessage("Invalid token");
+    setErrorMessage("Invalid stakeToken");
   };
 
   return (
     <div className="flex justify-center">
       <div className="max-w-md w-full px-4 rounded-lg p-4">
-        {!token ? (
+        {!stakeToken ? (
           <div className="space-y-4 m-3">
-            <span className="text-2xl font-medium">Log in with token</span>
+            <span className="text-2xl font-medium">Log in to Stake</span>
             <form className="space-y-4">
               <div>
                 <label htmlFor="inputToken" className="font-medium text-gray-600 text-sm">
@@ -93,7 +93,7 @@ const Login = () => {
             </form>
           </div>
         ) : (
-          <div className="text-center">hi [{token}]</div>
+          <div className="text-center">hi [{stakeToken}]</div>
         )}
       </div>
     </div>

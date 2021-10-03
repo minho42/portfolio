@@ -3,21 +3,21 @@ const checkUser = require("../checkUser.js");
 
 const stakeAuth = async (req, res, next) => {
   try {
-    const token = req.cookies.token;
-    if (!token) {
-      throw new Error("stakeAuth: !token");
+    const stakeToken = req.cookies.stakeToken;
+    if (!stakeToken) {
+      throw new Error("stakeAuth: !stakeToken");
     }
-    const isTokenValid = await checkUser(token);
+    const isTokenValid = await checkUser(stakeToken);
     if (!isTokenValid) {
       throw new Error("Token not valid");
     }
-    // console.log(`auth.token: ${token}`);
-    req.token = token;
+    // console.log(`auth.stakeToken: ${stakeToken}`);
+    req.stakeToken = stakeToken;
 
     next();
   } catch (error) {
     console.log(error);
-    res.clearCookie("token");
+    res.clearCookie("stakeToken");
     res.status(401).send({ error: "Please authenticate" });
   }
 };

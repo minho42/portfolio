@@ -4,11 +4,11 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { showValueWithComma } from "../utils";
 
 const Navbar = () => {
-  const { token, setToken } = useContext(UserContext);
+  const { stakeToken, setStakeToken } = useContext(UserContext);
   const history = useHistory();
   const { pathname } = useLocation();
 
-  const requestLogout = async (token, setToken, history) => {
+  const requestLogout = async (stakeToken, setStakeToken, history) => {
     try {
       const res = await fetch("http://localhost:4000/stake/logout", {
         method: "POST",
@@ -17,11 +17,11 @@ const Navbar = () => {
       if (!res.ok) {
         throw new Error("requestLogout failed");
       }
-      setToken(null);
+      setStakeToken(null);
       history.push("/");
     } catch (error) {
       console.log(error);
-      setToken(null);
+      setStakeToken(null);
       history.push("/");
     }
   };
@@ -38,7 +38,7 @@ const Navbar = () => {
           >
             Portfolio
           </Link>
-          {!token && (
+          {!stakeToken && (
             <Link
               to="/login"
               className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${
@@ -48,9 +48,9 @@ const Navbar = () => {
               Login
             </Link>
           )}
-          {token && (
+          {stakeToken && (
             <button
-              onClick={() => requestLogout(token, setToken, history)}
+              onClick={() => requestLogout(stakeToken, setStakeToken, history)}
               className="flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 border-white"
             >
               Logout
