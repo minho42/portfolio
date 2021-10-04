@@ -2,7 +2,18 @@ import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { formatDistance } from "date-fns";
 
-export const StakeRatingsModal = ({ symbol, name, ratings, isOpen, onClose, isRatingBuy, isRatingSell }) => {
+export const StakeRatingsModal = ({
+  symbol,
+  name,
+  ratings,
+  isOpen,
+  onClose,
+  isRatingBuy,
+  isRatingSell,
+  buyCount,
+  sellCount,
+  holdCount,
+}) => {
   const escClose = (e) => {
     if (e.keyCode === 27) {
       onClose();
@@ -27,15 +38,40 @@ export const StakeRatingsModal = ({ symbol, name, ratings, isOpen, onClose, isRa
         className="min-h-screen min-w-screen bg-black opacity-40"
         onClick={() => onClose()}
       ></div>
-      <div className="fixed w-96 top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col space-y-2 bg-gray-200 rounded-lg shadow-2xl p-4">
-        <div className="text-xl text-center">{name}</div>
-        <div className="border border-gray-200 p-2 bg-white" colSpan="100%">
+      <div className="fixed w-96 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col space-y-2 bg-gray-200 rounded-lg shadow-2xl p-4">
+        <div className="flex space-x-1">
+          <div className="bg-white rounded p-2">
+            <div className="text-xl text-center">{symbol}</div>
+            <div className="text-center text-sm text-gray-500">{name}</div>
+          </div>
+          <div className="flex flex-grow justify-evenly bg-white rounded p-2">
+            {buyCount > 0 && (
+              <div className="flex flex-col flex-grow items-center justify-center text-xl bg-green-300">
+                {buyCount}
+                <div className="uppercase text-xs">Buy</div>
+              </div>
+            )}
+            {sellCount > 0 && (
+              <div className="flex flex-col flex-grow items-center justify-center text-xl bg-red-200">
+                {sellCount}
+                <div className="uppercase text-xs">Sell</div>
+              </div>
+            )}
+            {holdCount > 0 && (
+              <div className="flex flex-col flex-grow items-center justify-center text-xl bg-gray-200">
+                {holdCount}
+                <div className="uppercase text-xs">Hold</div>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="rounded bg-white p-2 divide-y">
           {ratings &&
             ratings.map((r) => {
               return (
-                <div className="text-sm border-b border-gray-300 py-0.5">
-                  <span
-                    className={`rounded px-1  mx-1 
+                <div className="flex items-center py-1 space-x-1">
+                  <div
+                    className={`rounded px-1 py-0.5 
                     ${
                       isRatingBuy(r.rating_current)
                         ? "bg-green-200 text-green-900"
@@ -45,11 +81,11 @@ export const StakeRatingsModal = ({ symbol, name, ratings, isOpen, onClose, isRa
                     } `}
                   >
                     {r.rating_current}
-                  </span>
-                  {r.analyst}
-                  <span className="ml-2">
+                  </div>
+                  <div className="">{r.analyst}</div>
+                  <div className="">
                     ({formatDistance(new Date(r.date), new Date(), { includeSeconds: false })} ago)
-                  </span>
+                  </div>
                 </div>
               );
             })}

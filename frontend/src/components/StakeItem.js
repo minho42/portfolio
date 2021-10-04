@@ -134,7 +134,7 @@ const StakeItem = ({
             <div className="flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-yellow-500"
+                className="h-5 w-5 text-gray-300"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -159,6 +159,9 @@ const StakeItem = ({
           onClose={handleRatingsModalClose}
           isRatingBuy={isRatingBuy}
           isRatingSell={isRatingSell}
+          buyCount={buyCount}
+          sellCount={sellCount}
+          holdCount={holdCount}
         />
       )}
     </>
