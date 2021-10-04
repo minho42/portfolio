@@ -19,7 +19,7 @@ const CoinbaseList = () => {
       const { accounts } = await res.json();
       const accountsSortedByAmount = [...accounts].sort((a, b) => {
         if (a.balance.amount >= b.balance.amount) return 1;
-        else return -1;
+        return -1;
       });
       setAccounts(accountsSortedByAmount);
       setIsLoadingAccounts(false);
