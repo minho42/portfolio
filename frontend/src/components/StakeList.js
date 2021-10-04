@@ -128,7 +128,6 @@ const StakeList = () => {
             <thead>
               <tr className="border-b-2 border-gray-700">
                 <th className="text-sm uppercase font-medium">Stock</th>
-                <th className="text-sm uppercase font-medium">Units</th>
                 <th className="text-sm uppercase font-medium">Value</th>
                 <th className="text-sm uppercase font-medium">Day change</th>
                 <th className="text-sm uppercase font-medium">Total change</th>
