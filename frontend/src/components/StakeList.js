@@ -59,7 +59,12 @@ const StakeList = () => {
         data: { equityPositions, equityValue },
       } = await res.json();
 
-      setEquityPositions(equityPositions);
+      const equityPositionsSortedByValue = [...equityPositions].sort((a, b) => {
+        if (Number.parseFloat(a.marketValue) >= Number.parseFloat(b.marketValue)) return -1;
+        return 1;
+      });
+      console.log(equityPositionsSortedByValue);
+      setEquityPositions(equityPositionsSortedByValue);
       setEquityValue(equityValue);
       setIsLoading(false);
 

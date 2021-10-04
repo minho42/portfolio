@@ -65,6 +65,8 @@ const StakeItem = ({
         `https://global-prd-api.hellostake.com/api/data/calendar/ratings?tickers=${symbol}&pageSize=50`
       );
       const { ratings } = await res.json();
+      // ETFs don't have ratings
+      if (!ratings) return;
       // setRatings(ratings);
       setRatings(ratings.slice(0, 10));
       countBuySell(ratings.slice(0, 10));
