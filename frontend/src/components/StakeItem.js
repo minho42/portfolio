@@ -159,9 +159,6 @@ const StakeItem = ({
           onClose={handleRatingsModalClose}
           isRatingBuy={isRatingBuy}
           isRatingSell={isRatingSell}
-          buyCount={buyCount}
-          sellCount={sellCount}
-          holdCount={holdCount}
         />
       )}
     </>
