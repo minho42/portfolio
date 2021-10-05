@@ -7,5 +7,5 @@ export const showValueWithSign = (str) => {
 };
 
 export const showValueWithComma = (str) => {
-  return Number.parseFloat(str).toFixed(2).toLocaleString();
+  return Number.parseFloat(Number.parseFloat(str).toFixed(2)).toLocaleString();
 };
