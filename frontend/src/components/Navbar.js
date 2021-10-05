@@ -29,6 +29,10 @@ const Navbar = () => {
   return (
     <nav>
       <header className="flex justify-between border-b border-gray-300 shadow-sm">
+        <div className="flex items-center ml-2">
+          <div className="text-2xl font-medium px-4">${showValueWithComma("987654321")}</div>
+        </div>
+
         <div className="flex items-center justify-end h-12 w-full">
           <Link
             to="/"
