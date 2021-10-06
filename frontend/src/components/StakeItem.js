@@ -84,7 +84,7 @@ const StakeItem = ({
 
   return (
     <>
-      <tr className="border-b border-gray-300 text-center text-sm">
+      <tr className="border-b border-gray-300 text-center text-sm hover:bg-gray-100">
         <td className="py-1">{symbol}</td>
         <td className={`py-1 ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
           ${Number.parseFloat(marketValue).toLocaleString()}
@@ -103,8 +103,10 @@ const StakeItem = ({
           }}
           className="flex items-center justify-start space-x-1 cursor-pointer"
         >
+          {buyCount + sellCount + holdCount === 0 ? "-" : ""}
+
           {buyCount > 0 && (
-            <div className="flex">
+            <div className="flex items-center text-xs">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-green-500"
@@ -118,7 +120,7 @@ const StakeItem = ({
           )}
 
           {sellCount > 0 && (
-            <div className="flex">
+            <div className="flex items-center text-xs">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-red-400"
@@ -132,7 +134,7 @@ const StakeItem = ({
           )}
 
           {holdCount > 0 && (
-            <div className="flex">
+            <div className="flex items-center text-xs">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-gray-300"
