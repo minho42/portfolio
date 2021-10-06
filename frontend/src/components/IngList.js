@@ -36,7 +36,7 @@ const IngList = () => {
     <div className="flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl">
       <div className="flex justify-center text-2xl relative">
         ING
-        <div className="absolute top-0 right-0 text-xs text-gray-500">{name}</div>
+        <div className="absolute top-0 right-0 text-xs text-gray-500 uppercase">{name}</div>
       </div>
       <div className="flex justify-center space-y-2 w-full">
         {isBalanceLoading ? (
