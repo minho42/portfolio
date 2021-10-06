@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
+import { PortfolioContext } from "../PortfolioContext";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { showValueWithComma } from "../utils";
 
 const Navbar = () => {
   const { stakeToken, setStakeToken } = useContext(UserContext);
+  const { totalValue, setTotalValue } = useContext(PortfolioContext);
   const history = useHistory();
   const { pathname } = useLocation();
 
