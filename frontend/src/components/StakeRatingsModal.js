@@ -27,7 +27,7 @@ export const StakeRatingsModal = ({ symbol, name, ratings, isOpen, onClose, isRa
         className="min-h-screen min-w-screen bg-black opacity-40"
         onClick={() => onClose()}
       ></div>
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col bg-gray-200 rounded-lg shadow-2xl space-y-1 p-4">
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col bg-gray-200 rounded-lg shadow-2xl space-y-1 p-2">
         <div className="bg-white rounded p-2">
           <div className="text-xl text-center">{symbol}</div>
           <div className="text-center text-sm text-gray-500">{name}</div>
@@ -41,7 +41,7 @@ export const StakeRatingsModal = ({ symbol, name, ratings, isOpen, onClose, isRa
                     className={`rounded px-1 py-0.5 
                     ${
                       isRatingBuy(r.rating_current)
-                        ? "bg-green-200 text-green-900"
+                        ? "bg-green-500 text-white"
                         : isRatingSell(r.rating_current)
                         ? "bg-red-500 text-white"
                         : "bg-gray-200"
