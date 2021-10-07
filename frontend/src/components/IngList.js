@@ -6,6 +6,7 @@ const IngList = () => {
   const [balance, setBalance] = useState(null);
   const [name, setName] = useState(null);
   const [isBalanceLoading, setIsBalanceLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const fetchInterestRate = async () => {
     try {
@@ -24,6 +25,7 @@ const IngList = () => {
       setIsBalanceLoading(false);
     } catch (error) {
       setIsBalanceLoading(false);
+      setErrorMessage(error.message);
     }
   };
 
@@ -39,7 +41,9 @@ const IngList = () => {
         <div className="absolute top-0 right-0 text-xs text-gray-500 uppercase">{name}</div>
       </div>
       <div className="flex justify-center space-y-2 w-full">
-        {isBalanceLoading ? (
+        {errorMessage ? (
+          <div className="text-gray-500">{errorMessage}</div>
+        ) : isBalanceLoading ? (
           <div className="animate-bounce">Loading...</div>
         ) : (
           <div className="uppercase text-xs tracking-wider">
