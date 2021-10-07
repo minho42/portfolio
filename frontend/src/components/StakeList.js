@@ -63,7 +63,7 @@ const StakeList = () => {
         if (Number.parseFloat(a.marketValue) >= Number.parseFloat(b.marketValue)) return -1;
         return 1;
       });
-      console.log(equityPositionsSortedByValue);
+      // console.log(equityPositionsSortedByValue);
       setEquityPositions(equityPositionsSortedByValue);
       setEquityValue(equityValue);
       setIsLoading(false);
@@ -132,11 +132,13 @@ const StakeList = () => {
           <table className="w-11/12">
             <thead>
               <tr className="border-b-2 border-gray-700">
-                <th className="text-sm uppercase font-medium">Stock</th>
+                <th className="text-sm uppercase font-medium">Code</th>
+                <th className="text-sm uppercase font-medium">Units</th>
                 <th className="text-sm uppercase font-medium">Value</th>
-                <th className="text-sm uppercase font-medium">Day change</th>
-                <th className="text-sm uppercase font-medium">Total change</th>
+                <th className="text-sm uppercase font-medium">Day P/L</th>
+                <th className="text-sm uppercase font-medium">Total P/L</th>
                 <th className="text-sm uppercase font-medium">Dividend yield</th>
+                <th className="text-sm uppercase font-medium">Estimated dividend</th>
                 <th className="text-sm uppercase font-medium">Ratings</th>
               </tr>
             </thead>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { showValueWithComma } from "../utils";
 import { StakeRatingsModal } from "./StakeRatingsModal";
 
 const StakeItem = ({
@@ -86,6 +87,7 @@ const StakeItem = ({
     <>
       <tr className="border-b border-gray-300 text-center text-sm hover:bg-gray-100">
         <td className="py-1">{symbol}</td>
+        <td className="py-1">{showValueWithComma(openQty)}</td>
         <td className={`py-1 ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
           ${Number.parseFloat(marketValue).toLocaleString()}
         </td>
@@ -96,7 +98,7 @@ const StakeItem = ({
           {showValueWithSign(unrealizedPL)}
         </td>
         <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : "-"}</td>
-
+        <td>{dividendYield > 0 ? showValueWithComma((marketValue * dividendYield) / 100) : "-"}</td>
         <td
           onClick={() => {
             setIsRatingsModalOpen(!isRatingsModalOpen);
