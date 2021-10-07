@@ -6,8 +6,10 @@ const StakeItem = ({
   data: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName, name },
   isPositive,
   showValueWithSign,
+  addTotalEstimatedDividends,
 }) => {
   const [dividendYield, setDividendYield] = useState(null);
+  const [estimatedDividend, setEstimatedDividend] = useState(0);
   const [ratings, setRatings] = useState(null);
   const [showRatings, setShowRatings] = useState(false);
   const [buyCount, setBuyCount] = useState(0);
@@ -83,10 +85,16 @@ const StakeItem = ({
     fetchRatings();
   }, []);
 
+  useEffect(() => {
+    const dividend = (marketValue * dividendYield) / 100;
+    setEstimatedDividend(dividend);
+    addTotalEstimatedDividends(dividend);
+  }, [dividendYield]);
+
   return (
     <>
-      <tr className="text-center text-sm hover:bg-gray-100">
-        <td className="py-1">{symbol}</td>
+      <tr className="text-right text-sm hover:bg-gray-100">
+        <td className="py-1 text-center">{symbol}</td>
         <td className="py-1">{showValueWithComma(openQty)}</td>
         <td className={`py-1 ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
           ${Number.parseFloat(marketValue).toLocaleString()}
@@ -98,12 +106,12 @@ const StakeItem = ({
           {showValueWithSign(unrealizedPL)}
         </td>
         <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : "-"}</td>
-        <td>{dividendYield > 0 ? showValueWithComma((marketValue * dividendYield) / 100) : "-"}</td>
+        <td>{estimatedDividend > 0 ? showValueWithComma(estimatedDividend) : "-"}</td>
         <td
           onClick={() => {
             setIsRatingsModalOpen(!isRatingsModalOpen);
           }}
-          className="flex items-center justify-start space-x-1 cursor-pointer"
+          className="flex items-center justify-end space-x-1 cursor-pointer"
         >
           {buyCount + sellCount + holdCount === 0 ? "-" : ""}
 
