@@ -85,7 +85,7 @@ const StakeItem = ({
 
   return (
     <>
-      <tr className="border-b border-gray-300 text-center text-sm hover:bg-gray-100">
+      <tr className="text-center text-sm hover:bg-gray-100">
         <td className="py-1">{symbol}</td>
         <td className="py-1">{showValueWithComma(openQty)}</td>
         <td className={`py-1 ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>

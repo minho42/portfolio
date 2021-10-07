@@ -142,7 +142,7 @@ const StakeList = () => {
                 <th className="text-sm uppercase font-medium">Ratings</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-gray-300">
               {equityPositions.map((position) => {
                 return (
                   <StakeItem
