@@ -21,7 +21,12 @@ const getIngBalance = async () => {
       }
     });
     const token = await login(page, process.env.ING_CLIENT_NUMBER, process.env.ING_ACCESS_CODE);
-    await page.waitForSelector(".uia-total-available-balance");
+    console.log(`ING token: ${token.slice(0, 10)}...${token.slice(token.length - 10, token.length)}`);
+
+    await page.waitForSelector(
+      ".uia-total-available-balance"
+      // { timeout: 4000 }
+    );
     const balance = await page.evaluate(() => {
       return document
         .querySelector(".uia-total-available-balance > span")
