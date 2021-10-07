@@ -9,6 +9,7 @@ const StakeList = () => {
   const { stakeToken, isStakeAuthLoading } = useContext(UserContext);
   const [equityPositions, setEquityPositions] = useState([]);
   const [equityValue, setEquityValue] = useState(null);
+  const [dayChangeSum, setDayChangeSum] = useState(0);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
   const [totalChangePercentage, setTotalChangePercentage] = useState(0);
   const [totalEstimatedDividends, setTotalEstimatedDividends] = useState(0);
@@ -60,6 +61,7 @@ const StakeList = () => {
     if (!stakeToken) {
       setEquityPositions([]);
       setEquityValue(null);
+      setDayChangeSum(0);
       setTotalChangeSum(0);
       setTotalChangePercentage(0);
       setIsLoading(false);
@@ -84,20 +86,35 @@ const StakeList = () => {
       setEquityPositions(equityPositionsSortedByValue);
       setEquityValue(equityValue);
       setIsLoading(false);
-
-      let sum = 0;
-      equityPositions.map((position) => {
-        sum += Number.parseFloat(position.unrealizedPL);
-      });
-      setTotalChangeSum(sum.toFixed(2));
-      setTotalChangePercentage(
-        ((Number.parseFloat(sum.toFixed(2)) / Number.parseFloat(equityValue)) * 100).toFixed(2)
-      );
     } catch (error) {
       setIsLoading(false);
       setErrorMessage(error.message);
     }
   };
+
+  const getDayChangeSum = () => {
+    let sum = 0;
+    equityPositions.map((position) => {
+      sum += Number.parseFloat(position.unrealizedDayPL);
+    });
+    setDayChangeSum(sum.toFixed(2));
+  };
+
+  const getTotalChangeSum = () => {
+    let sum = 0;
+    equityPositions.map((position) => {
+      sum += Number.parseFloat(position.unrealizedPL);
+    });
+    setTotalChangeSum(sum.toFixed(2));
+    setTotalChangePercentage(
+      ((Number.parseFloat(sum.toFixed(2)) / Number.parseFloat(equityValue)) * 100).toFixed(2)
+    );
+  };
+
+  useEffect(() => {
+    getDayChangeSum();
+    getTotalChangeSum();
+  }, [equityValue]);
 
   useEffect(() => {
     fetchStakeData();
@@ -173,7 +190,9 @@ const StakeList = () => {
                 <td className="text-center uppercase py-1">Totals</td>
                 <td>-</td>
                 <td>${showValueWithComma(equityValue)}</td>
-                <td>-</td>
+                <td className={`${isPositive(dayChangeSum) ? "text-green-600" : "text-red-600"}`}>
+                  {showValueWithSign(dayChangeSum)}
+                </td>
                 <td className={`${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
                   {showValueWithSign(totalChangeSum)} ({`${showValueWithSign(totalChangePercentage)}%`})
                 </td>
