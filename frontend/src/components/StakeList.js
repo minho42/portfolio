@@ -28,6 +28,9 @@ const StakeList = () => {
   const fetchUserInfo = async () => {
     try {
       const res = await fetch(`https://global-prd-api.hellostake.com/api/sessions/v2/${stakeToken}`);
+      if (!res.ok) {
+        throw new Error("fetchUserInfo failed");
+      }
       const data = await res.json();
       setUserInfo(data);
     } catch (error) {
