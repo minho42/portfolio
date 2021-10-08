@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import CoinbaseItem from "./CoinbaseItem";
 import { PortfolioContext } from "../PortfolioContext";
+import { useLocalStorage } from "./useLocalStorage";
 
 const CoinbaseList = () => {
-  const [accounts, setAccounts] = useState(null);
-  const [rates, setRates] = useState(null);
+  const [accounts, setAccounts] = useLocalStorage("coinbaseAccounts", null);
+  const [rates, setRates] = useLocalStorage("coinbaseRates", null);
   const [totalAmount, setTotalAmount] = useState(null);
   const [isLoadingAccounts, setIsLoadingAccounts] = useState(true);
   const [isLoadingRates, setIsLoadingRates] = useState(true);

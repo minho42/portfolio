@@ -4,20 +4,21 @@ import { PortfolioContext } from "../PortfolioContext";
 import StakeItem from "./StakeItem";
 import { isPositive, showValueWithSign, showValueWithComma } from "../utils";
 import { Link } from "react-router-dom";
+import { useLocalStorage } from "./useLocalStorage";
 
 const StakeList = () => {
   const { stakeToken, isStakeAuthLoading } = useContext(UserContext);
   const [equityPositions, setEquityPositions] = useState([]);
-  const [equityValue, setEquityValue] = useState(null);
+  const [equityValue, setEquityValue] = useLocalStorage("stakeEquityValue", null);
   const [dayChangeSum, setDayChangeSum] = useState(0);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
   const [totalChangePercentage, setTotalChangePercentage] = useState(0);
   const [totalEstimatedDividends, setTotalEstimatedDividends] = useState(0);
-  const [currencyUsdAud, setCurrencyUsdAud] = useState(0);
-  const [currencyAudUsd, setCurrencyAudUsd] = useState(0);
+  const [currencyUsdAud, setCurrencyUsdAud] = useLocalStorage("currencyUsdAud", 0);
+  const [currencyAudUsd, setCurrencyAudUsd] = useLocalStorage("currencyAudUsd", 0);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useLocalStorage("stakeUserInfo", null);
 
   const addTotalEstimatedDividends = (n) => {
     setTotalEstimatedDividends(totalEstimatedDividends + n);
@@ -138,8 +139,6 @@ const StakeList = () => {
       <div className="flex justify-center space-y-2 w-full">
         {isStakeAuthLoading ? (
           <div>Checking token...</div>
-        ) : isLoading ? (
-          <div>Loading...</div>
         ) : !stakeToken ? (
           <div>
             <Link to="/login" className="text-green-500 hover:underline">
@@ -149,8 +148,28 @@ const StakeList = () => {
         ) : equityValue ? (
           <div className="uppercase text-xs tracking-wider">
             Equity value
-            <div className="flex text-2xl">
+            <div className="flex items-center text-2xl">
               <div>A${showValueWithComma(equityValue * currencyUsdAud)}</div>
+              {isLoading ? (
+                <div className="text-gray-500 animate-bounce">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         ) : (

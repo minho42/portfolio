@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { showValueWithComma } from "../utils";
+import { useLocalStorage } from "./useLocalStorage";
 
 const IngList = () => {
-  const [interestRate, setInterestRate] = useState(null);
-  const [balance, setBalance] = useState(null);
-  const [name, setName] = useState(null);
+  const [interestRate, setInterestRate] = useLocalStorage("ingInterestRate", 0);
+  const [balance, setBalance] = useLocalStorage("ingBalance", 0);
+  const [name, setName] = useLocalStorage("ingUserName", "");
   const [isBalanceLoading, setIsBalanceLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -43,13 +44,31 @@ const IngList = () => {
       <div className="flex justify-center space-y-2 w-full">
         {errorMessage ? (
           <div className="text-gray-500">{errorMessage}</div>
-        ) : isBalanceLoading ? (
-          <div className="animate-bounce">Loading...</div>
         ) : (
           <div className="uppercase text-xs tracking-wider">
             Total balance
-            <div className="flex text-2xl">
+            <div className="flex items-center text-2xl ">
               <div className="flex">${showValueWithComma(balance)}</div>
+              {isBalanceLoading ? (
+                <div className="text-gray-500 animate-bounce">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         )}
