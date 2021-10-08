@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { showValueWithComma } from "../utils";
 import { useLocalStorage } from "./useLocalStorage";
+import { LoadingIcon } from "./LoadingIcon";
 
 const IngList = () => {
   const [interestRate, setInterestRate] = useLocalStorage("ingInterestRate", 0);
@@ -49,26 +50,7 @@ const IngList = () => {
             Total balance
             <div className="flex items-center text-2xl ">
               <div className="flex">${showValueWithComma(balance)}</div>
-              {isBalanceLoading ? (
-                <div className="text-gray-500 animate-bounce">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-              ) : (
-                ""
-              )}
+              {isBalanceLoading ? <LoadingIcon /> : ""}
             </div>
           </div>
         )}
