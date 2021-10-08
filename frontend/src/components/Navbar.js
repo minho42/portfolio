@@ -20,10 +20,12 @@ const Navbar = () => {
         throw new Error("requestLogout failed");
       }
       setStakeToken(null);
+      localStorage.clear();
       history.push("/");
     } catch (error) {
       console.log(error);
       setStakeToken(null);
+      localStorage.clear();
       history.push("/");
     }
   };
