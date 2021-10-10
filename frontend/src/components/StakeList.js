@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
-import { PortfolioContext } from "../PortfolioContext";
+import { useUpdatePortfolioInfo } from "./useUpdatePortfolioInfo";
 import StakeItem from "./StakeItem";
 import { isPositive, showValueWithSign, showValueWithComma } from "../utils";
 import { Link } from "react-router-dom";
@@ -11,6 +11,8 @@ const StakeList = () => {
   const { stakeToken, isStakeAuthLoading } = useContext(UserContext);
   const [equityPositions, setEquityPositions] = useLocalStorage("stakeEquityPositions", []);
   const [equityValue, setEquityValue] = useLocalStorage("stakeEquityValue", 0);
+  const [equityValueInAud, setEquityValueInAud] = useState(0);
+  useUpdatePortfolioInfo("Stake", equityValueInAud);
   const [currencyUsdAud, setCurrencyUsdAud] = useLocalStorage("currencyUsdAud", 0);
   const [currencyAudUsd, setCurrencyAudUsd] = useLocalStorage("currencyAudUsd", 0);
   const [userInfo, setUserInfo] = useLocalStorage("stakeUserInfo", {});
@@ -26,6 +28,8 @@ const StakeList = () => {
   };
 
   const fetchUserInfo = async () => {
+    if (!stakeToken) return;
+
     try {
       const res = await fetch(`https://global-prd-api.hellostake.com/api/sessions/v2/${stakeToken}`);
       if (!res.ok) {
@@ -117,11 +121,6 @@ const StakeList = () => {
   };
 
   useEffect(() => {
-    getDayChangeSum();
-    getTotalChangeSum();
-  }, [equityValue]);
-
-  useEffect(() => {
     fetchStakeData();
     fetchUserInfo();
   }, [stakeToken]);
@@ -130,6 +129,16 @@ const StakeList = () => {
     fetchCurrencyUsdAud();
     fetchCurrencyAudUsd();
   }, []);
+
+  useEffect(() => {
+    getDayChangeSum();
+    getTotalChangeSum();
+    setEquityValueInAud(equityValue * currencyUsdAud);
+  }, [equityValue]);
+
+  useEffect(() => {
+    setEquityValueInAud(equityValue * currencyUsdAud);
+  }, [currencyUsdAud]);
 
   return (
     <div className=" flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl">
@@ -153,7 +162,7 @@ const StakeList = () => {
           <div className="uppercase text-xs tracking-wider">
             Equity value
             <div className="flex items-center text-2xl">
-              <div>A${showValueWithComma(equityValue * currencyUsdAud)}</div>
+              <div>A${showValueWithComma(equityValueInAud)}</div>
               {isLoading ? <LoadingIcon /> : ""}
             </div>
           </div>

@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { showValueWithComma } from "../utils";
 import { useLocalStorage } from "./useLocalStorage";
 import { LoadingIcon } from "./LoadingIcon";
+import { useUpdatePortfolioInfo } from "./useUpdatePortfolioInfo";
 
 const IngList = () => {
   const [interestRate, setInterestRate] = useLocalStorage("ingInterestRate", 0);
   const [balance, setBalance] = useLocalStorage("ingBalance", 0);
+  useUpdatePortfolioInfo("ING", balance);
   const [name, setName] = useLocalStorage("ingUserName", "");
   const [isBalanceLoading, setIsBalanceLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);

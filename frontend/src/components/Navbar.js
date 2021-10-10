@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../UserContext";
 import { PortfolioContext } from "../PortfolioContext";
 import { Link, useHistory, useLocation } from "react-router-dom";
@@ -6,7 +6,7 @@ import { showValueWithComma } from "../utils";
 
 const Navbar = () => {
   const { stakeToken, setStakeToken } = useContext(UserContext);
-  const { totalValue, setTotalValue } = useContext(PortfolioContext);
+  const { portfolioInfo, totalValue, setTotalValue } = useContext(PortfolioContext);
   const history = useHistory();
   const { pathname } = useLocation();
 
@@ -30,11 +30,19 @@ const Navbar = () => {
     }
   };
 
+  useEffect(() => {
+    let total = 0;
+    portfolioInfo.map((p) => {
+      total += p.value;
+    });
+    setTotalValue(total);
+  }, portfolioInfo);
+
   return (
     <nav>
       <header className="flex justify-between border-b border-gray-300 shadow-sm">
         <div className="flex items-center ml-10">
-          <div className="text-2xl font-medium px-4">${showValueWithComma("987654321")}</div>
+          <div className="text-2xl font-medium px-4">${showValueWithComma(totalValue)}</div>
         </div>
 
         <div className="flex items-center justify-end h-14 w-full">
