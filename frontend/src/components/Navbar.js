@@ -36,13 +36,13 @@ const Navbar = () => {
       total += p.value;
     });
     setTotalValue(total);
-  }, portfolioInfo);
+  }, [JSON.stringify(portfolioInfo)]);
 
   return (
     <nav>
       <header className="flex justify-between border-b border-gray-300 shadow-sm">
         <div className="flex items-center ml-10">
-          <div className="text-2xl font-medium px-4">${showValueWithComma(totalValue)}</div>
+          <div className="text-2xl font-medium px-4">A${showValueWithComma(totalValue)}</div>
         </div>
 
         <div className="flex items-center justify-end h-14 w-full">
