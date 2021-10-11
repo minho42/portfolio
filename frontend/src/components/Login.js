@@ -1,6 +1,6 @@
 import { useContext, useState, useRef } from "react";
 import { UserContext } from "../UserContext";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 export const requestStakeLogin = async (stakeToken, setStakeToken) => {
   try {

@@ -12,7 +12,7 @@ const PortfolioList = () => {
   return (
     <div className="grid grid-rows-2 grid-flow-col gap-3 p-3 bg-gray-100 ">
       <div className="col-span-2">
-        <PortfolioInfoPieChart className="" data={portfolioInfo} totalValue={totalValue} />
+        <PortfolioInfoPieChart data={portfolioInfo} totalValue={totalValue} />
       </div>
       <IngList />
       <CoinbaseList />

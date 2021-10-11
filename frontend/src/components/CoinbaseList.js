@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import CoinbaseItem from "./CoinbaseItem";
 import { useLocalStorage } from "./useLocalStorage";
 import { useUpdatePortfolioInfo } from "./useUpdatePortfolioInfo";
