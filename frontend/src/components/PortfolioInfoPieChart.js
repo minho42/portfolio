@@ -4,7 +4,7 @@ import { PieChart, Pie, Cell } from "recharts";
 
 const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
   const [data, setData] = useState([]);
-  const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const colors = ["#00C49F", "#0088FE", "#FFBB28", "#FF8042"];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, name, percent, index }) => {
