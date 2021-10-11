@@ -35,7 +35,7 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
       tempData.push({ ...p, percent: Number.parseFloat(((p.value / totalValue) * 100).toFixed(0)) });
     });
     setData(tempData);
-  }, [portfolioInfo]);
+  }, [portfolioInfo, totalValue]);
 
   if (!portfolioInfo) {
     return (
