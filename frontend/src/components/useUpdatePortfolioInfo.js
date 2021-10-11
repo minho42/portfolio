@@ -11,7 +11,11 @@ export const useUpdatePortfolioInfo = (name, value) => {
     if (index >= 0) {
       const newPortfolioInfo = [...portfolioInfo];
       newPortfolioInfo[index].value = Number.parseFloat(value);
-      setPortfolioInfo(newPortfolioInfo);
+      const newPortfolioInfoSorted = [...newPortfolioInfo].sort((a, b) => {
+        if (a.value < b.value) return 1;
+        else return -1;
+      });
+      setPortfolioInfo(newPortfolioInfoSorted);
     }
   };
 
