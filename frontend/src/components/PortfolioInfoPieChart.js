@@ -11,7 +11,7 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
     if (percent < 1) {
       return null;
     }
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.1;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
