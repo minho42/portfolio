@@ -32,7 +32,7 @@ const Navbar = () => {
 
   useEffect(() => {
     let total = 0;
-    portfolioInfo.map((p) => {
+    portfolioInfo.forEach((p) => {
       total += p.value;
     });
     setTotalValue(total);
