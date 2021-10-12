@@ -123,6 +123,10 @@ const StakeList = () => {
   useEffect(() => {
     fetchStakeData();
     fetchUserInfo();
+
+    // TODO: repeat fetch only if market if OPEN
+    // https://global-prd-api.hellostake.com/api/utils/marketStatus
+    setInterval(fetchStakeData, 60 * 1000);
   }, [stakeToken]);
 
   useEffect(() => {
