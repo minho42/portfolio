@@ -196,14 +196,13 @@ const StakeList = () => {
                     key={position.symbol}
                     data={position}
                     isPositive={isPositive}
-                    showValueWithSign={showValueWithSign}
                     addTotalEstimatedDividends={addTotalEstimatedDividends}
                   />
                 );
               })}
             </tbody>
             <tfoot>
-              <tr className="border-t-2 border-gray-700 text-sm text-right font-semibold">
+              <tr className="border-t-2 border-gray-700 text-sm text-right">
                 <td className="text-center uppercase py-1">Totals</td>
                 <td>-</td>
                 <td>${showValueWithComma(equityValue)}</td>
