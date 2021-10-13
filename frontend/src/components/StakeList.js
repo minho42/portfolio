@@ -22,6 +22,22 @@ const StakeList = () => {
   const [totalChangePercentage, setTotalChangePercentage] = useState(0);
   const [totalEstimatedDividends, setTotalEstimatedDividends] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [marketStatus, setMarketStatus] = useState(null);
+
+  const checkMarketStatus = async () => {
+    try {
+      const res = await fetch("https://global-prd-api.hellostake.com/api/utils/marketStatus");
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error("checkMarketStatus failed");
+      }
+      // console.log(data.response.status.current);
+      setMarketStatus(data.response.status.current);
+    } catch (error) {
+      console.log(error);
+      setMarketStatus(null);
+    }
+  };
 
   const addTotalEstimatedDividends = (n) => {
     setTotalEstimatedDividends(totalEstimatedDividends + n);
@@ -123,15 +139,14 @@ const StakeList = () => {
   useEffect(() => {
     fetchStakeData();
     fetchUserInfo();
-
     // TODO: repeat fetch only if market if OPEN
-    // https://global-prd-api.hellostake.com/api/utils/marketStatus
     setInterval(fetchStakeData, 60 * 1000);
   }, [stakeToken]);
 
   useEffect(() => {
     fetchCurrencyUsdAud();
     fetchCurrencyAudUsd();
+    checkMarketStatus();
   }, []);
 
   useEffect(() => {
@@ -148,9 +163,10 @@ const StakeList = () => {
     <div className=" flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl">
       <div className="flex justify-center text-2xl relative">
         Stake
-        <div className="absolute top-0 right-0 text-xs text-gray-500">
+        <div className="absolute top-0 right-0 text-xs text-gray-500 space-y-0.5">
           {userInfo && <div className="uppercase">{userInfo.firstName + " " + userInfo.lastName}</div>}
           <div>AUD/USD: {currencyAudUsd.toFixed(2)}</div>
+          <div>Market {marketStatus}</div>
         </div>
       </div>
       <div className="flex justify-center space-y-2 w-full">
