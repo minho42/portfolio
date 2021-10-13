@@ -59,6 +59,7 @@ const CoinbaseList = () => {
   useEffect(() => {
     fetchAccounts();
     fetchExchangeRates();
+    setInterval(fetchExchangeRates, 60 * 1000);
   }, []);
 
   useEffect(() => {
