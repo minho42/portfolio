@@ -139,14 +139,16 @@ const StakeList = () => {
   useEffect(() => {
     fetchStakeData();
     fetchUserInfo();
-    // TODO: repeat fetch only if market if OPEN
-    setInterval(fetchStakeData, 60 * 1000);
+
+    // TODO: fetchStakeData only when market is open
+    // setInterval(fetchStakeData, 60 * 1000);
   }, [stakeToken]);
 
   useEffect(() => {
     fetchCurrencyUsdAud();
     fetchCurrencyAudUsd();
     checkMarketStatus();
+    // setInterval(checkMarketStatus, 60 * 1000);
   }, []);
 
   useEffect(() => {
@@ -160,13 +162,19 @@ const StakeList = () => {
   }, [currencyUsdAud]);
 
   return (
-    <div className=" flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl">
-      <div className="flex justify-center text-2xl relative">
+    <div className=" flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl w-72 min-w-min border border-gray-300">
+      <div className="flex justify-center relative text-gray-500">
         Stake
         <div className="absolute top-0 right-0 text-xs text-gray-500 space-y-0.5">
-          {userInfo && <div className="uppercase">{userInfo.firstName + " " + userInfo.lastName}</div>}
+          {userInfo && <div className="">{userInfo.firstName + " " + userInfo.lastName}</div>}
           <div>AUD/USD: {currencyAudUsd.toFixed(2)}</div>
-          <div>Market {marketStatus}</div>
+          <div
+            className={`flex items-center justify-center rounded-lg  text-white ${
+              marketStatus === "open" ? "bg-green-500" : "bg-red-400"
+            }`}
+          >
+            Market: {marketStatus}
+          </div>
         </div>
       </div>
       <div className="flex justify-center space-y-2 w-full">
@@ -179,8 +187,8 @@ const StakeList = () => {
             </Link>
           </div>
         ) : equityValue ? (
-          <div className="uppercase text-xs tracking-wider">
-            Equity value
+          <div className="text-xs tracking-wider">
+            <div className="text-gray-500">Equity value</div>
             <div className="flex items-center text-2xl">
               <div>A${showValueWithComma(equityValueInAud, true)}</div>
               {isLoading ? <LoadingIcon /> : ""}
@@ -195,14 +203,14 @@ const StakeList = () => {
           <table className="w-11/12">
             <thead>
               <tr className="border-b-2 border-gray-700 text-right">
-                <th className="text-sm uppercase font-medium text-center">Code</th>
-                <th className="text-sm uppercase font-medium">Units</th>
-                <th className="text-sm uppercase font-medium">Value</th>
-                <th className="text-sm uppercase font-medium">Day P/L</th>
-                <th className="text-sm uppercase font-medium">Total P/L</th>
-                <th className="text-sm uppercase font-medium">Dividend yield</th>
-                <th className="text-sm uppercase font-medium">Dividends</th>
-                <th className="text-sm uppercase font-medium">Ratings</th>
+                <th className="text-sm font-medium text-center">Code</th>
+                <th className="text-sm font-medium">Units</th>
+                <th className="text-sm font-medium">Value</th>
+                <th className="text-sm font-medium">Day P/L</th>
+                <th className="text-sm font-medium">Total P/L</th>
+                <th className="text-sm font-medium">DY</th>
+                <th className="text-sm font-medium">Dividends</th>
+                <th className="text-sm font-medium">Ratings</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-300">

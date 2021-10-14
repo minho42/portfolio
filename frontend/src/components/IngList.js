@@ -39,17 +39,17 @@ const IngList = () => {
   }, []);
 
   return (
-    <div className="flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl">
-      <div className="flex justify-center text-2xl relative">
+    <div className="flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl border border-gray-300">
+      <div className="flex justify-center relative text-gray-500">
         ING
-        <div className="absolute top-0 right-0 text-xs text-gray-500 uppercase">{name}</div>
+        <div className="absolute top-0 right-0 text-xs text-gray-500">{name}</div>
       </div>
       <div className="flex justify-center space-y-2 w-full">
         {errorMessage ? (
           <div className="text-gray-500">{errorMessage}</div>
         ) : (
-          <div className="uppercase text-xs tracking-wider">
-            Total balance
+          <div className="text-xs tracking-wider">
+            <div className="text-gray-500">Total balance</div>
             <div className="flex items-center text-2xl ">
               <div className="flex">${showValueWithComma(balance, true)}</div>
               {isBalanceLoading ? <LoadingIcon /> : ""}

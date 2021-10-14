@@ -32,7 +32,7 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
   useEffect(() => {
     const tempData = [];
     portfolioInfo.forEach((p) => {
-      tempData.push({ ...p, percent: Number.parseFloat(((p.value / totalValue) * 100).toFixed(0)) });
+      tempData.push({ ...p, percent: Number.parseFloat(((p.value / totalValue) * 100).toFixed(1)) });
     });
     setData(tempData);
   }, [portfolioInfo, totalValue]);
@@ -52,25 +52,36 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center p-3 bg-white rounded-xl">
-      <PieChart width={200} height={200}>
-        <Pie
-          strokeWidth="2"
-          data={data}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          label={renderCustomizedLabel}
-          // innerRadius={20}
-          outerRadius={90}
-          fill="#10b882"
-          dataKey="percent"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-          ))}
-        </Pie>
-      </PieChart>
+    <div className="flex flex-col items-center justify-center p-3 bg-white rounded-xl border border-gray-300">
+      <div className="flex justify-between space-x-2 text-2xl">
+        <PieChart width={180} height={180}>
+          <Pie
+            strokeWidth="3"
+            data={data}
+            cx="50%"
+            cy="50%"
+            // labelLine={false}
+            // label={renderCustomizedLabel}
+            innerRadius={30}
+            outerRadius={60}
+            fill="#10b882"
+            dataKey="percent"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+        <div className="flex flex-col justify-center  divide-y space-y-2">
+          {data.map((d) => {
+            return (
+              <div className="font-light">
+                {d.label[0]}: {d.percent}%
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

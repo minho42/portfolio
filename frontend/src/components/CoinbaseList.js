@@ -67,12 +67,12 @@ const CoinbaseList = () => {
   }, [accounts, rates]);
 
   return (
-    <div className="flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl">
-      <div className="flex justify-center text-2xl">Coinbase</div>
+    <div className="flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl border border-gray-300">
+      <div className="flex justify-center text-gray-500">Coinbase</div>
       <div className="flex justify-center space-y-2 w-full">
         {totalAmount ? (
-          <div className="uppercase text-xs tracking-wider">
-            Portfolio balance
+          <div className="text-xs tracking-wider">
+            <div className="text-gray-500">Portfolio balance</div>
             <div className="flex text-2xl">
               <div className="flex">A${totalAmount.toFixed(2)}</div>
             </div>
@@ -89,9 +89,9 @@ const CoinbaseList = () => {
           <table className="w-11/12">
             <thead>
               <tr className="border-b-2 border-gray-700">
-                <th className="text-sm uppercase font-medium">Name</th>
-                <th className="text-sm uppercase font-medium">Amount</th>
-                <th className="text-sm uppercase font-medium">AUD</th>
+                <th className="text-sm font-medium">Name</th>
+                <th className="text-sm font-medium">Amount</th>
+                <th className="text-sm font-medium">AUD</th>
               </tr>
             </thead>
             <tbody>

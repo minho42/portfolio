@@ -7,7 +7,7 @@ export const PortfolioProvider = ({ children }) => {
   const [portfolioInfo, setPortfolioInfo] = useState([
     {
       name: "Stake",
-      label: ["Investment", "Stock"],
+      label: ["Stock"],
       value: 0,
     },
     {
@@ -17,7 +17,7 @@ export const PortfolioProvider = ({ children }) => {
     },
     {
       name: "Coinbase",
-      label: ["Investment", "Cryptocurrency"],
+      label: ["Crypto"],
       value: 0,
     },
   ]);
