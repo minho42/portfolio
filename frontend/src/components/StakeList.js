@@ -167,7 +167,7 @@ const StakeList = () => {
         Stake
         <div className="absolute top-0 right-0 text-xs text-gray-500 space-y-0.5">
           {userInfo && <div className="">{userInfo.firstName + " " + userInfo.lastName}</div>}
-          <div>AUD/USD: {currencyAudUsd.toFixed(2)}</div>
+          <div>AUD/USD: {currencyAudUsd.toFixed(3)}</div>
           <div
             className={`flex items-center justify-center rounded-lg  text-white ${
               marketStatus === "open" ? "bg-green-500" : "bg-red-400"
