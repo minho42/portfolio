@@ -1,8 +1,8 @@
 const axios = require("axios");
 
-const getStakeData = async (token) => {
+const getEquityPositions = async (token) => {
   if (!token) {
-    throw new Error("getStakeData: !token");
+    throw new Error("getEquityPositions: !token");
   }
   const config = {
     method: "get",
@@ -30,7 +30,7 @@ const getStakeData = async (token) => {
   try {
     const { data } = await axios(config);
 
-    console.log("getStakeData: ");
+    console.log("getEquityPositions: ");
     // console.log(data);
     return data;
   } catch (error) {
@@ -38,4 +38,4 @@ const getStakeData = async (token) => {
   }
 };
 
-module.exports = getStakeData;
+module.exports = { getEquityPositions, getTransactionHistory };

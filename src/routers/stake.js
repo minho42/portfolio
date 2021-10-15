@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const getStakeData = require("../stake");
+const { getEquityPositions, getTransactionHistory } = require("../stake");
 const checkUser = require("../checkUser");
 const stakeAuth = require("../middleware/stakeAuth");
 
@@ -41,7 +41,11 @@ router.post("/stake/logout", stakeAuth, async (req, res) => {
 router.get("/stake/api/stake", stakeAuth, async (req, res) => {
   try {
     const stakeToken = req.cookies.stakeToken;
-    const { equityPositions, equityValue } = await getStakeData(stakeToken);
+
+router.get("/stake/api/equityPositions", stakeAuth, async (req, res) => {
+  try {
+    const stakeToken = req.cookies.stakeToken;
+    const { equityPositions, equityValue } = await getEquityPositions(stakeToken);
 
     res.send({
       data: {

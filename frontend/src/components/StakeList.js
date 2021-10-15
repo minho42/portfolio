@@ -93,7 +93,7 @@ const StakeList = () => {
       return;
     }
     try {
-      const res = await fetch("http://localhost:4000/stake/api/stake", {
+      const res = await fetch("http://localhost:4000/stake/api/equityPositions", {
         credentials: "include",
       });
       if (res.status !== 200) {
