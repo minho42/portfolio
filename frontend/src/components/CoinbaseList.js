@@ -11,6 +11,7 @@ const CoinbaseList = () => {
   const [isLoadingAccounts, setIsLoadingAccounts] = useState(true);
   const [isLoadingRates, setIsLoadingRates] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showItems, setShowItems] = useState(false);
 
   const fetchAccounts = async () => {
     try {
@@ -84,25 +85,33 @@ const CoinbaseList = () => {
         )}
       </div>
 
-      {/* <div className="flex justify-center">
-        {accounts && rates && (
-          <table className="w-11/12">
-            <thead>
-              <tr className="border-b-2 border-gray-700">
-                <th className="text-sm font-medium">Name</th>
-                <th className="text-sm font-medium">Amount</th>
-                <th className="text-sm font-medium">AUD</th>
-              </tr>
-            </thead>
-            <tbody>
-              {accounts &&
-                accounts.map((account) => {
-                  return <CoinbaseItem key={account.id} data={account} rates={rates} />;
-                })}
-            </tbody>
-          </table>
-        )}
-      </div> */}
+      <div className="flex justify-center">
+        <button onClick={() => setShowItems(!showItems)} className="text-xs text-gray-400 underline">
+          {showItems ? "Show less" : "Show more"}
+        </button>
+      </div>
+
+      {showItems && (
+        <div className="flex justify-center">
+          {accounts && rates && (
+            <table className="w-11/12">
+              <thead>
+                <tr className="border-b-2 border-gray-700">
+                  <th className="text-sm font-medium">Name</th>
+                  <th className="text-sm font-medium">Amount</th>
+                  <th className="text-sm font-medium">AUD</th>
+                </tr>
+              </thead>
+              <tbody>
+                {accounts &&
+                  accounts.map((account) => {
+                    return <CoinbaseItem key={account.id} data={account} rates={rates} />;
+                  })}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
     </div>
   );
 };
