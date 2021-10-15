@@ -73,7 +73,7 @@ const CoinbaseList = () => {
         {totalAmount ? (
           <div className="text-xs tracking-wider">
             <div className="text-gray-500">Portfolio balance</div>
-            <div className="flex text-2xl">
+            <div className="flex text-3xl font-light">
               <div className="flex">A${totalAmount.toFixed(2)}</div>
             </div>
           </div>
@@ -84,7 +84,7 @@ const CoinbaseList = () => {
         )}
       </div>
 
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         {accounts && rates && (
           <table className="w-11/12">
             <thead>
@@ -102,7 +102,7 @@ const CoinbaseList = () => {
             </tbody>
           </table>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

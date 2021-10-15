@@ -44,6 +44,7 @@ const getTransactionHistory = async (token) => {
   }
 
   const configData =
+    // TODO: ?change from, to
     '{"direction":"prev","from":"2020-10-16T12:54:42.216Z","to":"2021-10-16T12:54:42.216Z","limit":1000,"offset":null}';
 
   const config = {

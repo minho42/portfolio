@@ -189,7 +189,7 @@ const StakeList = () => {
         ) : equityValue ? (
           <div className="text-xs tracking-wider">
             <div className="text-gray-500">Equity value</div>
-            <div className="flex items-center text-2xl">
+            <div className="flex items-center text-3xl font-light">
               <div>A${showValueWithComma(equityValueInAud, true)}</div>
               {isLoading ? <LoadingIcon /> : ""}
             </div>

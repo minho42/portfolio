@@ -53,7 +53,7 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
 
   return (
     <div className="flex flex-col items-center justify-center p-3 bg-white rounded-xl border border-gray-300">
-      <div className="flex justify-between space-x-2 text-2xl">
+      <div className="flex justify-between space-x-2">
         <PieChart width={180} height={180}>
           <Pie
             strokeWidth="3"
@@ -75,7 +75,7 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
         <div className="flex flex-col justify-center  divide-y space-y-2">
           {data.map((d) => {
             return (
-              <div className="font-light">
+              <div className="text-2xl font-light">
                 {d.label[0]}: {d.percent}%
               </div>
             );

@@ -50,7 +50,7 @@ const IngList = () => {
         ) : (
           <div className="text-xs tracking-wider">
             <div className="text-gray-500">Total balance</div>
-            <div className="flex items-center text-2xl ">
+            <div className="flex items-center text-3xl font-light">
               <div className="flex">${showValueWithComma(balance, true)}</div>
               {isBalanceLoading ? <LoadingIcon /> : ""}
             </div>
