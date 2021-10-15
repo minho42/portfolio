@@ -24,12 +24,12 @@ const StakeList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [marketStatus, setMarketStatus] = useState(null);
 
-  const checkMarketStatus = async () => {
+  const fetchMarketStatus = async () => {
     try {
       const res = await fetch("https://global-prd-api.hellostake.com/api/utils/marketStatus");
       const data = await res.json();
       if (!res.ok) {
-        throw new Error("checkMarketStatus failed");
+        throw new Error("fetchMarketStatus failed");
       }
       // console.log(data.response.status.current);
       setMarketStatus(data.response.status.current);
@@ -147,8 +147,8 @@ const StakeList = () => {
   useEffect(() => {
     fetchCurrencyUsdAud();
     fetchCurrencyAudUsd();
-    checkMarketStatus();
-    // setInterval(checkMarketStatus, 60 * 1000);
+    fetchMarketStatus();
+    // setInterval(fetchMarketStatus, 60 * 1000);
   }, []);
 
   useEffect(() => {
