@@ -38,9 +38,19 @@ router.post("/stake/logout", stakeAuth, async (req, res) => {
   }
 });
 
-router.get("/stake/api/stake", stakeAuth, async (req, res) => {
+router.get("/stake/api/transactionHistory", stakeAuth, async (req, res) => {
   try {
     const stakeToken = req.cookies.stakeToken;
+    const data = await getTransactionHistory(stakeToken);
+
+    res.send({
+      data: data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send();
+  }
+});
 
 router.get("/stake/api/equityPositions", stakeAuth, async (req, res) => {
   try {
