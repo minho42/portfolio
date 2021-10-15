@@ -75,8 +75,9 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
         <div className="flex flex-col justify-center  divide-y space-y-2">
           {data.map((d) => {
             return (
-              <div className="text-2xl font-light">
-                {d.label[0]}: {d.percent}%
+              <div className="flex justify-between text-2xl font-light">
+                <div>{d.label[0]}:</div>
+                <div>{d.percent}%</div>
               </div>
             );
           })}
