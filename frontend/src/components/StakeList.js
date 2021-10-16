@@ -240,7 +240,7 @@ const StakeList = () => {
                 return (
                   <StakeItem
                     key={position.symbol}
-                    data={position}
+                    position={position}
                     isPositive={isPositive}
                     addTotalEstimatedDividends={addTotalEstimatedDividends}
                   />

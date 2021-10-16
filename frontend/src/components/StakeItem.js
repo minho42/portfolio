@@ -3,7 +3,7 @@ import { showValueWithSign, showValueWithComma } from "../utils";
 import { StakeRatingsModal } from "./StakeRatingsModal";
 
 const StakeItem = ({
-  data: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName, name },
+  position: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName, name },
   isPositive,
   addTotalEstimatedDividends,
 }) => {
