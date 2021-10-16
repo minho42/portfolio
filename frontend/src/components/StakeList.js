@@ -241,7 +241,7 @@ const StakeList = () => {
                   <StakeItem
                     key={position.symbol}
                     position={position}
-                    isPositive={isPositive}
+                    transactionHistory={transactionHistory}
                     addTotalEstimatedDividends={addTotalEstimatedDividends}
                   />
                 );

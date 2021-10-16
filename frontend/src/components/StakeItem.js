@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { showValueWithSign, showValueWithComma } from "../utils";
+import { isPositive, showValueWithSign, showValueWithComma } from "../utils";
 import { StakeRatingsModal } from "./StakeRatingsModal";
 
 const StakeItem = ({
   position: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName, name },
-  isPositive,
+  transactionHistory,
   addTotalEstimatedDividends,
 }) => {
   const [dividendYield, setDividendYield] = useState(null);
