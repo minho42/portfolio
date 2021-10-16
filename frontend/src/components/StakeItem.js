@@ -145,10 +145,10 @@ const StakeItem = ({
         <td className={` ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
           {showValueWithSign(unrealizedPL)}
         </td>
-        <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : "-"}</td>
-        <td>{estimatedDividend > 0 ? showValueWithComma(estimatedDividend) : "-"}</td>
-        <td>{totalDividend > 0 ? showValueWithComma(totalDividend) : "-"}</td>
-        <td>{totalDividendTax > 0 ? showValueWithComma(totalDividendTax) : "-"}</td>
+        <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : ""}</td>
+        <td>{estimatedDividend > 0 ? showValueWithComma(estimatedDividend) : ""}</td>
+        <td>{totalDividend > 0 ? showValueWithComma(totalDividend) : ""}</td>
+        <td>{totalDividendTax > 0 ? showValueWithComma(totalDividendTax) : ""}</td>
         <td className="text-center">{transactions && transactions.length}</td>
         <td
           onClick={() => {

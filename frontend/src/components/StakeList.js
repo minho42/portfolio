@@ -229,9 +229,9 @@ const StakeList = () => {
                 <th className="text-sm font-medium">Day P/L</th>
                 <th className="text-sm font-medium">Total P/L</th>
                 <th className="text-sm font-medium">Dividend yield</th>
-                <th className="text-sm font-medium">Estimated dividends</th>
-                <th className="text-sm font-medium">Dividends</th>
-                <th className="text-sm font-medium">Dividends tax</th>
+                <th className="text-sm font-medium">Estimated dividend</th>
+                <th className="text-sm font-medium">Dividend</th>
+                <th className="text-sm font-medium">Dividend tax</th>
                 <th className="text-sm font-medium">Transactions</th>
                 <th className="text-sm font-medium">Ratings</th>
               </tr>
@@ -251,7 +251,7 @@ const StakeList = () => {
             <tfoot>
               <tr className="border-t-2 border-gray-700 text-sm text-right">
                 <td className="text-center uppercase py-1">Totals</td>
-                <td>-</td>
+                <td></td>
                 <td>US${showValueWithComma(equityValue)}</td>
                 <td className={`${isPositive(dayChangeSum) ? "text-green-600" : "text-red-600"}`}>
                   {showValueWithSign(dayChangeSum)}
