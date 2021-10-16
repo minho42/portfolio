@@ -41,11 +41,11 @@ const Navbar = () => {
   return (
     <nav>
       <header className="flex justify-between border-b border-gray-300 shadow-sm">
-        <div className="flex items-center ml-10">
-          <div className="text-2xl font-medium px-4">${showValueWithComma(totalValue, true)}</div>
+        <div className="flex flex-grow  items-center justify-center ml-10">
+          <div className="flex text-3xl font-light px-4">${showValueWithComma(totalValue, true)}</div>
         </div>
 
-        <div className="flex items-center justify-end h-14 w-full">
+        <div className="flex items-center justify-end h-14">
           <Link
             to="/"
             className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${
