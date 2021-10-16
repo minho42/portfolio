@@ -75,7 +75,7 @@ const CoinbaseList = () => {
           <div className="text-xs tracking-wider">
             <div className="text-gray-500">Portfolio balance</div>
             <div className="flex text-3xl font-light">
-              <div className="flex">A${totalAmount.toFixed(2)}</div>
+              <div className="flex">${totalAmount.toFixed(2)}</div>
             </div>
           </div>
         ) : isLoadingAccounts || isLoadingRates ? (

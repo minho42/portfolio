@@ -233,7 +233,7 @@ const StakeList = () => {
             <tfoot>
               <tr className="border-t-2 border-gray-700 text-sm text-right">
                 <td className="text-center uppercase py-1">Totals</td>
-                <td></td>-</td>
+                <td>-</td>
                 <td>US${showValueWithComma(equityValue)}</td>
                 <td className={`${isPositive(dayChangeSum) ? "text-green-600" : "text-red-600"}`}>
                   {showValueWithSign(dayChangeSum)}
