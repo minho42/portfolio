@@ -11,6 +11,7 @@ const StakeList = () => {
   const { stakeToken, isStakeAuthLoading } = useContext(UserContext);
   const [equityPositions, setEquityPositions] = useLocalStorage("stakeEquityPositions", []);
   const [equityValue, setEquityValue] = useLocalStorage("stakeEquityValue", 0);
+  const [transactionHistory, setTransactionHistory] = useLocalStorage("stakeTransactionHistory", []);
   const [equityValueInAud, setEquityValueInAud] = useState(0);
   useUpdatePortfolioInfo("Stake", equityValueInAud);
   const [currencyUsdAud, setCurrencyUsdAud] = useLocalStorage("currencyUsdAud", 0);
@@ -81,7 +82,20 @@ const StakeList = () => {
     }
   };
 
-  // const fetchStake = async() => {}
+  const fetchTransactionHistory = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/stake/api/transactionHistory", {
+        credentials: "include",
+      });
+      if (res.status !== 200) {
+        throw new Error("fetchTransactionHistory error");
+      }
+      const { data } = await res.json();
+      setTransactionHistory(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchEquityPositions = async () => {
     setIsLoading(true);
@@ -151,6 +165,7 @@ const StakeList = () => {
     fetchCurrencyAudUsd();
     fetchMarketStatus();
     // setInterval(fetchMarketStatus, 60 * 1000);
+    fetchTransactionHistory();
   }, []);
 
   useEffect(() => {
