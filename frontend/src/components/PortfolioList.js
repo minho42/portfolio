@@ -16,7 +16,7 @@ const PortfolioList = () => {
         <IngList />
         <CoinbaseList />
       </div>
-      <div className="flex">
+      <div className="flex flex-grow">
         <StakeList />
       </div>
     </div>

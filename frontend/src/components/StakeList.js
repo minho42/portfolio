@@ -162,22 +162,25 @@ const StakeList = () => {
   }, [currencyUsdAud]);
 
   return (
-    <div className=" flex flex-col px-3 py-3 space-y-3 bg-white rounded-xl border border-gray-300">
+    <div className=" flex flex-col flex-grow px-3 py-3 space-y-3 bg-white rounded-xl border border-gray-300">
       <div className="flex justify-center relative text-gray-500">
         Stake
         <div className="absolute top-0 right-0 text-xs text-gray-500 space-y-0.5">
-          {userInfo && <div className="">{userInfo.firstName + " " + userInfo.lastName}</div>}
+          {stakeToken && userInfo && <div className="">{userInfo.firstName + " " + userInfo.lastName}</div>}
           <div>AUD/USD: {currencyAudUsd.toFixed(3)}</div>
-          <div
-            className={`flex items-center justify-center rounded-lg  text-white ${
-              marketStatus === "open" ? "bg-green-500" : "bg-red-400"
-            }`}
-          >
-            Market: {marketStatus}
-          </div>
+
+          {stakeToken && (
+            <div
+              className={`flex items-center justify-center rounded-lg  text-white ${
+                marketStatus === "open" ? "bg-green-500" : "bg-red-400"
+              }`}
+            >
+              Market: {marketStatus}
+            </div>
+          )}
         </div>
       </div>
-      <div className="flex justify-center space-y-2 w-full">
+      <div className="flex justify-center space-y-2">
         {isStakeAuthLoading ? (
           <div>Checking token...</div>
         ) : !stakeToken ? (
@@ -210,9 +213,9 @@ const StakeList = () => {
                 <th className="text-sm font-medium">Total P/L</th>
                 <th className="text-sm font-medium">Dividend yield</th>
                 <th className="text-sm font-medium">Estimated dividends / y</th>
-                {/* <th className="text-sm font-medium">Dividends paid</th>
-                <th className="text-sm font-medium">Dividends tax paid</th> */}
                 <th className="text-sm font-medium">Ratings</th>
+                <th className="text-sm font-medium">Dividends paid</th>
+                <th className="text-sm font-medium">Dividends tax paid</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-300">

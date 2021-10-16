@@ -56,7 +56,7 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
       <div className="flex justify-between space-x-2">
         <PieChart width={180} height={180}>
           <Pie
-            strokeWidth="3"
+            strokeWidth="2"
             data={data}
             cx="50%"
             cy="50%"
