@@ -81,7 +81,9 @@ const StakeList = () => {
     }
   };
 
-  const fetchStakeData = async () => {
+  // const fetchStake = async() => {}
+
+  const fetchEquityPositions = async () => {
     setIsLoading(true);
     if (!stakeToken) {
       setEquityPositions([]);
@@ -97,7 +99,7 @@ const StakeList = () => {
         credentials: "include",
       });
       if (res.status !== 200) {
-        throw new Error("fetchStakeData error");
+        throw new Error("fetchEquityPositions error");
       }
       const {
         data: { equityPositions, equityValue },
@@ -137,11 +139,11 @@ const StakeList = () => {
   };
 
   useEffect(() => {
-    fetchStakeData();
+    fetchEquityPositions();
     fetchUserInfo();
 
-    // TODO: fetchStakeData only when market is open
-    // setInterval(fetchStakeData, 60 * 1000);
+    // TODO: fetchEquityPositions only when market is open
+    // setInterval(fetchEquityPositions, 60 * 1000);
   }, [stakeToken]);
 
   useEffect(() => {
