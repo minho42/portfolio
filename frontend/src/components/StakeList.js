@@ -232,6 +232,7 @@ const StakeList = () => {
                 <th className="text-sm font-medium">Estimated dividends</th>
                 <th className="text-sm font-medium">Dividends</th>
                 <th className="text-sm font-medium">Dividends tax</th>
+                <th className="text-sm font-medium">Transactions</th>
                 <th className="text-sm font-medium">Ratings</th>
               </tr>
             </thead>

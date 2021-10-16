@@ -10,6 +10,7 @@ const StakeItem = ({
   const [dividendYield, setDividendYield] = useState(null);
   const [totalDividend, setTotalDividend] = useState(0);
   const [totalDividendTax, setTotalDividendTax] = useState(0);
+  const [transactions, setTransactions] = useState(null);
   const [estimatedDividend, setEstimatedDividend] = useState(0);
   const [ratings, setRatings] = useState(null);
   const [showRatings, setShowRatings] = useState(false);
@@ -79,6 +80,22 @@ const StakeItem = ({
     }
   };
 
+  const getTransactions = () => {
+    if (!transactionHistory) return;
+
+    const trans = [];
+
+    transactionHistory.forEach((t) => {
+      if (t.symbol === symbol) {
+        if (t.transactionType === "Buy" || t.transactionType === "Sell") {
+          trans.push({ timestamp: t.timestamp, tranAmount: t.tranAmount });
+        }
+      }
+    });
+
+    setTransactions(trans);
+  };
+
   const getTotalDividendInfo = () => {
     if (!transactionHistory) return;
 
@@ -104,6 +121,7 @@ const StakeItem = ({
     const d = await fetchDividendYield();
     setDividendYield(d);
     getTotalDividendInfo();
+    getTransactions();
     fetchRatings();
   }, []);
 
@@ -117,27 +135,28 @@ const StakeItem = ({
     <>
       <tr className="text-right text-sm hover:bg-gray-100">
         <td className="py-1 text-center">{symbol}</td>
-        <td className="py-1">{showValueWithComma(openQty)}</td>
-        <td className={`py-1 ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
+        <td className="">{showValueWithComma(openQty)}</td>
+        <td className={` ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
           ${Number.parseFloat(marketValue).toLocaleString()}
         </td>
-        <td className={`py-1 ${isPositive(unrealizedDayPL) ? "text-green-600" : "text-red-600"}`}>
+        <td className={` ${isPositive(unrealizedDayPL) ? "text-green-600" : "text-red-600"}`}>
           {showValueWithSign(unrealizedDayPL)}
         </td>
-        <td className={`py-1 ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
+        <td className={` ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
           {showValueWithSign(unrealizedPL)}
         </td>
         <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : "-"}</td>
         <td>{estimatedDividend > 0 ? showValueWithComma(estimatedDividend) : "-"}</td>
         <td>{totalDividend > 0 ? showValueWithComma(totalDividend) : "-"}</td>
         <td>{totalDividendTax > 0 ? showValueWithComma(totalDividendTax) : "-"}</td>
+        <td className="text-center">{transactions && transactions.length}</td>
         <td
           onClick={() => {
             setIsRatingsModalOpen(!isRatingsModalOpen);
           }}
-          className="flex items-center justify-end space-x-1 cursor-pointer"
+          className="flex items-center justify-start space-x-1 cursor-pointer"
         >
-          {buyCount + sellCount + holdCount === 0 ? "-" : ""}
+          {/* {buyCount + sellCount + holdCount === 0 ? "-" : ""} */}
 
           {buyCount > 0 && (
             <div className="flex items-center text-xs">
