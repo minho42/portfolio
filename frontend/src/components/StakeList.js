@@ -229,10 +229,10 @@ const StakeList = () => {
                 <th className="text-sm font-medium">Day P/L</th>
                 <th className="text-sm font-medium">Total P/L</th>
                 <th className="text-sm font-medium">Dividend yield</th>
-                <th className="text-sm font-medium">Estimated dividends / y</th>
+                <th className="text-sm font-medium">Estimated dividends</th>
+                <th className="text-sm font-medium">Dividends</th>
+                <th className="text-sm font-medium">Dividends tax</th>
                 <th className="text-sm font-medium">Ratings</th>
-                <th className="text-sm font-medium">Dividends paid</th>
-                <th className="text-sm font-medium">Dividends tax paid</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-300">

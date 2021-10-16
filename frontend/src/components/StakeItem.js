@@ -8,6 +8,8 @@ const StakeItem = ({
   addTotalEstimatedDividends,
 }) => {
   const [dividendYield, setDividendYield] = useState(null);
+  const [totalDividend, setTotalDividend] = useState(0);
+  const [totalDividendTax, setTotalDividendTax] = useState(0);
   const [estimatedDividend, setEstimatedDividend] = useState(0);
   const [ratings, setRatings] = useState(null);
   const [showRatings, setShowRatings] = useState(false);
@@ -77,10 +79,31 @@ const StakeItem = ({
     }
   };
 
+  const getTotalDividendInfo = () => {
+    if (!transactionHistory) return;
+
+    let dividendSum = 0;
+    let dividendTaxSum = 0;
+
+    transactionHistory.forEach((t) => {
+      if (t.symbol === symbol) {
+        if (t.transactionType === "Dividend") {
+          dividendSum += t.tranAmount;
+        }
+        if (t.transactionType === "Dividend Tax") {
+          dividendTaxSum += t.tranAmount;
+        }
+      }
+    });
+
+    setTotalDividend(dividendSum);
+    setTotalDividendTax(-dividendTaxSum);
+  };
+
   useEffect(async () => {
     const d = await fetchDividendYield();
     setDividendYield(d);
-
+    getTotalDividendInfo();
     fetchRatings();
   }, []);
 
@@ -106,6 +129,8 @@ const StakeItem = ({
         </td>
         <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : "-"}</td>
         <td>{estimatedDividend > 0 ? showValueWithComma(estimatedDividend) : "-"}</td>
+        <td>{totalDividend > 0 ? showValueWithComma(totalDividend) : "-"}</td>
+        <td>{totalDividendTax > 0 ? showValueWithComma(totalDividendTax) : "-"}</td>
         <td
           onClick={() => {
             setIsRatingsModalOpen(!isRatingsModalOpen);
