@@ -8,6 +8,7 @@ const fetchCurrency = require("./utils");
 const stakeRouter = require("./routers/stake");
 const coinbaseRouter = require("./routers/coinbase");
 const ingRouter = require("./routers/ing");
+const chartRouter = require("./routers/chart");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(stakeRouter);
 app.use(coinbaseRouter);
 app.use(ingRouter);
+app.use(chartRouter);
 
 app.get("", (req, res) => {
   res.send({
