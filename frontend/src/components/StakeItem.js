@@ -6,6 +6,8 @@ const StakeItem = ({
   position: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName, name },
   transactionHistory,
   addTotalEstimatedDividends,
+  addTotalDividend,
+  addTotalDividendTax,
 }) => {
   const [dividendYield, setDividendYield] = useState(null);
   const [totalDividend, setTotalDividend] = useState(0);
@@ -126,10 +128,18 @@ const StakeItem = ({
   }, []);
 
   useEffect(() => {
-    const dividend = (marketValue * dividendYield) / 100;
-    setEstimatedDividend(dividend);
-    addTotalEstimatedDividends(dividend);
+    const estimatedDividend = (marketValue * dividendYield) / 100;
+    setEstimatedDividend(estimatedDividend);
+    addTotalEstimatedDividends(estimatedDividend);
   }, [dividendYield]);
+
+  useEffect(() => {
+    addTotalDividend(totalDividend);
+  }, [totalDividend]);
+
+  useEffect(() => {
+    addTotalDividendTax(totalDividendTax);
+  }, [totalDividendTax]);
 
   return (
     <>

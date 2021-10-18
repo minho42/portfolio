@@ -22,6 +22,8 @@ const StakeList = () => {
   const [totalChangeSum, setTotalChangeSum] = useState(0);
   const [totalChangePercentage, setTotalChangePercentage] = useState(0);
   const [totalEstimatedDividends, setTotalEstimatedDividends] = useState(0);
+  const [totalDividend, setTotalDividend] = useState(0);
+  const [totalDividendTax, setTotalDividendTax] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [marketStatus, setMarketStatus] = useState(null);
 
@@ -42,6 +44,13 @@ const StakeList = () => {
 
   const addTotalEstimatedDividends = (n) => {
     setTotalEstimatedDividends(totalEstimatedDividends + n);
+  };
+
+  const addTotalDividend = (n) => {
+    setTotalDividend(totalDividend + n);
+  };
+  const addTotalDividendTax = (n) => {
+    setTotalDividendTax(totalDividendTax + n);
   };
 
   const fetchUserInfo = async () => {
@@ -244,6 +253,8 @@ const StakeList = () => {
                     position={position}
                     transactionHistory={transactionHistory}
                     addTotalEstimatedDividends={addTotalEstimatedDividends}
+                    addTotalDividend={addTotalDividend}
+                    addTotalDividendTax={addTotalDividendTax}
                   />
                 );
               })}
@@ -259,9 +270,12 @@ const StakeList = () => {
                 <td className={`${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
                   {showValueWithSign(totalChangeSum)} ({`${showValueWithSign(totalChangePercentage)}%`})
                 </td>
-                <td>-</td>
+                <td></td>
                 <td>{showValueWithComma(totalEstimatedDividends)}</td>
-                <td>-</td>
+                <td>{showValueWithComma(totalDividend)}</td>
+                <td>{showValueWithComma(totalDividendTax)}</td>
+                <td></td>
+                <td></td>
               </tr>
             </tfoot>
           </table>
