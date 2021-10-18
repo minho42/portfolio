@@ -38,7 +38,7 @@ router.post("/stake/logout", stakeAuth, async (req, res) => {
   }
 });
 
-router.get("/stake/api/transactionHistory", stakeAuth, async (req, res) => {
+router.get("/stake/transaction-history", stakeAuth, async (req, res) => {
   try {
     const stakeToken = req.cookies.stakeToken;
     const data = await getTransactionHistory(stakeToken);
@@ -52,7 +52,7 @@ router.get("/stake/api/transactionHistory", stakeAuth, async (req, res) => {
   }
 });
 
-router.get("/stake/api/equityPositions", stakeAuth, async (req, res) => {
+router.get("/stake/equity-positions", stakeAuth, async (req, res) => {
   try {
     const stakeToken = req.cookies.stakeToken;
     const { equityPositions, equityValue } = await getEquityPositions(stakeToken);

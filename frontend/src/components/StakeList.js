@@ -93,7 +93,7 @@ const StakeList = () => {
 
   const fetchTransactionHistory = async () => {
     try {
-      const res = await fetch("http://localhost:4000/stake/api/transactionHistory", {
+      const res = await fetch("http://localhost:4000/stake/transaction-history", {
         credentials: "include",
       });
       if (res.status !== 200) {
@@ -118,7 +118,7 @@ const StakeList = () => {
       return;
     }
     try {
-      const res = await fetch("http://localhost:4000/stake/api/equityPositions", {
+      const res = await fetch("http://localhost:4000/stake/equity-positions", {
         credentials: "include",
       });
       if (res.status !== 200) {
