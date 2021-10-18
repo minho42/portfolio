@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const { request } = require("express");
 const crypto = require("crypto");
 
 const getData = async (path) => {
