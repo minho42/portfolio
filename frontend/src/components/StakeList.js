@@ -21,7 +21,7 @@ const StakeList = () => {
   const [dayChangeSum, setDayChangeSum] = useState(0);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
   const [totalChangePercentage, setTotalChangePercentage] = useState(0);
-  const [totalEstimatedDividends, setTotalEstimatedDividends] = useState(0);
+  const [totalExpectedDividends, setTotalExpectedDividends] = useState(0);
   const [totalDividend, setTotalDividend] = useState(0);
   const [totalDividendTax, setTotalDividendTax] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,8 +42,8 @@ const StakeList = () => {
     }
   };
 
-  const addTotalEstimatedDividends = (n) => {
-    setTotalEstimatedDividends(totalEstimatedDividends + n);
+  const addTotalExpectedDividends = (n) => {
+    setTotalExpectedDividends(totalExpectedDividends + n);
   };
 
   const addTotalDividend = (n) => {
@@ -238,10 +238,9 @@ const StakeList = () => {
                 <th className="text-sm font-medium">Day P/L</th>
                 <th className="text-sm font-medium">Total P/L</th>
                 <th className="text-sm font-medium">Dividend yield</th>
-                <th className="text-sm font-medium">Estimated dividend</th>
+                <th className="text-sm font-medium">Ex-dividend</th>
                 <th className="text-sm font-medium">Dividend</th>
                 <th className="text-sm font-medium">Dividend tax</th>
-                <th className="text-sm font-medium">Transactions</th>
                 <th className="text-sm font-medium">Ratings</th>
               </tr>
             </thead>
@@ -252,7 +251,7 @@ const StakeList = () => {
                     key={position.symbol}
                     position={position}
                     transactionHistory={transactionHistory}
-                    addTotalEstimatedDividends={addTotalEstimatedDividends}
+                    addTotalExpectedDividends={addTotalExpectedDividends}
                     addTotalDividend={addTotalDividend}
                     addTotalDividendTax={addTotalDividendTax}
                   />
@@ -271,7 +270,7 @@ const StakeList = () => {
                   {showValueWithSign(totalChangeSum)} ({`${showValueWithSign(totalChangePercentage)}%`})
                 </td>
                 <td></td>
-                <td>{showValueWithComma(totalEstimatedDividends)}</td>
+                <td>{showValueWithComma(totalExpectedDividends)}</td>
                 <td>{showValueWithComma(totalDividend)}</td>
                 <td>{showValueWithComma(totalDividendTax)}</td>
                 <td></td>

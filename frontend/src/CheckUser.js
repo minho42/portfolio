@@ -1,5 +1,5 @@
 export const CheckUser = async (setStakeToken, setIsStakeAuthLoading) => {
-  console.log("CheckUser");
+  // console.log("CheckUser");
   try {
     const res = await fetch("http://localhost:4000/stake/check", {
       credentials: "include",

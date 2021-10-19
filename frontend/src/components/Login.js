@@ -97,7 +97,7 @@ const Login = () => {
             </form>
           </div>
         ) : (
-          <div className="text-center">hi [{stakeToken}]</div>
+          <div className="text-center">logged in</div>
         )}
       </div>
     </div>

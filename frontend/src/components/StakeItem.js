@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { isPositive, showValueWithSign, showValueWithComma } from "../utils";
 import { StakeRatingsModal } from "./StakeRatingsModal";
+import { StakeChartModal } from "./StakeChartModal";
 
 const StakeItem = ({
   position: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName, name },
   transactionHistory,
-  addTotalEstimatedDividends,
+  addTotalExpectedDividends,
   addTotalDividend,
   addTotalDividendTax,
 }) => {
@@ -13,16 +14,21 @@ const StakeItem = ({
   const [totalDividend, setTotalDividend] = useState(0);
   const [totalDividendTax, setTotalDividendTax] = useState(0);
   const [transactions, setTransactions] = useState(null);
-  const [estimatedDividend, setEstimatedDividend] = useState(0);
+  const [expectedDividend, setExpectedDividend] = useState(0);
   const [ratings, setRatings] = useState(null);
   const [showRatings, setShowRatings] = useState(false);
   const [buyCount, setBuyCount] = useState(0);
   const [sellCount, setSellCount] = useState(0);
   const [holdCount, setHoldCount] = useState(0);
   const [isRatingsModalOpen, setIsRatingsModalOpen] = useState(false);
+  const [isChartModalOpen, setIsChartModalOpen] = useState(false);
 
   const handleRatingsModalClose = () => {
     setIsRatingsModalOpen(false);
+  };
+
+  const handleChartModalClose = () => {
+    setIsChartModalOpen(false);
   };
 
   const isRatingBuy = (rating) => {
@@ -128,9 +134,9 @@ const StakeItem = ({
   }, []);
 
   useEffect(() => {
-    const estimatedDividend = (marketValue * dividendYield) / 100;
-    setEstimatedDividend(estimatedDividend);
-    addTotalEstimatedDividends(estimatedDividend);
+    const expectedDividend = (marketValue * dividendYield) / 100;
+    setExpectedDividend(expectedDividend);
+    addTotalExpectedDividends(expectedDividend);
   }, [dividendYield]);
 
   useEffect(() => {
@@ -143,7 +149,12 @@ const StakeItem = ({
 
   return (
     <>
-      <tr className="text-right text-sm hover:bg-gray-100">
+      <tr
+        onClick={() => {
+          setIsChartModalOpen(!isChartModalOpen);
+        }}
+        className="text-right text-sm hover:bg-gray-100 cursor-pointer"
+      >
         <td className="py-1 text-center">{symbol}</td>
         <td className="">{showValueWithComma(openQty)}</td>
         <td className={` ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
@@ -156,12 +167,12 @@ const StakeItem = ({
           {showValueWithSign(unrealizedPL)}
         </td>
         <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : ""}</td>
-        <td>{estimatedDividend > 0 ? showValueWithComma(estimatedDividend) : ""}</td>
+        <td>{expectedDividend > 0 ? showValueWithComma(expectedDividend) : ""}</td>
         <td>{totalDividend > 0 ? showValueWithComma(totalDividend) : ""}</td>
         <td>{totalDividendTax > 0 ? showValueWithComma(totalDividendTax) : ""}</td>
-        <td className="text-center">{transactions && transactions.length}</td>
         <td
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             setIsRatingsModalOpen(!isRatingsModalOpen);
           }}
           className="flex items-center justify-start space-x-1 cursor-pointer"
@@ -215,6 +226,16 @@ const StakeItem = ({
           )}
         </td>
       </tr>
+
+      {isChartModalOpen && (
+        <StakeChartModal
+          symbol={symbol}
+          name={name}
+          transactions={transactions}
+          isOpen={isChartModalOpen}
+          onClose={handleChartModalClose}
+        />
+      )}
 
       {ratings && isRatingsModalOpen && (
         <StakeRatingsModal
