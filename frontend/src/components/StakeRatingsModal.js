@@ -36,7 +36,7 @@ export const StakeRatingsModal = ({ symbol, name, ratings, isOpen, onClose, isRa
           {ratings &&
             ratings.map((r) => {
               return (
-                <div key={r.id} className="flex items-center py-1 space-x-1">
+                <div key={r.id} className="flex items-center py-1 space-x-1 text-sm">
                   <div
                     className={`rounded px-1 py-0.5 
                     ${
