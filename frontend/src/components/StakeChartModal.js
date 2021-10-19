@@ -29,7 +29,6 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
         data: { timestamp, quote },
       } = await res.json();
       timestamp = timestamp.slice(-TIME_FRAME);
-      // timestamp = timestamp.map((t) => timestampToDate(t));
       quote = quote.slice(-TIME_FRAME);
 
       let tempChartData = [];
@@ -159,7 +158,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                 ]}
                 allowDataOverflow={true}
               />
-              <Tooltip />
+              {/* <Tooltip /> */}
               <Line
                 connectNulls
                 type="natural"
@@ -168,12 +167,20 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                 strokeWidth="1.4px"
                 activeDot={{ r: 5, color: "#10b882" }}
                 dot={false}
+                isAnimationActive={false}
               />
 
               <Line
                 type="monotone"
                 dataKey="transaction"
-                dot={{ fill: "#0081f2", stroke: "#0081f2", strokeWidth: 3 }}
+                dot={{
+                  fill: "white",
+                  // fillOpacity: "0.5",
+                  stroke: "#0081f2",
+                  strokeWidth: 4,
+                  // strokeOpacity: "0.5",
+                }}
+                isAnimationActive={false}
               />
             </LineChart>
           )}
