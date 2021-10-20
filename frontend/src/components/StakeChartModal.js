@@ -12,11 +12,47 @@ const dateStrToTimestamp = (str) => {
   return Math.round(new Date(str).getTime() / 1000);
 };
 
-const TIME_FRAME = 5 * 4 * 12 * 2;
-
 export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose }) => {
   const [chartData, setChartData] = useLocalStorage(`stakeChartData-${symbol}`, []);
+  const [chartDataTimeFramed, setChartDataTimeFramed] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedTimeFrameName, setSelectedTimeFrameName] = useLocalStorage(
+    `stakeChartTimeFrame-${symbol}`,
+    "1y"
+  );
+  const timeFrames = [
+    {
+      name: "3m",
+      inDays: 21 * 3,
+    },
+    {
+      name: "6m",
+      inDays: 21 * 6,
+    },
+    {
+      name: "1y",
+      inDays: 5 * 52 * 1,
+    },
+    {
+      name: "2y",
+      inDays: 5 * 52 * 2,
+    },
+    {
+      name: "5y",
+      inDays: 5 * 52 * 5,
+    },
+    {
+      name: "10y",
+      inDays: 5 * 52 * 10,
+    },
+    {
+      name: "all",
+      inDays: 0,
+    },
+  ];
+  const handleTimeFrameChange = (e) => {
+    setSelectedTimeFrameName(e.target.innerHTML);
+  };
 
   const fetchChartData = async (symbol) => {
     setIsLoading(true);
@@ -28,8 +64,6 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
       let {
         data: { timestamp, quote },
       } = await res.json();
-      timestamp = timestamp.slice(-TIME_FRAME);
-      quote = quote.slice(-TIME_FRAME);
 
       let tempChartData = [];
       if (timestamp && quote) {
@@ -45,6 +79,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
           });
           tempChartData.push({
             timestamp: dateStrToTimestamp(t.timestamp),
+            quote: transactionDateFromChartData.quote,
             transaction: transactionDateFromChartData.quote,
           });
         });
@@ -90,6 +125,20 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
     fetchChartData(symbol);
   }, []);
 
+  useEffect(() => {
+    if (!chartData || !selectedTimeFrameName) return;
+
+    const selectedTimeFrame = timeFrames.find((tf) => tf.name === selectedTimeFrameName);
+    let days = 0;
+    if (selectedTimeFrame) {
+      days = selectedTimeFrame.inDays;
+    } else {
+      days = 0;
+    }
+
+    setChartDataTimeFramed(chartData.slice(-days));
+  }, [selectedTimeFrameName]);
+
   if (!isOpen) {
     return null;
   }
@@ -113,16 +162,28 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
           <div className="text-center text-sm text-gray-500">{name}</div>
         </div>
         <div className="bg-white rounded p-2">
-          <div className="flex justify-center text-sm text-gray-600">
-            <button>2Y</button>
+          <div className="flex justify-center text-sm text-gray-600 space-x-1">
+            {timeFrames.map((tf) => {
+              return (
+                <button
+                  onClick={handleTimeFrameChange}
+                  key={tf.name}
+                  className={`${
+                    selectedTimeFrameName === tf.name ? "bg-gray-200 hover:bg-gray-200" : ""
+                  } rounded-lg px-3 py-2 uppercase hover:bg-gray-100`}
+                >
+                  {tf.name}
+                </button>
+              );
+            })}
           </div>
-          {!chartData && isLoading ? (
+          {!chartDataTimeFramed && isLoading ? (
             <LoadingIcon />
           ) : (
             <LineChart
               width={720}
               height={360}
-              data={chartData}
+              data={chartDataTimeFramed}
               margin={{
                 top: 10,
                 right: 30,
@@ -139,11 +200,11 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
               />
               <XAxis
                 dataKey="timestamp"
-                fontSize="12px"
+                fontSize="11px"
                 color="#666666"
                 tickSize="0"
                 tickMargin="10"
-                // tickFormatter={xAxisFormatter}
+                tickFormatter={xAxisFormatter}
               />
               <YAxis
                 fontSize="12px"
@@ -177,8 +238,9 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                   fill: "#0081f2",
                   stroke: "white",
                   strokeWidth: 2,
-                  // strokeOpacity: 0.5,
-                  r: 6,
+                  fillOpacity: 0.9,
+                  strokeOpacity: 0.9,
+                  r: 7,
                 }}
                 isAnimationActive={false}
               />
