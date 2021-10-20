@@ -174,11 +174,11 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                 type="monotone"
                 dataKey="transaction"
                 dot={{
-                  fill: "white",
-                  // fillOpacity: "0.5",
-                  stroke: "#0081f2",
-                  strokeWidth: 4,
-                  // strokeOpacity: "0.5",
+                  fill: "#0081f2",
+                  stroke: "white",
+                  strokeWidth: 2,
+                  // strokeOpacity: 0.5,
+                  r: 6,
                 }}
                 isAnimationActive={false}
               />
