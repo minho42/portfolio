@@ -157,9 +157,7 @@ const StakeItem = ({
       >
         <td className="py-1 text-center">{symbol}</td>
         <td className="">{showValueWithComma(openQty)}</td>
-        <td className={` ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
-          ${Number.parseFloat(marketValue).toLocaleString()}
-        </td>
+        <td>${Number.parseFloat(marketValue).toLocaleString()}</td>
         <td className={` ${isPositive(unrealizedDayPL) ? "text-green-600" : "text-red-600"}`}>
           {showValueWithSign(unrealizedDayPL)}
         </td>
