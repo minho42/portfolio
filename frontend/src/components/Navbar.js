@@ -1,12 +1,9 @@
 import { useContext, useEffect } from "react";
 import { UserContext } from "../UserContext";
-import { PortfolioContext } from "../PortfolioContext";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { showValueWithComma } from "../utils";
 
 const Navbar = () => {
   const { stakeToken, setStakeToken } = useContext(UserContext);
-  const { portfolioInfo, totalValue, setTotalValue } = useContext(PortfolioContext);
   const history = useHistory();
   const { pathname } = useLocation();
 
@@ -30,22 +27,12 @@ const Navbar = () => {
     }
   };
 
-  useEffect(() => {
-    let total = 0;
-    portfolioInfo.forEach((p) => {
-      total += p.value;
-    });
-    setTotalValue(total);
-  }, [JSON.stringify(portfolioInfo)]);
-
   return (
     <nav>
       <header className="flex justify-between border-b border-gray-300 shadow-sm">
-        <div className="flex flex-grow  items-center justify-center ml-10">
-          <div className="flex text-3xl font-light px-4">${showValueWithComma(totalValue, true)}</div>
-        </div>
+        <div className="flex flex-grow  items-center justify-center ml-10"></div>
 
-        <div className="flex items-center justify-end h-14">
+        <div className="flex items-center justify-end h-10">
           <Link
             to="/"
             className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${

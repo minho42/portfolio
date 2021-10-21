@@ -7,12 +7,10 @@ import IngList from "./IngList";
 import PortfolioInfoPieChart from "./PortfolioInfoPieChart";
 
 const PortfolioList = () => {
-  const { portfolioInfo, totalValue } = useContext(PortfolioContext);
-
   return (
-    <div className="flex justify-center p-3 space-x-2 bg-gray-100 ">
+    <div className="flex justify-center p-2 space-x-2 bg-gray-100 ">
       <div className="flex flex-col space-y-2">
-        <PortfolioInfoPieChart portfolioInfo={portfolioInfo} totalValue={totalValue} />
+        <PortfolioInfoPieChart />
         <IngList />
         <CoinbaseList />
       </div>

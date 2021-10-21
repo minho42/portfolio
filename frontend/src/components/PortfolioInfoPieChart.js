@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
+import { PortfolioContext } from "../PortfolioContext";
 import { LoadingIcon } from "./LoadingIcon";
 import { PieChart, Pie, Cell } from "recharts";
+import { showValueWithComma } from "../utils";
 
-const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
+const PortfolioInfoPieChart = ({}) => {
   const [data, setData] = useState([]);
+  const { portfolioInfo, totalValue, setTotalValue } = useContext(PortfolioContext);
   const colors = ["#00C49F", "#0088FE", "#FFBB28", "#FF8042"];
 
   const RADIAN = Math.PI / 180;
@@ -37,6 +40,14 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
     setData(tempData);
   }, [portfolioInfo, totalValue]);
 
+  useEffect(() => {
+    let total = 0;
+    portfolioInfo.forEach((p) => {
+      total += p.value;
+    });
+    setTotalValue(total);
+  }, [JSON.stringify(portfolioInfo)]);
+
   if (!portfolioInfo) {
     return (
       <div className="flex items-center justify-center bg-white rounded-xl">portfolioInfo not available</div>
@@ -55,6 +66,9 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
     <div className="flex flex-col items-center justify-center p-3 bg-white rounded-xl border border-gray-300">
       <div className="flex justify-between space-x-2">
         <PieChart width={180} height={180}>
+          <text x={90} y={90} textAnchor="middle" dominantBaseline="middle" fontSize="30" fontWeight="300">
+            ${showValueWithComma(totalValue, true)}
+          </text>
           <Pie
             strokeWidth="2"
             data={data}
@@ -62,8 +76,8 @@ const PortfolioInfoPieChart = ({ portfolioInfo, totalValue }) => {
             cy="50%"
             // labelLine={false}
             // label={renderCustomizedLabel}
-            innerRadius={30}
-            outerRadius={60}
+            innerRadius={60}
+            outerRadius={80}
             fill="#10b882"
             dataKey="percent"
           >
