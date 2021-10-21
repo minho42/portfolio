@@ -16,10 +16,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
   const [chartData, setChartData] = useLocalStorage(`stakeChartData-${symbol}`, []);
   const [chartDataTimeFramed, setChartDataTimeFramed] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedTimeFrameName, setSelectedTimeFrameName] = useLocalStorage(
-    `stakeChartTimeFrame-${symbol}`,
-    "1y"
-  );
+  const [selectedTimeFrameName, setSelectedTimeFrameName] = useLocalStorage(`stakeChartTimeFrame`, "1y");
   const timeFrames = [
     {
       name: "3m",
@@ -108,18 +105,38 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
     }
   };
 
-  const escClose = (e) => {
+  const keyboardShortcuts = (e) => {
     if (e.keyCode === 27) {
       onClose();
+    }
+    // TODO: refactor this to reduce duplicate
+    else if (e.keyCode === 37) {
+      let selectedTimeFrameIndex = timeFrames.findIndex((tf) => tf.name === selectedTimeFrameName);
+
+      let newIndex = selectedTimeFrameIndex - 1;
+      if (newIndex < 0) {
+        newIndex = timeFrames.length - 1;
+      }
+      let newTimeFrameName = timeFrames[newIndex].name;
+      setSelectedTimeFrameName(newTimeFrameName);
+    } else if (e.keyCode === 39) {
+      let selectedTimeFrameIndex = timeFrames.findIndex((tf) => tf.name === selectedTimeFrameName);
+
+      let newIndex = selectedTimeFrameIndex + 1;
+      if (newIndex > timeFrames.length - 1) {
+        newIndex = 0;
+      }
+      let newTimeFrameName = timeFrames[newIndex].name;
+      setSelectedTimeFrameName(newTimeFrameName);
     }
   };
 
   useEffect(() => {
-    document.addEventListener("keydown", escClose);
+    document.addEventListener("keydown", keyboardShortcuts);
     return () => {
-      document.removeEventListener("keydown", escClose);
+      document.removeEventListener("keydown", keyboardShortcuts);
     };
-  }, []);
+  }, [selectedTimeFrameName]);
 
   useEffect(() => {
     fetchChartData(symbol);
