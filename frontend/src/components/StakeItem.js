@@ -173,13 +173,13 @@ const StakeItem = ({
           setFocusedIndex(index);
           setIsChartModalOpen(!isChartModalOpen);
         }}
-        className={`text-right text-sm hover:bg-gray-100 cursor-pointer border-l-4 ${
-          index === focusedIndex ? "shadow-md" : ""
+        className={`text-right text-sm hover:bg-gray-100 cursor-pointer ${
+          index === focusedIndex ? "shadow-md bg-gradient-to-r from-blue-100 to-white" : ""
         }`}
       >
         <td
-          className={`py-1 text-center text-sm hover:bg-gray-100 cursor-pointer border-l-4  ${
-            index === focusedIndex ? "border-blue-500 shadow-md" : "border-white"
+          className={`py-1 text-center text-sm hover:bg-gray-100 cursor-pointer border-l-8  ${
+            index === focusedIndex ? "border-blue-500" : "border-white"
           }`}
         >
           {symbol}
