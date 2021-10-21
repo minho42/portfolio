@@ -48,17 +48,14 @@ const IngList = () => {
         {errorMessage ? (
           <div className="text-gray-500">{errorMessage}</div>
         ) : (
-          <div className="text-xs tracking-wider">
-            <div className="text-gray-500">Total balance</div>
-            <div className="flex items-center text-3xl font-light">
-              <div className="flex">${showValueWithComma(balance, true)}</div>
-              {isBalanceLoading ? <LoadingIcon /> : ""}
-            </div>
+          <div className="flex items-center text-3xl font-light">
+            <div className="flex">${showValueWithComma(balance, true)}</div>
+            {isBalanceLoading ? <LoadingIcon /> : ""}
           </div>
         )}
       </div>
       <div>
-        <div className="text-center text-sm text-gray-500">Interest rate: {interestRate}%</div>
+        <div className="text-center text-xs text-gray-500">Interest rate: {interestRate}%</div>
       </div>
     </div>
   );

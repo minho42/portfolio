@@ -242,15 +242,12 @@ const StakeList = () => {
             </Link>
           </div>
         ) : equityValue ? (
-          <div className="text-xs tracking-wider">
-            <div className="text-gray-500">Equity value</div>
-            <div className="flex items-center text-3xl font-light">
-              <div>${showValueWithComma(equityValueInAud, true)}</div>
-              <div className={`ml-2 ${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
-                ({`${showValueWithSign(totalChangePercentage)}%`})
-              </div>
-              {isLoading ? <LoadingIcon /> : ""}
+          <div className="flex items-center text-3xl font-light">
+            <div>${showValueWithComma(equityValueInAud, true)}</div>
+            <div className={`ml-2 ${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
+              ({`${showValueWithSign(totalChangePercentage)}%`})
             </div>
+            {isLoading ? <LoadingIcon /> : ""}
           </div>
         ) : (
           <div>{errorMessage}</div>
