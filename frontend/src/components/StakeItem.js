@@ -151,7 +151,7 @@ const StakeItem = ({
   }, [totalDividendTax]);
 
   const keyboardShortcuts = (e) => {
-    if (e.keyCode === 79) {
+    if (e.keyCode === 79 || e.keyCode === 13) {
       // open
       if (index === focusedIndex) {
         setIsChartModalOpen(!isChartModalOpen);
