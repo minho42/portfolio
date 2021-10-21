@@ -4,7 +4,10 @@ import { StakeRatingsModal } from "./StakeRatingsModal";
 import { StakeChartModal } from "./StakeChartModal";
 
 const StakeItem = ({
-  position: { urlImage, symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName, name },
+  index,
+  focusedIndex,
+  setFocusedIndex,
+  position: { symbol, openQty, marketValue, unrealizedDayPL, unrealizedPL, encodedName, name },
   transactionHistory,
   addTotalExpectedDividends,
   addTotalDividend,
@@ -147,16 +150,41 @@ const StakeItem = ({
     addTotalDividendTax(totalDividendTax);
   }, [totalDividendTax]);
 
+  const keyboardShortcuts = (e) => {
+    if (e.keyCode === 79) {
+      // open
+      if (index === focusedIndex) {
+        setIsChartModalOpen(!isChartModalOpen);
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", keyboardShortcuts);
+    return () => {
+      document.removeEventListener("keydown", keyboardShortcuts);
+    };
+  }, [focusedIndex]);
+
   return (
     <>
       <tr
         onClick={() => {
+          setFocusedIndex(index);
           setIsChartModalOpen(!isChartModalOpen);
         }}
-        className="text-right text-sm hover:bg-gray-100 cursor-pointer"
+        className={`text-right text-sm hover:bg-gray-100 cursor-pointer border-l-4 ${
+          index === focusedIndex ? "shadow-md" : ""
+        }`}
       >
-        <td className="py-1 text-center">{symbol}</td>
-        <td className="">{showValueWithComma(openQty)}</td>
+        <td
+          className={`py-1.5 text-center text-sm hover:bg-gray-100 cursor-pointer border-l-4  ${
+            index === focusedIndex ? "border-blue-500 shadow-md" : "border-white"
+          }`}
+        >
+          {symbol}
+        </td>
+        {/* <td className="">{showValueWithComma(openQty)}</td> */}
         <td>${Number.parseFloat(marketValue).toLocaleString()}</td>
         <td className={` ${isPositive(unrealizedDayPL) ? "text-green-600" : "text-red-600"}`}>
           {showValueWithSign(unrealizedDayPL)}

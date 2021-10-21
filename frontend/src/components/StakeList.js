@@ -26,6 +26,25 @@ const StakeList = () => {
   const [totalDividendTax, setTotalDividendTax] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [marketStatus, setMarketStatus] = useState(null);
+  const [focusedIndex, setFocusedIndex] = useState(0);
+
+  const keyboardShortcuts = (e) => {
+    if (e.keyCode === 74) {
+      // move down
+      let newIndex = focusedIndex + 1;
+      if (newIndex > equityPositions.length - 1) {
+        newIndex = 0;
+      }
+      setFocusedIndex(newIndex);
+    } else if (e.keyCode === 75) {
+      // move up
+      let newIndex = focusedIndex - 1;
+      if (newIndex < 0) {
+        newIndex = equityPositions.length - 1;
+      }
+      setFocusedIndex(newIndex);
+    }
+  };
 
   const fetchMarketStatus = async () => {
     try {
@@ -178,6 +197,13 @@ const StakeList = () => {
   }, []);
 
   useEffect(() => {
+    document.addEventListener("keydown", keyboardShortcuts);
+    return () => {
+      document.removeEventListener("keydown", keyboardShortcuts);
+    };
+  }, [focusedIndex]);
+
+  useEffect(() => {
     getDayChangeSum();
     getTotalChangeSum();
     setEquityValueInAud(equityValue * currencyUsdAud);
@@ -236,7 +262,7 @@ const StakeList = () => {
             <thead>
               <tr className="border-b-2 border-gray-700 text-right">
                 <th className="text-sm font-medium text-center">Code</th>
-                <th className="text-sm font-medium">Units</th>
+                {/* <th className="text-sm font-medium">Units</th> */}
                 <th className="text-sm font-medium">Value</th>
                 <th className="text-sm font-medium">Day P/L</th>
                 <th className="text-sm font-medium">Total P/L</th>
@@ -248,9 +274,12 @@ const StakeList = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-300">
-              {equityPositions.map((position) => {
+              {equityPositions.map((position, index) => {
                 return (
                   <StakeItem
+                    index={index}
+                    focusedIndex={focusedIndex}
+                    setFocusedIndex={setFocusedIndex}
                     key={position.symbol}
                     position={position}
                     transactionHistory={transactionHistory}
@@ -264,7 +293,7 @@ const StakeList = () => {
             <tfoot>
               <tr className="border-t-2 border-gray-700 text-sm text-right">
                 <td className="text-center uppercase py-1">Totals</td>
-                <td></td>
+                {/* <td></td> */}
                 <td>US${showValueWithComma(equityValue)}</td>
                 <td className={`${isPositive(dayChangeSum) ? "text-green-600" : "text-red-600"}`}>
                   {showValueWithSign(dayChangeSum)}
