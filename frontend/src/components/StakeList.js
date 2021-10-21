@@ -29,14 +29,14 @@ const StakeList = () => {
   const [focusedIndex, setFocusedIndex] = useState(0);
 
   const keyboardShortcuts = (e) => {
-    if (e.keyCode === 74) {
+    if (e.keyCode === 40 || e.keyCode === 74) {
       // move down
       let newIndex = focusedIndex + 1;
       if (newIndex > equityPositions.length - 1) {
         newIndex = 0;
       }
       setFocusedIndex(newIndex);
-    } else if (e.keyCode === 75) {
+    } else if (e.keyCode === 38 || e.keyCode === 75) {
       // move up
       let newIndex = focusedIndex - 1;
       if (newIndex < 0) {
