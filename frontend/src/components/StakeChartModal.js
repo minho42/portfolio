@@ -110,7 +110,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
       onClose();
     }
     // TODO: refactor this to reduce duplicate
-    else if (e.keyCode === 37) {
+    else if (e.keyCode === 37 || e.keyCode === 74) {
       let selectedTimeFrameIndex = timeFrames.findIndex((tf) => tf.name === selectedTimeFrameName);
 
       let newIndex = selectedTimeFrameIndex - 1;
@@ -119,7 +119,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
       }
       let newTimeFrameName = timeFrames[newIndex].name;
       setSelectedTimeFrameName(newTimeFrameName);
-    } else if (e.keyCode === 39) {
+    } else if (e.keyCode === 39 || e.keyCode === 75) {
       let selectedTimeFrameIndex = timeFrames.findIndex((tf) => tf.name === selectedTimeFrameName);
 
       let newIndex = selectedTimeFrameIndex + 1;
