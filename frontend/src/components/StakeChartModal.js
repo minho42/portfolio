@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { LoadingIcon } from "./LoadingIcon";
 import { useLocalStorage } from "./useLocalStorage";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { Line, ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 const timestampToDate = (ts) => {
   return new Date(ts * 1000).toLocaleDateString();
@@ -186,8 +186,8 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                   onClick={handleTimeFrameChange}
                   key={tf.name}
                   className={`${
-                    selectedTimeFrameName === tf.name ? "bg-gray-200 hover:bg-gray-200" : ""
-                  } rounded-lg px-3 py-2 uppercase hover:bg-gray-100`}
+                    selectedTimeFrameName === tf.name ? " border-blue-500" : ""
+                  } border-b-4 border-white px-2 py-0.5 uppercase focus:outline-none`}
                 >
                   {tf.name}
                 </button>
@@ -197,7 +197,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
           {!chartDataTimeFramed && isLoading ? (
             <LoadingIcon />
           ) : (
-            <LineChart
+            <ComposedChart
               width={720}
               height={360}
               data={chartDataTimeFramed}
@@ -236,18 +236,21 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                 ]}
                 allowDataOverflow={true}
               />
-              {/* <Tooltip /> */}
-              <Line
-                connectNulls
-                type="natural"
+              <Tooltip isAnimationActive={false} />
+              <defs>
+                <linearGradient id="gradientArea" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="10%" stopColor="#DBEAFE" stopOpacity={1} />
+                  <stop offset="100%" stopColor="#ffffff" stopOpacity={1} />
+                </linearGradient>
+              </defs>
+              <Area
+                type="monotone"
                 dataKey="quote"
-                stroke="#000"
-                strokeWidth="1.4px"
-                activeDot={{ r: 5, color: "#10b882" }}
-                dot={false}
+                fill="url(#gradientArea)"
+                stroke="#000000"
+                strokeWidth="1.4"
                 isAnimationActive={false}
               />
-
               <Line
                 type="monotone"
                 dataKey="transaction"
@@ -255,13 +258,11 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                   fill: "#0081f2",
                   stroke: "white",
                   strokeWidth: 2,
-                  fillOpacity: 0.9,
-                  strokeOpacity: 0.9,
                   r: 7,
                 }}
                 isAnimationActive={false}
               />
-            </LineChart>
+            </ComposedChart>
           )}
         </div>
       </div>
