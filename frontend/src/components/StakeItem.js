@@ -142,9 +142,9 @@ const StakeItem = ({
         <td>{expectedDividend > 0 ? showValueWithComma(expectedDividend) : ""}</td>
         <td>{totalDividend > 0 ? showValueWithComma(totalDividend) : ""}</td>
         <td>{totalDividendTax > 0 ? showValueWithComma(totalDividendTax) : ""}</td>
-        <td>
+        {/* <td>
           <StakeRatings symbol={symbol} name={name} />
-        </td>
+        </td> */}
       </tr>
 
       {isChartModalOpen && (

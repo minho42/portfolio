@@ -267,7 +267,7 @@ const StakeList = () => {
                 <th className="text-sm font-medium">Ex-dividend</th>
                 <th className="text-sm font-medium">Dividend</th>
                 <th className="text-sm font-medium">Dividend tax</th>
-                <th className="text-sm font-medium">Ratings</th>
+                {/* <th className="text-sm font-medium">Ratings</th> */}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-300">
@@ -302,8 +302,7 @@ const StakeList = () => {
                 <td>{showValueWithComma(totalExpectedDividends)}</td>
                 <td>{showValueWithComma(totalDividend)}</td>
                 <td>{showValueWithComma(totalDividendTax)}</td>
-                <td></td>
-                <td></td>
+                {/* <td></td> */}
               </tr>
             </tfoot>
           </table>
