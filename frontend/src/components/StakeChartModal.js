@@ -162,6 +162,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
 
   const xAxisFormatter = (item) => {
     if (!item) return;
+    if (typeof item !== "string") return;
     return item.slice(3, 10);
   };
 
@@ -229,11 +230,11 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                 tickSize="0"
                 tickCount="7"
                 tickMargin="10"
-                // domain={["dataMin", "dataMax"]}
-                domain={[
-                  (dataMin) => Math.round(dataMin / 100) * 100 - 100,
-                  (dataMax) => Math.ceil(dataMax / 100) * 100,
-                ]}
+                domain={["dataMin", "dataMax"]}
+                // domain={[
+                //   (dataMin) => Math.round(dataMin / 100) * 100 - 100,
+                //   (dataMax) => Math.ceil(dataMax / 100) * 100,
+                // ]}
                 allowDataOverflow={true}
               />
               <Tooltip isAnimationActive={false} />
