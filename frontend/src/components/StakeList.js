@@ -176,7 +176,7 @@ const StakeList = () => {
     });
     setTotalChangeSum(sum.toFixed(2));
     setTotalChangePercentage(
-      ((Number.parseFloat(sum.toFixed(2)) / Number.parseFloat(equityValue)) * 100).toFixed(2)
+      ((Number.parseFloat(sum.toFixed(2)) / Number.parseFloat(equityValue - sum)) * 100).toFixed(2)
     );
   };
 
