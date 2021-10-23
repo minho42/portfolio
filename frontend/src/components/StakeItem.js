@@ -124,7 +124,7 @@ const StakeItem = ({
         }`}
       >
         <td
-          className={`py-1 text-center text-sm hover:bg-gray-100 cursor-pointer border-l-8  ${
+          className={`py-1 text-center text-sm cursor-pointer border-l-8  ${
             index === focusedIndex ? "border-blue-500" : "border-white"
           }`}
         >
