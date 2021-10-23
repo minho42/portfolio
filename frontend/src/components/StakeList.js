@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
+import { SiteStatusContext } from "../SiteStatusContext";
 import { useUpdatePortfolioInfo } from "./useUpdatePortfolioInfo";
 import StakeItem from "./StakeItem";
 import { isPositive, showValueWithSign, showValueWithComma } from "../utils";
@@ -9,6 +10,7 @@ import { LoadingIcon } from "./LoadingIcon";
 
 const StakeList = () => {
   const { stakeToken, isStakeAuthLoading } = useContext(UserContext);
+  const { isStateChartModalOpen } = useContext(SiteStatusContext);
   const [equityPositions, setEquityPositions] = useLocalStorage("stakeEquityPositions", []);
   const [equityValue, setEquityValue] = useLocalStorage("stakeEquityValue", 0);
   const [transactionHistory, setTransactionHistory] = useLocalStorage("stakeTransactionHistory", []);
@@ -29,6 +31,10 @@ const StakeList = () => {
   const [focusedIndex, setFocusedIndex] = useState(0);
 
   const keyboardShortcuts = (e) => {
+    // TODO: return if isAnyModalOpen true
+    if (isStateChartModalOpen) return;
+    console.log(e.keyCode);
+
     if (e.keyCode === 40 || e.keyCode === 74) {
       // move down
       let newIndex = focusedIndex + 1;
@@ -201,7 +207,7 @@ const StakeList = () => {
     return () => {
       document.removeEventListener("keydown", keyboardShortcuts);
     };
-  }, [focusedIndex]);
+  }, [focusedIndex, isStateChartModalOpen]);
 
   useEffect(() => {
     getDayChangeSum();

@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom";
 import { LoadingIcon } from "./LoadingIcon";
 import { useLocalStorage } from "./useLocalStorage";
 import { Line, ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { SiteStatusContext } from "../SiteStatusContext";
 
 const timestampToDate = (ts) => {
   return new Date(ts * 1000).toLocaleDateString();
@@ -17,6 +18,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
   const [chartDataTimeFramed, setChartDataTimeFramed] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTimeFrameName, setSelectedTimeFrameName] = useLocalStorage(`stakeChartTimeFrame`, "1y");
+  const { isStateChartModalOpen, setIsStateChartModalOpen } = useContext(SiteStatusContext);
   const timeFrames = [
     {
       name: "3m",
@@ -133,13 +135,19 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
 
   useEffect(() => {
     document.addEventListener("keydown", keyboardShortcuts);
+    setIsStateChartModalOpen(true);
     return () => {
       document.removeEventListener("keydown", keyboardShortcuts);
+      setIsStateChartModalOpen(false);
     };
   }, [selectedTimeFrameName]);
 
   useEffect(() => {
     fetchChartData(symbol);
+    setIsStateChartModalOpen(true);
+    return () => {
+      setIsStateChartModalOpen(false);
+    };
   }, []);
 
   useEffect(() => {

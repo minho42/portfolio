@@ -6,6 +6,7 @@ import PortfolioList from "./components/PortfolioList";
 
 import { UserProvider } from "./UserContext";
 import { PortfolioProvider } from "./PortfolioContext";
+import { SiteStatusProvider } from "./SiteStatusContext";
 
 function App() {
   return (
@@ -13,18 +14,20 @@ function App() {
       <Router>
         <UserProvider>
           <PortfolioProvider>
-            <Navbar />
-            <Switch>
-              <Route exact path="/">
-                <PortfolioList />
-              </Route>
-              <Route exact path="/login">
-                <Login />
-              </Route>
-              <Route exact path="/about">
-                <About />
-              </Route>
-            </Switch>
+            <SiteStatusProvider>
+              <Navbar />
+              <Switch>
+                <Route exact path="/">
+                  <PortfolioList />
+                </Route>
+                <Route exact path="/login">
+                  <Login />
+                </Route>
+                <Route exact path="/about">
+                  <About />
+                </Route>
+              </Switch>
+            </SiteStatusProvider>
           </PortfolioProvider>
         </UserProvider>
       </Router>
