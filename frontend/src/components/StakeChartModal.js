@@ -40,14 +40,14 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
       name: "5y",
       inDays: 5 * 52 * 5,
     },
-    {
-      name: "10y",
-      inDays: 5 * 52 * 10,
-    },
-    {
-      name: "all",
-      inDays: 0,
-    },
+    // {
+    //   name: "10y",
+    //   inDays: 5 * 52 * 10,
+    // },
+    // {
+    //   name: "all",
+    //   inDays: 0,
+    // },
   ];
   const handleTimeFrameChange = (e) => {
     setSelectedTimeFrameName(e.target.innerHTML);
