@@ -31,9 +31,7 @@ const StakeList = () => {
   const [focusedIndex, setFocusedIndex] = useState(0);
 
   const keyboardShortcuts = (e) => {
-    // TODO: return if isAnyModalOpen true
     if (isStateChartModalOpen) return;
-    console.log(e.keyCode);
 
     if (e.keyCode === 40 || e.keyCode === 74) {
       // move down
