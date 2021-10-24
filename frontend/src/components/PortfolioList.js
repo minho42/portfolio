@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { PortfolioContext } from "../PortfolioContext";
-
 import StakeList from "./StakeList";
 import CoinbaseList from "./CoinbaseList";
 import IngList from "./IngList";

@@ -3,7 +3,6 @@ import { StakeRatingsModal } from "./StakeRatingsModal";
 
 export const StakeRatings = ({ symbol, name }) => {
   const [ratings, setRatings] = useState(null);
-  const [showRatings, setShowRatings] = useState(false);
   const [buyCount, setBuyCount] = useState(0);
   const [sellCount, setSellCount] = useState(0);
   const [holdCount, setHoldCount] = useState(0);
