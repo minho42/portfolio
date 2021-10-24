@@ -167,7 +167,7 @@ const StakeList = () => {
 
   const getDayChangeSum = () => {
     let sum = 0;
-    equityPositions.map((position) => {
+    equityPositions.forEach((position) => {
       sum += Number.parseFloat(position.unrealizedDayPL);
     });
     setDayChangeSum(sum.toFixed(2));
@@ -175,7 +175,7 @@ const StakeList = () => {
 
   const getTotalChangeSum = () => {
     let sum = 0;
-    equityPositions.map((position) => {
+    equityPositions.forEach((position) => {
       sum += Number.parseFloat(position.unrealizedPL);
     });
     setTotalChangeSum(sum.toFixed(2));

@@ -26,7 +26,7 @@ export const StakeRatings = ({ symbol, name }) => {
     let buy = 0;
     let sell = 0;
     let hold = 0;
-    ratings.map((r) => {
+    ratings.forEach((r) => {
       if (isRatingBuy(r.rating_current)) {
         buy++;
       } else if (isRatingSell(r.rating_current)) {
