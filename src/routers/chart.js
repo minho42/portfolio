@@ -3,9 +3,10 @@ const router = express.Router();
 const axios = require("axios");
 
 const fetchChartData = async (symbol) => {
+  const period2 = Math.round(new Date().getTime() / 1000);
   const config = {
     method: "get",
-    url: `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?symbol=${symbol}&period1=1238504400&period2=1634551429&useYfid=true&interval=1d&includePrePost=true&events=div%7Csplit%7Cearn&lang=en-AU&region=AU&crumb=IhoCryrfgf0&corsDomain=au.finance.yahoo.com`,
+    url: `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?symbol=${symbol}&period1=1238504400&period2=${period2}&useYfid=true&interval=1d&includePrePost=true&events=div%7Csplit%7Cearn&lang=en-AU&region=AU&crumb=IhoCryrfgf0&corsDomain=au.finance.yahoo.com`,
     headers: {
       authority: "query1.finance.yahoo.com",
       pragma: "no-cache",
