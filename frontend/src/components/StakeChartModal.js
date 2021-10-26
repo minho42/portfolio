@@ -76,6 +76,21 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
           const transactionDateFromChartData = tempChartData.find((item) => {
             return Math.abs(item.timestamp - dateStrToTimestamp(t.timestamp)) / 60 / 60 < 24;
           });
+
+          // remove same date first before pushing transaction data to prevent duplicate dates
+          const removeIndex = tempChartData.findIndex((d) => {
+            const a = new Date(d.timestamp * 1000);
+            const b = new Date(dateStrToTimestamp(t.timestamp) * 1000);
+            return (
+              a.getYear() === b.getYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+            );
+          });
+
+          // console.log(`removeIndex: ${removeIndex}`);
+          if (removeIndex >= 0) {
+            tempChartData.splice(removeIndex, 1);
+          }
+
           tempChartData.push({
             timestamp: dateStrToTimestamp(t.timestamp),
             quote: transactionDateFromChartData.quote,
@@ -240,9 +255,16 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                 tickMargin="10"
                 domain={["dataMin", "dataMax"]}
                 // domain={[
-                //   (dataMin) => Math.round(dataMin / 100) * 100 - 100,
-                //   (dataMax) => Math.ceil(dataMax / 100) * 100,
+                //   (dataMin) => {
+                //     console.log(dataMin);
+                //     return dataMin;
+                //   },
+                //   (dataMax) => {
+                //     console.log(dataMax);
+                //     return dataMax;
+                //   },
                 // ]}
+                // domain={[0, (dataMax) => Math.ceil(dataMax / 100) * 100 + 200]}
                 allowDataOverflow={true}
               />
               <Tooltip isAnimationActive={false} />
