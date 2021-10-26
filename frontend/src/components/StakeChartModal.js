@@ -21,6 +21,10 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
   const { isStateChartModalOpen, setIsStateChartModalOpen } = useContext(SiteStatusContext);
   const timeFrames = [
     {
+      name: "1m",
+      inDays: 21,
+    },
+    {
       name: "3m",
       inDays: 21 * 3,
     },
