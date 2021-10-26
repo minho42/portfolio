@@ -19,6 +19,8 @@ const StakeList = () => {
   const [currencyUsdAud, setCurrencyUsdAud] = useLocalStorage("currencyUsdAud", 0);
   const [currencyAudUsd, setCurrencyAudUsd] = useLocalStorage("currencyAudUsd", 0);
   const [userInfo, setUserInfo] = useLocalStorage("stakeUserInfo", {});
+  // const [focusedIndex, setFocusedIndex] = useState(0);
+  const [focusedIndex, setFocusedIndex] = useLocalStorage("stakeFocusedIndex", 0);
   const [errorMessage, setErrorMessage] = useState(null);
   const [dayChangeSum, setDayChangeSum] = useState(0);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
@@ -28,7 +30,6 @@ const StakeList = () => {
   const [totalDividendTax, setTotalDividendTax] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [marketStatus, setMarketStatus] = useState(null);
-  const [focusedIndex, setFocusedIndex] = useState(0);
 
   const keyboardShortcuts = (e) => {
     if (isStateChartModalOpen) return;
@@ -211,6 +212,12 @@ const StakeList = () => {
     getDayChangeSum();
     getTotalChangeSum();
     setEquityValueInAud(equityValue * currencyUsdAud);
+
+    if (equityPositions && equityPositions.length) {
+      if (focusedIndex + 1 >= equityPositions.length) {
+        setFocusedIndex(0);
+      }
+    }
   }, [equityValue]);
 
   useEffect(() => {
