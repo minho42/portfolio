@@ -124,7 +124,11 @@ const StakeList = () => {
         throw new Error("fetchTransactionHistory error");
       }
       const { data } = await res.json();
-      setTransactionHistory(data);
+      if (data) {
+        setTransactionHistory(data);
+      } else {
+        setTransactionHistory([]);
+      }
     } catch (error) {
       console.log(error);
     }
