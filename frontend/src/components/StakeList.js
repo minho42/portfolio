@@ -234,16 +234,20 @@ const StakeList = () => {
       <div className="flex justify-center relative text-gray-500">
         Stake
         <div className="absolute top-0 right-0 text-xs text-gray-500 space-y-0.5">
-          {stakeToken && userInfo && <div className="">{userInfo.firstName + " " + userInfo.lastName}</div>}
+          {stakeToken && userInfo && (
+            <div className="flex justify-end">{userInfo.firstName + " " + userInfo.lastName}</div>
+          )}
           <div>AUD/USD: {currencyAudUsd.toFixed(3)}</div>
 
           {stakeToken && (
-            <div
-              className={`flex items-center justify-center rounded-lg  text-white ${
-                marketStatus === "open" ? "bg-green-500" : "bg-red-400"
-              }`}
-            >
-              Market: {marketStatus}
+            <div className="flex justify-end">
+              <div
+                className={`flex items-center justify-center rounded-lg text-white px-2 ${
+                  marketStatus === "open" ? "bg-green-500" : "bg-red-400"
+                }`}
+              >
+                {marketStatus}
+              </div>
             </div>
           )}
         </div>
