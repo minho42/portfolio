@@ -42,9 +42,9 @@ const getTransactionHistory = async (token) => {
   if (!token) {
     throw new Error("getTransactionHistory: !token");
   }
-  const toDate = new Date().toISOString();
 
-  const configData = `{"direction":"prev","from":"2020-04-01T00:00:00.216Z","to":${toDate},"limit":1000,"offset":null}`;
+  const toDate = new Date().toISOString();
+  const configData = `{"direction":"prev","from":"2020-04-01T00:00:00.000Z","to":"${toDate}","limit":1000,"offset":null}`;
 
   const config = {
     method: "post",
