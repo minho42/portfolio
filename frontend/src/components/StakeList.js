@@ -30,6 +30,7 @@ const StakeList = () => {
   const [totalDividendTax, setTotalDividendTax] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [marketStatus, setMarketStatus] = useState(null);
+  const [showItems, setShowItems] = useLocalStorage("stakeShowItems", false);
 
   const keyboardShortcuts = (e) => {
     if (isStateChartModalOpen) return;
@@ -268,61 +269,70 @@ const StakeList = () => {
           <div>{errorMessage}</div>
         )}
       </div>
+
       <div className="flex justify-center">
-        {stakeToken && equityPositions && (
-          <table className="w-11/12">
-            <thead>
-              <tr className="border-b-2 border-gray-700 text-right">
-                <th className="text-sm font-medium text-center">Code</th>
-                {/* <th className="text-sm font-medium">Units</th> */}
-                <th className="text-sm font-medium">Value</th>
-                <th className="text-sm font-medium">Day P/L</th>
-                <th className="text-sm font-medium">Total P/L</th>
-                <th className="text-sm font-medium">Dividend yield</th>
-                <th className="text-sm font-medium">Ex-dividend</th>
-                <th className="text-sm font-medium">Dividend</th>
-                <th className="text-sm font-medium">Dividend tax</th>
-                {/* <th className="text-sm font-medium">Ratings</th> */}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-300">
-              {equityPositions.map((position, index) => {
-                return (
-                  <StakeItem
-                    index={index}
-                    focusedIndex={focusedIndex}
-                    setFocusedIndex={setFocusedIndex}
-                    key={position.symbol}
-                    position={position}
-                    transactionHistory={transactionHistory}
-                    addTotalExpectedDividends={addTotalExpectedDividends}
-                    addTotalDividend={addTotalDividend}
-                    addTotalDividendTax={addTotalDividendTax}
-                  />
-                );
-              })}
-            </tbody>
-            <tfoot>
-              <tr className="border-t-2 border-gray-700 text-sm text-right">
-                <td className="text-center uppercase py-1">Totals</td>
-                {/* <td></td> */}
-                <td>US${showValueWithComma(equityValue)}</td>
-                <td className={`${isPositive(dayChangeSum) ? "text-green-600" : "text-red-600"}`}>
-                  {showValueWithSign(dayChangeSum)}
-                </td>
-                <td className={`${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
-                  {showValueWithSign(totalChangeSum)} ({`${showValueWithSign(totalChangePercentage)}%`})
-                </td>
-                <td></td>
-                <td>{showValueWithComma(totalExpectedDividends)}</td>
-                <td>{showValueWithComma(totalDividend)}</td>
-                <td>{showValueWithComma(totalDividendTax)}</td>
-                {/* <td></td> */}
-              </tr>
-            </tfoot>
-          </table>
-        )}
+        <button onClick={() => setShowItems(!showItems)} className="text-xs text-gray-400 underline">
+          {showItems ? "Show less" : "Show more"}
+        </button>
       </div>
+
+      {showItems && (
+        <div className="flex justify-center">
+          {stakeToken && equityPositions && (
+            <table className="w-11/12">
+              <thead>
+                <tr className="border-b-2 border-gray-700 text-right">
+                  <th className="text-sm font-medium text-center">Code</th>
+                  {/* <th className="text-sm font-medium">Units</th> */}
+                  <th className="text-sm font-medium">Value</th>
+                  <th className="text-sm font-medium">Day P/L</th>
+                  <th className="text-sm font-medium">Total P/L</th>
+                  <th className="text-sm font-medium">Dividend yield</th>
+                  <th className="text-sm font-medium">Ex-dividend</th>
+                  <th className="text-sm font-medium">Dividend</th>
+                  <th className="text-sm font-medium">Dividend tax</th>
+                  {/* <th className="text-sm font-medium">Ratings</th> */}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-300">
+                {equityPositions.map((position, index) => {
+                  return (
+                    <StakeItem
+                      index={index}
+                      focusedIndex={focusedIndex}
+                      setFocusedIndex={setFocusedIndex}
+                      key={position.symbol}
+                      position={position}
+                      transactionHistory={transactionHistory}
+                      addTotalExpectedDividends={addTotalExpectedDividends}
+                      addTotalDividend={addTotalDividend}
+                      addTotalDividendTax={addTotalDividendTax}
+                    />
+                  );
+                })}
+              </tbody>
+              <tfoot>
+                <tr className="border-t-2 border-gray-700 text-sm text-right">
+                  <td className="text-center uppercase py-1">Totals</td>
+                  {/* <td></td> */}
+                  <td>US${showValueWithComma(equityValue)}</td>
+                  <td className={`${isPositive(dayChangeSum) ? "text-green-600" : "text-red-600"}`}>
+                    {showValueWithSign(dayChangeSum)}
+                  </td>
+                  <td className={`${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
+                    {showValueWithSign(totalChangeSum)} ({`${showValueWithSign(totalChangePercentage)}%`})
+                  </td>
+                  <td></td>
+                  <td>{showValueWithComma(totalExpectedDividends)}</td>
+                  <td>{showValueWithComma(totalDividend)}</td>
+                  <td>{showValueWithComma(totalDividendTax)}</td>
+                  {/* <td></td> */}
+                </tr>
+              </tfoot>
+            </table>
+          )}
+        </div>
+      )}
     </div>
   );
 };
