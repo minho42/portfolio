@@ -19,7 +19,7 @@ export const requestStakeLogin = async (stakeToken, setStakeToken) => {
       throw new Error("requestStakeLogin failed");
     }
     const { stakeToken: validToken } = await res.json();
-    console.log(validToken);
+    // console.log(validToken);
     setStakeToken(validToken);
     return validToken;
   } catch (error) {
