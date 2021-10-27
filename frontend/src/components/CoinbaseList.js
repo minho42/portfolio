@@ -11,7 +11,7 @@ const CoinbaseList = () => {
   const [isLoadingAccounts, setIsLoadingAccounts] = useState(true);
   const [isLoadingRates, setIsLoadingRates] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [showItems, setShowItems] = useState(false);
+  const [showItems, setShowItems] = useLocalStorage("coinbaseShowItems", false);
 
   const fetchAccounts = async () => {
     try {
