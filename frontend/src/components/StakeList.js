@@ -195,6 +195,7 @@ const StakeList = () => {
     fetchUserInfo();
 
     // TODO: fetchEquityPositions only when market is open
+    // TODO: how not to make list blink? (becomes empty then fills in the list)
     // setInterval(fetchEquityPositions, 60 * 1000);
   }, [stakeToken]);
 
