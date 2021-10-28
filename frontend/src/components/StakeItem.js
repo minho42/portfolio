@@ -120,12 +120,12 @@ const StakeItem = ({
           setIsChartModalOpen(!isChartModalOpen);
         }}
         className={`text-right text-sm hover:bg-gray-100 cursor-pointer ${
-          index === focusedIndex ? "shadow-md bg-gradient-to-r from-white to-blue-100" : ""
+          index === focusedIndex ? "shadow-md" : ""
         }`}
       >
         <td
           className={`py-1 text-center text-sm cursor-pointer border-l-8  ${
-            index === focusedIndex ? "border-blue-500" : "border-white"
+            index === focusedIndex ? "border-green-500" : "border-white"
           }`}
         >
           {symbol}

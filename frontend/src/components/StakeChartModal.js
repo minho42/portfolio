@@ -214,7 +214,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                   onClick={handleTimeFrameChange}
                   key={tf.name}
                   className={`${
-                    selectedTimeFrameName === tf.name ? " border-blue-500" : ""
+                    selectedTimeFrameName === tf.name ? " border-green-500" : ""
                   } border-b-4 border-white px-2 py-0.5 uppercase focus:outline-none`}
                 >
                   {tf.name}
@@ -274,7 +274,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
               <Tooltip isAnimationActive={false} />
               <defs>
                 <linearGradient id="gradientArea" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="10%" stopColor="#DBEAFE" stopOpacity={1} />
+                  <stop offset="0%" stopColor="#A7F3D0" stopOpacity={1} />
                   <stop offset="100%" stopColor="#ffffff" stopOpacity={1} />
                 </linearGradient>
               </defs>
@@ -290,10 +290,10 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
                 type="monotone"
                 dataKey="transaction"
                 dot={{
-                  fill: "#0081f2",
+                  fill: "black",
                   stroke: "white",
                   strokeWidth: 2,
-                  r: 7,
+                  r: 6,
                 }}
                 isAnimationActive={false}
               />
