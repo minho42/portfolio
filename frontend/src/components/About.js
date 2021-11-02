@@ -14,6 +14,17 @@ const About = () => {
           </a>
         </div>
       </div>
+      <div className="flex justify-center text-center text-gray-500">
+        Made by
+        <a
+          className="underline block ml-1"
+          href="https://twitter.com/minhokim42"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          minhokim42
+        </a>
+      </div>
     </div>
   );
 };
