@@ -228,7 +228,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
               })}
             </div>
             <ComposedChart
-              width={720}
+              width={820}
               height={360}
               data={chartDataTimeFramed}
               margin={{
@@ -306,7 +306,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
           <div className="text-xl text-center">Transactions</div>
           {transactions.map((t) => {
             return (
-              <div className="flex items-center text-xs text-gray-500 py-1 hover:bg-gray-100">
+              <div key={t.id} className="flex items-center text-xs text-gray-500 py-1 hover:bg-gray-100">
                 {timestampToDate(dateStrToTimestamp(t.timestamp))}:
                 <div
                   className={`${
