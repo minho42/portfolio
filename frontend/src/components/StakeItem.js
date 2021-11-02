@@ -46,7 +46,11 @@ const StakeItem = ({
     transactionHistory.forEach((t) => {
       if (t.symbol === symbol) {
         if (t.transactionType === "Buy" || t.transactionType === "Sell") {
-          trans.push({ timestamp: t.timestamp, tranAmount: t.tranAmount });
+          trans.push({
+            timestamp: t.timestamp,
+            tranAmount: t.tranAmount,
+            transactionType: t.transactionType,
+          });
         }
       }
     });
