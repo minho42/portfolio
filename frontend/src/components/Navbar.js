@@ -60,6 +60,14 @@ const Navbar = () => {
             </button>
           )}
           <Link
+            to="/settings"
+            className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${
+              pathname === "/settings" ? " border-green-500" : "border-white"
+            }`}
+          >
+            Settings
+          </Link>
+          <Link
             to="/about"
             className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${
               pathname === "/about" ? " border-green-500" : "border-white"
