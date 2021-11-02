@@ -202,9 +202,12 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
       ></div>
 
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col bg-gray-200 rounded-lg shadow-2xl space-y-1 p-2">
-        <div className="bg-white rounded p-2">
+        <div className="bg-white rounded p-2 relative">
           <div className="text-xl text-center">{symbol}</div>
           <div className="text-center text-sm text-gray-500">{name}</div>
+          <div className="absolute top-2 right-2">
+            {(isLoading || !chartDataTimeFramed) && <LoadingIcon />}
+          </div>
         </div>
         <div className="bg-white rounded p-2">
           <div className="flex justify-center text-sm text-gray-600 space-x-1">
@@ -222,83 +225,79 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
               );
             })}
           </div>
-          {!chartDataTimeFramed && isLoading ? (
-            <LoadingIcon />
-          ) : (
-            <ComposedChart
-              width={720}
-              height={360}
-              data={chartDataTimeFramed}
-              margin={{
-                top: 10,
-                right: 30,
-                left: 10,
-                bottom: 5,
+          <ComposedChart
+            width={720}
+            height={360}
+            data={chartDataTimeFramed}
+            margin={{
+              top: 10,
+              right: 30,
+              left: 10,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid
+              strokeDasharray="1"
+              stroke="#abafb1"
+              xAxis={false}
+              yAxis={false}
+              // color="#f9f9f9"
+            />
+            <XAxis
+              dataKey="timestamp"
+              fontSize="11px"
+              color="#666666"
+              tickSize="0"
+              tickMargin="10"
+              tickFormatter={xAxisFormatter}
+            />
+            <YAxis
+              fontSize="12px"
+              color="#666666"
+              tickSize="0"
+              tickCount="7"
+              tickMargin="10"
+              domain={["dataMin", "dataMax"]}
+              // domain={[
+              //   (dataMin) => {
+              //     console.log(dataMin);
+              //     return dataMin;
+              //   },
+              //   (dataMax) => {
+              //     console.log(dataMax);
+              //     return dataMax;
+              //   },
+              // ]}
+              // domain={[0, (dataMax) => Math.ceil(dataMax / 100) * 100 + 200]}
+              allowDataOverflow={true}
+            />
+            <Tooltip isAnimationActive={false} />
+            <defs>
+              <linearGradient id="gradientArea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#A7F3D0" stopOpacity={1} />
+                <stop offset="100%" stopColor="#ffffff" stopOpacity={1} />
+              </linearGradient>
+            </defs>
+            <Area
+              type="monotone"
+              dataKey="quote"
+              fill="url(#gradientArea)"
+              stroke="#000000"
+              strokeWidth="1.4"
+              isAnimationActive={false}
+            />
+            <Line
+              type="monotone"
+              dataKey="transaction"
+              dot={{
+                fill: "black",
+                stroke: "white",
+                strokeWidth: 2,
+                r: 6,
               }}
-            >
-              <CartesianGrid
-                strokeDasharray="1"
-                stroke="#abafb1"
-                xAxis={false}
-                yAxis={false}
-                // color="#f9f9f9"
-              />
-              <XAxis
-                dataKey="timestamp"
-                fontSize="11px"
-                color="#666666"
-                tickSize="0"
-                tickMargin="10"
-                tickFormatter={xAxisFormatter}
-              />
-              <YAxis
-                fontSize="12px"
-                color="#666666"
-                tickSize="0"
-                tickCount="7"
-                tickMargin="10"
-                domain={["dataMin", "dataMax"]}
-                // domain={[
-                //   (dataMin) => {
-                //     console.log(dataMin);
-                //     return dataMin;
-                //   },
-                //   (dataMax) => {
-                //     console.log(dataMax);
-                //     return dataMax;
-                //   },
-                // ]}
-                // domain={[0, (dataMax) => Math.ceil(dataMax / 100) * 100 + 200]}
-                allowDataOverflow={true}
-              />
-              <Tooltip isAnimationActive={false} />
-              <defs>
-                <linearGradient id="gradientArea" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#A7F3D0" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#ffffff" stopOpacity={1} />
-                </linearGradient>
-              </defs>
-              <Area
-                type="monotone"
-                dataKey="quote"
-                fill="url(#gradientArea)"
-                stroke="#000000"
-                strokeWidth="1.4"
-                isAnimationActive={false}
-              />
-              <Line
-                type="monotone"
-                dataKey="transaction"
-                dot={{
-                  fill: "black",
-                  stroke: "white",
-                  strokeWidth: 2,
-                  r: 6,
-                }}
-                isAnimationActive={false}
-              />
-            </ComposedChart>
-          )}
+              isAnimationActive={false}
+            />
+          </ComposedChart>
         </div>
       </div>
     </div>,
