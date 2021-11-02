@@ -30,7 +30,7 @@ const StakeList = () => {
   const [totalDividendTax, setTotalDividendTax] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [marketStatus, setMarketStatus] = useState(null);
-  const [showItems, setShowItems] = useLocalStorage("stakeShowItems", false);
+  const [showItems, setShowItems] = useLocalStorage("stakeShowItems", true);
 
   const keyboardShortcuts = (e) => {
     if (isStateChartModalOpen) return;
