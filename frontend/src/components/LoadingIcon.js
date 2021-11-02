@@ -1,6 +1,6 @@
 export const LoadingIcon = () => {
   return (
-    <div className="flex text-gray-400 animate-spin p-1">
+    <div className="flex items-center justify-center text-gray-400 animate-spin p-1 ">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6"
