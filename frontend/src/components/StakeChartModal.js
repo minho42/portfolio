@@ -4,15 +4,8 @@ import { LoadingIcon } from "./LoadingIcon";
 import { useLocalStorage } from "./useLocalStorage";
 import { Line, ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { SiteStatusContext } from "../SiteStatusContext";
-import { showValueWithComma } from "../utils";
-
-const timestampToDate = (ts) => {
-  return new Date(ts * 1000).toLocaleDateString();
-};
-const dateStrToTimestamp = (str) => {
-  // '2021-10-06T13:30:15.312Z' -> 1633527015
-  return Math.round(new Date(str).getTime() / 1000);
-};
+import { timestampToDate, dateStrToTimestamp } from "../utils";
+import { StakeTransactions } from "./StakeTransactions";
 
 export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose }) => {
   const [chartData, setChartData] = useLocalStorage(`stakeChartData-${symbol}`, []);
@@ -302,23 +295,8 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
             </ComposedChart>
           </div>
         </div>
-        <div className=" bg-white rounded p-2 divide-y space-y-1 overflow-y-auto" style={{ height: 470 }}>
-          <div className="text-xl text-center">Transactions</div>
-          {transactions.map((t) => {
-            return (
-              <div key={t.id} className="flex items-center text-xs text-gray-500 py-1 hover:bg-gray-100">
-                {timestampToDate(dateStrToTimestamp(t.timestamp))}:
-                <div
-                  className={`${
-                    t.transactionType === "Buy" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                  } flex rounded px-1 `}
-                >
-                  ${showValueWithComma(-t.tranAmount, false)}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+
+        <StakeTransactions transactions={transactions} />
       </div>
     </div>,
     document.getElementById("modal-root")
