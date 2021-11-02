@@ -181,7 +181,7 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
     }
 
     setChartDataTimeFramed(chartData.slice(-days));
-  }, [selectedTimeFrameName]);
+  }, [selectedTimeFrameName, chartData]);
 
   if (!isOpen) {
     return null;
