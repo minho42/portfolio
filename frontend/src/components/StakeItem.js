@@ -47,6 +47,7 @@ const StakeItem = ({
       if (t.symbol === symbol) {
         if (t.transactionType === "Buy" || t.transactionType === "Sell") {
           trans.push({
+            id: t.orderID,
             timestamp: t.timestamp,
             tranAmount: t.tranAmount,
             transactionType: t.transactionType,
