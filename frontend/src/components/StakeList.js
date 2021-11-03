@@ -24,6 +24,7 @@ const StakeList = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [dayChangeSum, setDayChangeSum] = useState(0);
   const [totalChangeSum, setTotalChangeSum] = useState(0);
+  const [dayChangePercentage, setDayChangePercentage] = useState(0);
   const [totalChangePercentage, setTotalChangePercentage] = useState(0);
   const [totalExpectedDividends, setTotalExpectedDividends] = useState(0);
   const [totalDividend, setTotalDividend] = useState(0);
@@ -177,6 +178,7 @@ const StakeList = () => {
       sum += Number.parseFloat(position.unrealizedDayPL);
     });
     setDayChangeSum(sum.toFixed(2));
+    setDayChangePercentage(getChangePercentage(equityValue, sum));
   };
 
   const getTotalChangeSum = () => {
@@ -264,7 +266,7 @@ const StakeList = () => {
           <div className="flex items-center text-3xl font-light">
             <div>${showValueWithComma(equityValueInAud, true)}</div>
             <div className={`ml-2 ${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
-              ({`${showValueWithSign(totalChangePercentage)}%`})
+              ({`${showValueWithSign(totalChangePercentage, "")}%`})
             </div>
             {isLoading ? <LoadingIcon /> : ""}
           </div>
@@ -321,9 +323,11 @@ const StakeList = () => {
                   <td>US${showValueWithComma(equityValue)}</td>
                   <td className={`${isPositive(dayChangeSum) ? "text-green-600" : "text-red-600"}`}>
                     {showValueWithSign(dayChangeSum)}
+                    <span className="ml-1">({`${showValueWithSign(dayChangePercentage, "")}%`})</span>
                   </td>
                   <td className={`${isPositive(totalChangeSum) ? "text-green-600" : "text-red-600"}`}>
-                    {showValueWithSign(totalChangeSum)} ({`${showValueWithSign(totalChangePercentage)}%`})
+                    {showValueWithSign(totalChangeSum)}
+                    <span className="ml-1">({`${showValueWithSign(totalChangePercentage, "")}%`})</span>
                   </td>
                   <td></td>
                   <td>{showValueWithComma(totalExpectedDividends)}</td>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { isPositive, showValueWithSign, showValueWithComma } from "../utils";
+import { isPositive, showValueWithSign, showValueWithComma, getChangePercentage } from "../utils";
 import { StakeRatings } from "./StakeRatings";
 import { StakeChartModal } from "./StakeChartModal";
 
@@ -124,7 +124,7 @@ const StakeItem = ({
           setFocusedIndex(index);
           setIsChartModalOpen(!isChartModalOpen);
         }}
-        className={`text-right text-sm hover:bg-gray-100 cursor-pointer ${
+        className={`text-right text-sm hover:shadow-md cursor-pointer ${
           index === focusedIndex ? "shadow-md" : ""
         }`}
       >
@@ -139,9 +139,15 @@ const StakeItem = ({
         <td>${showValueWithComma(marketValue)}</td>
         <td className={` ${isPositive(unrealizedDayPL) ? "text-green-600" : "text-red-600"}`}>
           {showValueWithSign(unrealizedDayPL)}
+          <span className="ml-1">
+            ({showValueWithSign(getChangePercentage(marketValue, unrealizedDayPL), "")}%)
+          </span>
         </td>
         <td className={` ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
           {showValueWithSign(unrealizedPL)}
+          <span className="ml-1">
+            ({showValueWithSign(getChangePercentage(marketValue, unrealizedPL), "")}%)
+          </span>
         </td>
         <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : ""}</td>
         <td>{expectedDividend > 0 ? showValueWithComma(expectedDividend) : ""}</td>
