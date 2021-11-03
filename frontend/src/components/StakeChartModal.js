@@ -4,10 +4,24 @@ import { LoadingIcon } from "./LoadingIcon";
 import { useLocalStorage } from "./useLocalStorage";
 import { Line, ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { SiteStatusContext } from "../SiteStatusContext";
-import { timestampToDate, dateStrToTimestamp } from "../utils";
+import {
+  isPositive,
+  showValueWithSign,
+  timestampToDate,
+  dateStrToTimestamp,
+  getChangePercentage,
+} from "../utils";
 import { StakeTransactions } from "./StakeTransactions";
 
-export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose }) => {
+export const StakeChartModal = ({
+  symbol,
+  name,
+  marketValue,
+  unrealizedPL,
+  transactions,
+  isOpen,
+  onClose,
+}) => {
   const [chartData, setChartData] = useLocalStorage(`stakeChartData-${symbol}`, []);
   const [chartDataTimeFramed, setChartDataTimeFramed] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -198,7 +212,15 @@ export const StakeChartModal = ({ symbol, name, transactions, isOpen, onClose })
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex bg-gray-200 rounded-lg shadow-2xl space-x-1 p-2">
         <div className="flex flex-col space-y-1">
           <div className="bg-white rounded p-2 relative">
-            <div className="text-xl text-center">{symbol}</div>
+            <div className="flex justify-center text-xl">
+              {symbol}
+              <div className={`flex ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
+                <div className="ml-2">{showValueWithSign(unrealizedPL)}</div>
+                <div className="ml-2">
+                  ({showValueWithSign(getChangePercentage(marketValue, unrealizedPL))}%)
+                </div>
+              </div>
+            </div>
             <div className="text-center text-sm text-gray-500">{name}</div>
             <div className="absolute top-2 right-2">
               {(isLoading || !chartDataTimeFramed) && <LoadingIcon />}

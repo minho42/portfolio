@@ -136,7 +136,7 @@ const StakeItem = ({
           {symbol}
         </td>
         {/* <td className="">{showValueWithComma(openQty)}</td> */}
-        <td>${Number.parseFloat(marketValue).toLocaleString()}</td>
+        <td>${showValueWithComma(marketValue)}</td>
         <td className={` ${isPositive(unrealizedDayPL) ? "text-green-600" : "text-red-600"}`}>
           {showValueWithSign(unrealizedDayPL)}
         </td>
@@ -156,6 +156,8 @@ const StakeItem = ({
         <StakeChartModal
           symbol={symbol}
           name={name}
+          marketValue={marketValue}
+          unrealizedPL={unrealizedPL}
           transactions={transactions}
           isOpen={isChartModalOpen}
           onClose={handleChartModalClose}

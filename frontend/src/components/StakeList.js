@@ -3,7 +3,7 @@ import { UserContext } from "../UserContext";
 import { SiteStatusContext } from "../SiteStatusContext";
 import { useUpdatePortfolioInfo } from "./useUpdatePortfolioInfo";
 import StakeItem from "./StakeItem";
-import { isPositive, showValueWithSign, showValueWithComma } from "../utils";
+import { isPositive, showValueWithSign, showValueWithComma, getChangePercentage } from "../utils";
 import { Link } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 import { LoadingIcon } from "./LoadingIcon";
@@ -185,9 +185,7 @@ const StakeList = () => {
       sum += Number.parseFloat(position.unrealizedPL);
     });
     setTotalChangeSum(sum.toFixed(2));
-    setTotalChangePercentage(
-      ((Number.parseFloat(sum.toFixed(2)) / Number.parseFloat(equityValue - sum)) * 100).toFixed(2)
-    );
+    setTotalChangePercentage(getChangePercentage(equityValue, sum));
   };
 
   useEffect(() => {

@@ -22,3 +22,10 @@ export const timestampToDate = (ts) => {
   // 1633527015 -> '07/10/2021'
   return new Date(ts * 1000).toLocaleDateString();
 };
+
+export const getChangePercentage = (total, change) => {
+  return (
+    (Number.parseFloat(Number.parseFloat(change).toFixed(2)) / Number.parseFloat(total - change)) *
+    100
+  ).toFixed(2);
+};
