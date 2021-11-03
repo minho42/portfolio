@@ -211,7 +211,7 @@ export const StakeChartModal = ({
               {symbol}
               <div className={`flex ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
                 <div className="ml-2">{showValueWithSign(unrealizedPL)}</div>
-                <div className="ml-2">({showValueWithSign(unrealizedPLPercentage)}%)</div>
+                <div className="ml-2">({showValueWithSign(unrealizedPLPercentage, "")}%)</div>
               </div>
             </div>
             <div className="text-center text-sm text-gray-500">{name}</div>
