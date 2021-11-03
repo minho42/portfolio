@@ -4,13 +4,7 @@ import { LoadingIcon } from "./LoadingIcon";
 import { useLocalStorage } from "./useLocalStorage";
 import { Line, ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { SiteStatusContext } from "../SiteStatusContext";
-import {
-  isPositive,
-  showValueWithSign,
-  timestampToDate,
-  dateStrToTimestamp,
-  getChangePercentage,
-} from "../utils";
+import { isPositive, showValueWithSign, timestampToDate, dateStrToTimestamp } from "../utils";
 import { StakeTransactions } from "./StakeTransactions";
 
 export const StakeChartModal = ({
@@ -18,6 +12,7 @@ export const StakeChartModal = ({
   name,
   marketValue,
   unrealizedPL,
+  unrealizedPLPercentage,
   transactions,
   isOpen,
   onClose,
@@ -216,9 +211,7 @@ export const StakeChartModal = ({
               {symbol}
               <div className={`flex ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
                 <div className="ml-2">{showValueWithSign(unrealizedPL)}</div>
-                <div className="ml-2">
-                  ({showValueWithSign(getChangePercentage(marketValue, unrealizedPL))}%)
-                </div>
+                <div className="ml-2">({showValueWithSign(unrealizedPLPercentage)}%)</div>
               </div>
             </div>
             <div className="text-center text-sm text-gray-500">{name}</div>

@@ -18,8 +18,9 @@ const StakeItem = ({
   const [totalDividendTax, setTotalDividendTax] = useState(0);
   const [transactions, setTransactions] = useState(null);
   const [expectedDividend, setExpectedDividend] = useState(0);
-
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);
+  const [unrealizedDayPLPercentage, setUnrealizedDayPLPercentage] = useState(0);
+  const [unrealizedPLPercentage, setUnrealizedPLPercentage] = useState(0);
 
   const handleChartModalClose = () => {
     setIsChartModalOpen(false);
@@ -80,11 +81,17 @@ const StakeItem = ({
     setTotalDividendTax(-dividendTaxSum);
   };
 
+  const setPercentages = () => {
+    setUnrealizedDayPLPercentage(getChangePercentage(marketValue, unrealizedDayPL));
+    setUnrealizedPLPercentage(getChangePercentage(marketValue, unrealizedPL));
+  };
+
   useEffect(async () => {
     const d = await fetchDividendYield();
     setDividendYield(d);
     getTotalDividendInfo();
     getTransactions();
+    setPercentages();
   }, []);
 
   useEffect(() => {
@@ -139,15 +146,11 @@ const StakeItem = ({
         <td>${showValueWithComma(marketValue)}</td>
         <td className={` ${isPositive(unrealizedDayPL) ? "text-green-600" : "text-red-600"}`}>
           {showValueWithSign(unrealizedDayPL)}
-          <span className="ml-1">
-            ({showValueWithSign(getChangePercentage(marketValue, unrealizedDayPL), "")}%)
-          </span>
+          <span className="ml-1">({showValueWithSign(unrealizedDayPLPercentage, "")}%)</span>
         </td>
         <td className={` ${isPositive(unrealizedPL) ? "text-green-600" : "text-red-600"}`}>
           {showValueWithSign(unrealizedPL)}
-          <span className="ml-1">
-            ({showValueWithSign(getChangePercentage(marketValue, unrealizedPL), "")}%)
-          </span>
+          <span className="ml-1">({showValueWithSign(unrealizedPLPercentage, "")}%)</span>
         </td>
         <td>{dividendYield > 0 ? `${Number.parseFloat(dividendYield).toFixed(2)}%` : ""}</td>
         <td>{expectedDividend > 0 ? showValueWithComma(expectedDividend) : ""}</td>
@@ -164,6 +167,7 @@ const StakeItem = ({
           name={name}
           marketValue={marketValue}
           unrealizedPL={unrealizedPL}
+          unrealizedPLPercentage={unrealizedPLPercentage}
           transactions={transactions}
           isOpen={isChartModalOpen}
           onClose={handleChartModalClose}
