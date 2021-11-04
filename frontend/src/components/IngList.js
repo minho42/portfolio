@@ -4,7 +4,7 @@ import { useLocalStorage } from "./useLocalStorage";
 import { LoadingIcon } from "./LoadingIcon";
 import { useUpdatePortfolioInfo } from "./useUpdatePortfolioInfo";
 
-const IngList = () => {
+export const IngList = () => {
   const [interestRate, setInterestRate] = useLocalStorage("ingInterestRate", 0);
   const [balance, setBalance] = useLocalStorage("ingBalance", 0);
   useUpdatePortfolioInfo("ING", balance);
@@ -60,5 +60,3 @@ const IngList = () => {
     </div>
   );
 };
-
-export default IngList;

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import CoinbaseItem from "./CoinbaseItem";
+import { CoinbaseItem } from "./CoinbaseItem";
 import { useLocalStorage } from "./useLocalStorage";
 import { useUpdatePortfolioInfo } from "./useUpdatePortfolioInfo";
 
-const CoinbaseList = () => {
+export const CoinbaseList = () => {
   const [accounts, setAccounts] = useLocalStorage("coinbaseAccounts", null);
   const [rates, setRates] = useLocalStorage("coinbaseRates", null);
   const [totalAmount, setTotalAmount] = useState(null);
@@ -112,5 +112,3 @@ const CoinbaseList = () => {
     </div>
   );
 };
-
-export default CoinbaseList;

@@ -3,7 +3,7 @@ import { isPositive, showValueWithSign, showValueWithComma, getChangePercentage 
 import { StakeRatings } from "./StakeRatings";
 import { StakeChartModal } from "./StakeChartModal";
 
-const StakeItem = ({
+export const StakeItem = ({
   index,
   focusedIndex,
   setFocusedIndex,
@@ -176,5 +176,3 @@ const StakeItem = ({
     </>
   );
 };
-
-export default StakeItem;

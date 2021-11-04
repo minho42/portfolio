@@ -2,13 +2,14 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
 import { SiteStatusContext } from "../SiteStatusContext";
 import { useUpdatePortfolioInfo } from "./useUpdatePortfolioInfo";
-import StakeItem from "./StakeItem";
+import { StakeItem } from "./StakeItem";
 import { isPositive, showValueWithSign, showValueWithComma, getChangePercentage } from "../utils";
 import { Link } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 import { LoadingIcon } from "./LoadingIcon";
+import { StakePieChart } from "./StakePieChart";
 
-const StakeList = () => {
+export const StakeList = () => {
   const { stakeToken, isStakeAuthLoading } = useContext(UserContext);
   const { isStateChartModalOpen } = useContext(SiteStatusContext);
   const [equityPositions, setEquityPositions] = useLocalStorage("stakeEquityPositions", []);
@@ -343,5 +344,3 @@ const StakeList = () => {
     </div>
   );
 };
-
-export default StakeList;

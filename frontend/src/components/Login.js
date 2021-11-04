@@ -28,7 +28,7 @@ export const requestStakeLogin = async (stakeToken, setStakeToken) => {
   }
 };
 
-const Login = () => {
+export const Login = () => {
   const [inputToken, setInputToken] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { stakeToken, setStakeToken } = useContext(UserContext);
@@ -103,5 +103,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;

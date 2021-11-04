@@ -1,9 +1,9 @@
-import StakeList from "./StakeList";
-import CoinbaseList from "./CoinbaseList";
-import IngList from "./IngList";
-import PortfolioInfoPieChart from "./PortfolioInfoPieChart";
+import { StakeList } from "./StakeList";
+import { CoinbaseList } from "./CoinbaseList";
+import { IngList } from "./IngList";
+import { PortfolioInfoPieChart } from "./PortfolioInfoPieChart";
 
-const PortfolioList = () => {
+export const PortfolioList = () => {
   return (
     <div className="flex justify-center p-2 space-x-2 bg-gray-100 ">
       <div className="flex flex-col space-y-2">
@@ -17,5 +17,3 @@ const PortfolioList = () => {
     </div>
   );
 };
-
-export default PortfolioList;

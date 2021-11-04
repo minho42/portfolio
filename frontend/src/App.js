@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Login from "./components/Login";
-import About from "./components/About";
-import PortfolioList from "./components/PortfolioList";
+import { Navbar } from "./components/Navbar";
+import { Login } from "./components/Login";
+import { About } from "./components/About";
+import { PortfolioList } from "./components/PortfolioList";
 
 import { UserProvider } from "./UserContext";
 import { PortfolioProvider } from "./PortfolioContext";

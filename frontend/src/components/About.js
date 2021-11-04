@@ -1,4 +1,4 @@
-const About = () => {
+export const About = () => {
   return (
     <div className="space-y-3">
       <div className="flex justify-center bg-gradient-to-r from-green-700 to-green-400 py-8 text-center">
@@ -28,5 +28,3 @@ const About = () => {
     </div>
   );
 };
-
-export default About;

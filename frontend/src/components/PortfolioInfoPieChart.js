@@ -4,7 +4,7 @@ import { LoadingIcon } from "./LoadingIcon";
 import { PieChart, Pie, Cell } from "recharts";
 import { showValueWithComma } from "../utils";
 
-const PortfolioInfoPieChart = ({}) => {
+export const PortfolioInfoPieChart = ({}) => {
   const [data, setData] = useState([]);
   const { portfolioInfo, totalValue, setTotalValue } = useContext(PortfolioContext);
   const colors = ["#00C49F", "#0088FE", "#FFBB28", "#FF8042"];
@@ -100,5 +100,3 @@ const PortfolioInfoPieChart = ({}) => {
     </div>
   );
 };
-
-export default PortfolioInfoPieChart;

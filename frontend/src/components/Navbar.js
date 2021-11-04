@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../UserContext";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
-const Navbar = () => {
+export const Navbar = () => {
   const { stakeToken, setStakeToken } = useContext(UserContext);
   const history = useHistory();
   const { pathname } = useLocation();
@@ -80,5 +80,3 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;
