@@ -235,6 +235,7 @@ export const StakeList = () => {
     <div className=" flex flex-col flex-grow px-3 py-3 space-y-3 bg-white rounded-xl border border-gray-300">
       <div className="flex justify-center relative text-gray-500">
         Stake
+        <StakePieChart equityPositions={equityPositions} equityValue={equityValue} />
         <div className="absolute top-0 right-0 text-xs text-gray-500 space-y-0.5">
           {stakeToken && userInfo && (
             <div className="flex justify-end">{userInfo.firstName + " " + userInfo.lastName}</div>
